@@ -9,7 +9,14 @@ export default defineConfig({
     dts({
       include: ['src'],
       outDir: 'dist',
-      insertTypesEntry: true
+      insertTypesEntry: true,
+      rollupTypes: true,
+      tsconfigPath: './tsconfig.app.json',
+      compilerOptions: {
+        declaration: true,
+        emitDeclarationOnly: true,
+        noEmit: false
+      }
     })
   ],
   build: {
