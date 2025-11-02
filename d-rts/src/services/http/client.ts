@@ -1,5 +1,6 @@
 import axios, { type AxiosRequestConfig } from "axios"
 import type { ApiResponse, ApiError } from "./types"
+import { toast } from "../../components/ui/use-toast"
 
 let globalLoaderContext: any = null
 let apiBaseURL: string = ""
@@ -106,6 +107,13 @@ class HttpClient {
         }
 
         const apiError = this.transformError(error)
+
+        toast({
+          title: "Erro",
+          description: apiError.message,
+          variant: "destructive",
+        })
+
         return Promise.reject(apiError)
       }
     )
