@@ -183,11 +183,19 @@ class HttpClient {
         statusCode: response.status,
       }
     } catch (error: any) {
+      const apiError = error.isApiError ? error : this.transformError(error)
+
+      toast({
+        title: "Erro",
+        description: apiError.message,
+        variant: "destructive",
+      })
+
       return {
         data: null,
         success: false,
         statusCode: error.status || 500,
-        error: error.isApiError ? error : this.transformError(error),
+        error: apiError,
       }
     }
   }
@@ -206,11 +214,19 @@ class HttpClient {
         statusCode: response.status,
       }
     } catch (error: any) {
+      const apiError = error.isApiError ? error : this.transformError(error)
+
+      toast({
+        title: "Erro",
+        description: apiError.message,
+        variant: "destructive",
+      })
+
       return {
         data: null,
         success: false,
         statusCode: error.status || 500,
-        error: error.isApiError ? error : this.transformError(error),
+        error: apiError,
       }
     }
   }
@@ -229,11 +245,19 @@ class HttpClient {
         statusCode: response.status,
       }
     } catch (error: any) {
+      const apiError = error.isApiError ? error : this.transformError(error)
+
+      toast({
+        title: "Erro",
+        description: apiError.message,
+        variant: "destructive",
+      })
+
       return {
         data: null,
         success: false,
         statusCode: error.status || 500,
-        error: error.isApiError ? error : this.transformError(error),
+        error: apiError,
       }
     }
   }
@@ -252,11 +276,19 @@ class HttpClient {
         statusCode: response.status,
       }
     } catch (error: any) {
+      const apiError = error.isApiError ? error : this.transformError(error)
+
+      toast({
+        title: "Erro",
+        description: apiError.message,
+        variant: "destructive",
+      })
+
       return {
         data: null,
         success: false,
         statusCode: error.status || 500,
-        error: error.isApiError ? error : this.transformError(error),
+        error: apiError,
       }
     }
   }
@@ -275,11 +307,19 @@ class HttpClient {
         statusCode: response.status,
       }
     } catch (error: any) {
+      const apiError = error.isApiError ? error : this.transformError(error)
+
+      toast({
+        title: "Erro",
+        description: apiError.message,
+        variant: "destructive",
+      })
+
       return {
         data: null,
         success: false,
         statusCode: error.status || 500,
-        error: error.isApiError ? error : this.transformError(error),
+        error: apiError,
       }
     }
   }
