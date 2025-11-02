@@ -62,6 +62,29 @@ export declare interface ApiResponse<T = any> {
     error?: ApiError;
 }
 
+export declare const AppLayout: React_2.FC<AppLayoutProps>;
+
+export declare interface AppLayoutProps {
+    title: string;
+    subtitle?: string;
+    logo?: React_2.ReactNode;
+    user: {
+        name: string;
+        email: string;
+        role: string;
+        avatar?: React_2.ReactNode;
+    };
+    menuItems?: SidebarItemData[];
+    menuGroups?: SidebarGroup[];
+    initialCollapsed?: boolean;
+    onLogout?: () => void;
+    onNotificationClick?: () => void;
+    userMenuItems?: DropdownItemData[];
+    hasNotifications?: boolean;
+    breadcrumbs?: BreadcrumbItem[];
+    children?: React_2.ReactNode;
+}
+
 export declare const AreaChart: React_2.ForwardRefExoticComponent<AreaChartProps & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare interface AreaChartDataItem {
@@ -254,6 +277,13 @@ export declare const DropdownGroup: React_2.ForwardRefExoticComponent<DropdownMe
 export declare const DropdownItem: React_2.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuItemProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
     inset?: boolean;
 } & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare interface DropdownItemData {
+    label: string;
+    icon?: React_2.ReactNode;
+    onClick?: () => void;
+    separator?: boolean;
+}
 
 export declare const DropdownLabel: React_2.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuLabelProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
     inset?: boolean;
