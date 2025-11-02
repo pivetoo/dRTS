@@ -37,8 +37,7 @@
   ],
   "scripts": {
     "dev": "cd d-rts && npm run dev",
-    "build": "cd d-rts && npm install && npm run build",
-    "postinstall": "npm run build"
+    "build": "cd d-rts && npm install && npm run build"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.3.3",

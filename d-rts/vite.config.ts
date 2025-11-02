@@ -26,9 +26,9 @@ export default defineConfig({
           react: 'React',
           'react-dom': 'ReactDOM',
           'react/jsx-runtime': 'jsxRuntime'
-        }
+        },
+        assetFileNames: 'style.css'
       }
-    },
-    cssCodeSplit: false
+    }
   }
 })
