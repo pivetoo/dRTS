@@ -105,7 +105,7 @@ declare interface AuthProviderProps {
 }
 
 export declare class AuthService {
-    static identify(credentials: LoginCredentials): Promise<IdentifyResult>;
+    static identify(credentials: LoginCredentials): Promise<IdentifyResult | LoginResult>;
     static loginWithContract(request: ContractLoginRequest): Promise<LoginResult>;
     static login(credentials: LoginCredentials): Promise<any>;
     static logout(): void;
