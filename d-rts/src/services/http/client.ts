@@ -170,72 +170,117 @@ class HttpClient {
   }
 
   async get<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response = await this.instance.get(url, config)
+    try {
+      const response = await this.instance.get(url, config)
 
-    if (response.data && typeof response.data === "object" && "data" in response.data) {
-      return response.data
-    }
+      if (response.data && typeof response.data === "object" && "data" in response.data) {
+        return response.data
+      }
 
-    return {
-      data: response.data,
-      success: true,
-      statusCode: response.status,
+      return {
+        data: response.data,
+        success: true,
+        statusCode: response.status,
+      }
+    } catch (error: any) {
+      return {
+        data: null,
+        success: false,
+        statusCode: error.status || 500,
+        error: error.isApiError ? error : this.transformError(error),
+      }
     }
   }
 
   async post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response = await this.instance.post(url, data, config)
+    try {
+      const response = await this.instance.post(url, data, config)
 
-    if (response.data && typeof response.data === "object" && "data" in response.data) {
-      return response.data
-    }
+      if (response.data && typeof response.data === "object" && "data" in response.data) {
+        return response.data
+      }
 
-    return {
-      data: response.data,
-      success: true,
-      statusCode: response.status,
+      return {
+        data: response.data,
+        success: true,
+        statusCode: response.status,
+      }
+    } catch (error: any) {
+      return {
+        data: null,
+        success: false,
+        statusCode: error.status || 500,
+        error: error.isApiError ? error : this.transformError(error),
+      }
     }
   }
 
   async put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response = await this.instance.put(url, data, config)
+    try {
+      const response = await this.instance.put(url, data, config)
 
-    if (response.data && typeof response.data === "object" && "data" in response.data) {
-      return response.data
-    }
+      if (response.data && typeof response.data === "object" && "data" in response.data) {
+        return response.data
+      }
 
-    return {
-      data: response.data,
-      success: true,
-      statusCode: response.status,
+      return {
+        data: response.data,
+        success: true,
+        statusCode: response.status,
+      }
+    } catch (error: any) {
+      return {
+        data: null,
+        success: false,
+        statusCode: error.status || 500,
+        error: error.isApiError ? error : this.transformError(error),
+      }
     }
   }
 
   async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response = await this.instance.delete(url, config)
+    try {
+      const response = await this.instance.delete(url, config)
 
-    if (response.data && typeof response.data === "object" && "data" in response.data) {
-      return response.data
-    }
+      if (response.data && typeof response.data === "object" && "data" in response.data) {
+        return response.data
+      }
 
-    return {
-      data: response.data,
-      success: true,
-      statusCode: response.status,
+      return {
+        data: response.data,
+        success: true,
+        statusCode: response.status,
+      }
+    } catch (error: any) {
+      return {
+        data: null,
+        success: false,
+        statusCode: error.status || 500,
+        error: error.isApiError ? error : this.transformError(error),
+      }
     }
   }
 
   async patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response = await this.instance.patch(url, data, config)
+    try {
+      const response = await this.instance.patch(url, data, config)
 
-    if (response.data && typeof response.data === "object" && "data" in response.data) {
-      return response.data
-    }
+      if (response.data && typeof response.data === "object" && "data" in response.data) {
+        return response.data
+      }
 
-    return {
-      data: response.data,
-      success: true,
-      statusCode: response.status,
+      return {
+        data: response.data,
+        success: true,
+        statusCode: response.status,
+      }
+    } catch (error: any) {
+      return {
+        data: null,
+        success: false,
+        statusCode: error.status || 500,
+        error: error.isApiError ? error : this.transformError(error),
+      }
     }
   }
 }

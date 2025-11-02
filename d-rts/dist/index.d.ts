@@ -55,10 +55,11 @@ export declare interface ApiError {
 }
 
 export declare interface ApiResponse<T = any> {
-    data: T;
+    data: T | null;
     message?: string;
     success: boolean;
     statusCode?: number;
+    error?: ApiError;
 }
 
 export declare const AreaChart: React_2.ForwardRefExoticComponent<AreaChartProps & React_2.RefAttributes<HTMLDivElement>>;
@@ -105,7 +106,7 @@ declare interface AuthProviderProps {
 }
 
 export declare class AuthService {
-    static identify(credentials: LoginCredentials): Promise<IdentifyResult | LoginResult>;
+    static identify(credentials: LoginCredentials): Promise<IdentifyResult | LoginResult | null>;
     static loginWithContract(request: ContractLoginRequest): Promise<LoginResult>;
     static login(credentials: LoginCredentials): Promise<any>;
     static logout(): void;

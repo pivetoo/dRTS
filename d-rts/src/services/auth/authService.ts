@@ -2,7 +2,7 @@ import { httpClient } from "../http/client"
 import type { IdentifyResult, LoginResult, LoginCredentials, ContractLoginRequest, RefreshTokenResponse, ActiveSession } from "../../types/auth"
 
 export class AuthService {
-  static async identify(credentials: LoginCredentials): Promise<IdentifyResult | LoginResult> {
+  static async identify(credentials: LoginCredentials): Promise<IdentifyResult | LoginResult | null> {
     const response = await httpClient.post("/auth/IdentifyUser", {
       username: credentials.username,
       password: credentials.password,
