@@ -10251,7 +10251,7 @@ const sC = x.forwardRef(
           ),
           a,
           n && !a && /* @__PURE__ */ se("button", { className: "flex items-center gap-3 bg-transparent border-0 py-1 px-2.5 pr-2.5 rounded-md transition-all hover:bg-accent active:scale-[0.98]", children: [
-            /* @__PURE__ */ A("div", { className: "w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center text-primary-foreground text-xs font-semibold overflow-hidden border-2 border-background", children: n.avatar || n.name.charAt(0).toUpperCase() }),
+            /* @__PURE__ */ A("div", { className: "w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-secondary-foreground text-xs font-semibold overflow-hidden border-2 border-background", children: n.avatar || n.name.charAt(0).toUpperCase() }),
             /* @__PURE__ */ se("div", { className: "hidden md:flex flex-col items-start", children: [
               /* @__PURE__ */ A("span", { className: "text-sm font-semibold text-foreground leading-tight", children: n.name }),
               /* @__PURE__ */ A("span", { className: "text-xs text-muted-foreground leading-tight font-medium", children: n.role })
@@ -30297,7 +30297,7 @@ const yQ = ({
 }) => {
   const [v, m] = x.useState(a), p = /* @__PURE__ */ se(r2, { children: [
     /* @__PURE__ */ A(n2, { asChild: !0, children: /* @__PURE__ */ se("button", { className: "flex items-center gap-2 bg-transparent border-0 py-1 px-2.5 pr-2.5 rounded-md transition-all hover:bg-accent active:scale-[0.98] outline-none", children: [
-      /* @__PURE__ */ A("div", { className: "w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center text-primary-foreground text-xs font-semibold overflow-hidden border-2 border-background", children: n.avatar || n.name.charAt(0).toUpperCase() }),
+      /* @__PURE__ */ A("div", { className: "w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-secondary-foreground text-xs font-semibold overflow-hidden border-2 border-background", children: n.avatar || n.name.charAt(0).toUpperCase() }),
       /* @__PURE__ */ se("div", { className: "hidden md:flex flex-col items-start", children: [
         /* @__PURE__ */ A("span", { className: "text-sm font-semibold text-foreground leading-tight", children: n.name }),
         /* @__PURE__ */ A("span", { className: "text-xs text-muted-foreground leading-tight font-medium", children: n.role })

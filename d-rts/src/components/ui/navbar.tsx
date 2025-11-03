@@ -72,7 +72,7 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
 
           {user && !userMenuTrigger && (
             <button className="flex items-center gap-3 bg-transparent border-0 py-1 px-2.5 pr-2.5 rounded-md transition-all hover:bg-accent active:scale-[0.98]">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center text-primary-foreground text-xs font-semibold overflow-hidden border-2 border-background">
+              <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-secondary-foreground text-xs font-semibold overflow-hidden border-2 border-background">
                 {user.avatar || user.name.charAt(0).toUpperCase()}
               </div>
               <div className="hidden md:flex flex-col items-start">
