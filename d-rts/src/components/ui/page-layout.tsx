@@ -55,7 +55,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         key: "edit",
         label: "Editar",
         icon: <Edit className="h-4 w-4" />,
-        variant: "ghost",
+        variant: "outline",
         onClick: onEdit
       })
     }
@@ -65,7 +65,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         key: "delete",
         label: "Excluir",
         icon: <Trash2 className="h-4 w-4" />,
-        variant: "ghost",
+        variant: "outline",
         onClick: onDelete
       })
     }
