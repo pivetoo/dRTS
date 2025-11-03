@@ -266,6 +266,30 @@ export declare interface ContractType {
     profileName?: string;
 }
 
+export declare function DataTable<T = any>({ columns, data, loading, rowKey, selectable, selectedRows, onSelectionChange, onRowClick, className, emptyText }: DataTableProps<T>): JSX.Element;
+
+export declare interface DataTableColumn<T = any> {
+    key: string;
+    title: string;
+    dataIndex?: keyof T;
+    render?: (value: any, record: T, index: number) => React_2.ReactNode;
+    sortable?: boolean;
+    width?: string | number;
+}
+
+export declare interface DataTableProps<T = any> {
+    columns: DataTableColumn<T>[];
+    data: T[];
+    loading?: boolean;
+    rowKey: keyof T | ((record: T) => string | number);
+    selectable?: boolean;
+    selectedRows?: T[];
+    onSelectionChange?: (selected: T[]) => void;
+    onRowClick?: (record: T) => void;
+    className?: string;
+    emptyText?: string;
+}
+
 export declare const Dropdown: React_2.FC<DropdownMenuPrimitive.DropdownMenuProps>;
 
 export declare const DropdownCheckboxItem: React_2.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuCheckboxItemProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
@@ -699,6 +723,17 @@ export declare const TooltipContent: React_2.ForwardRefExoticComponent<Omit<Tool
 export declare const TooltipProvider: React_2.FC<TooltipPrimitive.TooltipProviderProps>;
 
 export declare const TooltipTrigger: React_2.ForwardRefExoticComponent<TooltipPrimitive.TooltipTriggerProps & React_2.RefAttributes<HTMLButtonElement>>;
+
+export declare function useApi<T = any>(options?: UseApiOptions): {
+    execute: (apiCall: () => Promise<any>) => Promise<any>;
+    reset: () => void;
+    isLoading: boolean;
+    hasError: boolean;
+    hasData: boolean;
+    data: T | null;
+    loading: boolean;
+    error: ApiError | null;
+};
 
 export declare interface UseApiOptions {
     immediate?: boolean;
