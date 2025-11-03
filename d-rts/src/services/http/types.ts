@@ -1,9 +1,8 @@
 export interface ApiResponse<T = any> {
-  data: T | null
+  data: T
   message?: string
   success: boolean
   statusCode?: number
-  error?: ApiError
 }
 
 export interface ApiError {

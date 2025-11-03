@@ -1,5 +1,5 @@
 import axios, { type AxiosRequestConfig } from "axios"
-import type { ApiError } from "./types"
+import type { ApiResponse, ApiError } from "./types"
 
 let globalLoaderContext: any = null
 let apiBaseURL: string = ""
@@ -161,54 +161,74 @@ class HttpClient {
     }
   }
 
-  async get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  async get<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     const response = await this.instance.get(url, config)
 
     if (response.data && typeof response.data === "object" && "data" in response.data) {
-      return response.data.data
+      return response.data
     }
 
-    return response.data
+    return {
+      data: response.data,
+      success: true,
+      statusCode: response.status,
+    }
   }
 
-  async post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+  async post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     const response = await this.instance.post(url, data, config)
 
     if (response.data && typeof response.data === "object" && "data" in response.data) {
-      return response.data.data
+      return response.data
     }
 
-    return response.data
+    return {
+      data: response.data,
+      success: true,
+      statusCode: response.status,
+    }
   }
 
-  async put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+  async put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     const response = await this.instance.put(url, data, config)
 
     if (response.data && typeof response.data === "object" && "data" in response.data) {
-      return response.data.data
+      return response.data
     }
 
-    return response.data
+    return {
+      data: response.data,
+      success: true,
+      statusCode: response.status,
+    }
   }
 
-  async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     const response = await this.instance.delete(url, config)
 
     if (response.data && typeof response.data === "object" && "data" in response.data) {
-      return response.data.data
+      return response.data
     }
 
-    return response.data
+    return {
+      data: response.data,
+      success: true,
+      statusCode: response.status,
+    }
   }
 
-  async patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+  async patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     const response = await this.instance.patch(url, data, config)
 
     if (response.data && typeof response.data === "object" && "data" in response.data) {
-      return response.data.data
+      return response.data
     }
 
-    return response.data
+    return {
+      data: response.data,
+      success: true,
+      statusCode: response.status,
+    }
   }
 }
 

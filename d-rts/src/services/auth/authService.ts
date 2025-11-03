@@ -3,7 +3,7 @@ import type { IdentifyResult, LoginResult, LoginCredentials, ContractLoginReques
 
 export class AuthService {
   static async identify(credentials: LoginCredentials): Promise<IdentifyResult | LoginResult | null> {
-    const response = await httpClient.post("/auth/IdentifyUser", {
+    const response = await httpClient.post<IdentifyResult | LoginResult>("/auth/IdentifyUser", {
       username: credentials.username,
       password: credentials.password,
     })
@@ -12,7 +12,7 @@ export class AuthService {
   }
 
   static async loginWithContract(request: ContractLoginRequest): Promise<LoginResult> {
-    const response = await httpClient.post("/auth/LoginWithContract", request)
+    const response = await httpClient.post<LoginResult>("/auth/LoginWithContract", request)
 
     const loginData = response.data
     const { accessToken, refreshToken, user, contract } = loginData
@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   static async login(credentials: LoginCredentials) {
-    const response = await httpClient.post("/auth/login", {
+    const response = await httpClient.post<LoginResult>("/auth/login", {
       username: credentials.username,
       password: credentials.password,
     })
@@ -89,7 +89,7 @@ export class AuthService {
     }
 
     try {
-      const response = await httpClient.post("/auth/RefreshToken", {
+      const response = await httpClient.post<RefreshTokenResponse>("/auth/RefreshToken", {
         refreshToken,
       })
 
@@ -118,7 +118,7 @@ export class AuthService {
   }
 
   static async getActiveSessions(): Promise<ActiveSession[]> {
-    const response = await httpClient.get("/auth/GetActiveSessions")
+    const response = await httpClient.get<ActiveSession[]>("/auth/GetActiveSessions")
     return response.data
   }
 

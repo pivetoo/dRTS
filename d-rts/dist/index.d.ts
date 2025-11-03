@@ -56,11 +56,10 @@ export declare interface ApiError {
 }
 
 export declare interface ApiResponse<T = any> {
-    data: T | null;
+    data: T;
     message?: string;
     success: boolean;
     statusCode?: number;
-    error?: ApiError;
 }
 
 export declare const AppLayout: React_2.FC<AppLayoutProps>;
@@ -132,7 +131,7 @@ declare interface AuthProviderProps {
 export declare class AuthService {
     static identify(credentials: LoginCredentials): Promise<IdentifyResult | LoginResult | null>;
     static loginWithContract(request: ContractLoginRequest): Promise<LoginResult>;
-    static login(credentials: LoginCredentials): Promise<any>;
+    static login(credentials: LoginCredentials): Promise<LoginResult>;
     static logout(): void;
     static isAuthenticated(): boolean;
     static getCurrentUser(): any | null;
@@ -371,11 +370,11 @@ declare class HttpClient {
     updateBaseURL(url: string): void;
     private setupInterceptors;
     private transformError;
-    get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
-    post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
-    put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
-    delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
-    patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
+    get<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>>;
+    post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>>;
+    put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>>;
+    delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>>;
+    patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>>;
 }
 
 export declare const httpClient: HttpClient;

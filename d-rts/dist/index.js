@@ -32373,23 +32373,43 @@ class KZ {
   }
   async get(t, r) {
     const n = await this.instance.get(t, r);
-    return n.data && typeof n.data == "object" && "data" in n.data ? n.data.data : n.data;
+    return n.data && typeof n.data == "object" && "data" in n.data ? n.data : {
+      data: n.data,
+      success: !0,
+      statusCode: n.status
+    };
   }
   async post(t, r, n) {
     const o = await this.instance.post(t, r, n);
-    return o.data && typeof o.data == "object" && "data" in o.data ? o.data.data : o.data;
+    return o.data && typeof o.data == "object" && "data" in o.data ? o.data : {
+      data: o.data,
+      success: !0,
+      statusCode: o.status
+    };
   }
   async put(t, r, n) {
     const o = await this.instance.put(t, r, n);
-    return o.data && typeof o.data == "object" && "data" in o.data ? o.data.data : o.data;
+    return o.data && typeof o.data == "object" && "data" in o.data ? o.data : {
+      data: o.data,
+      success: !0,
+      statusCode: o.status
+    };
   }
   async delete(t, r) {
     const n = await this.instance.delete(t, r);
-    return n.data && typeof n.data == "object" && "data" in n.data ? n.data.data : n.data;
+    return n.data && typeof n.data == "object" && "data" in n.data ? n.data : {
+      data: n.data,
+      success: !0,
+      statusCode: n.status
+    };
   }
   async patch(t, r, n) {
     const o = await this.instance.patch(t, r, n);
-    return o.data && typeof o.data == "object" && "data" in o.data ? o.data.data : o.data;
+    return o.data && typeof o.data == "object" && "data" in o.data ? o.data : {
+      data: o.data,
+      success: !0,
+      statusCode: o.status
+    };
   }
 }
 const pr = new KZ();
