@@ -97,12 +97,7 @@ export function DataTableExample() {
     {
       key: 'isActive',
       title: 'Status',
-      dataIndex: 'isActive',
-      render: (value: boolean) => (
-        <Badge variant={value ? 'success' : 'danger'}>
-          {value ? 'Ativo' : 'Inativo'}
-        </Badge>
-      )
+      dataIndex: 'isActive'
     },
     {
       key: 'emailConfirmed',
