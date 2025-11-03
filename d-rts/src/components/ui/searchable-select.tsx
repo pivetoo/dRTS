@@ -54,8 +54,6 @@ export const SearchableSelect = React.forwardRef<
       )
     }, [options, search])
 
-    const selectedOption = options.find((opt) => opt.value === value)
-
     React.useEffect(() => {
       if (!open) {
         setSearch("")
@@ -71,9 +69,7 @@ export const SearchableSelect = React.forwardRef<
         onOpenChange={setOpen}
       >
         <SelectTrigger ref={ref} className={className}>
-          <SelectValue>
-            {selectedOption?.label || placeholder}
-          </SelectValue>
+          <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>
           <div className="flex items-center border-b px-3 pb-2">

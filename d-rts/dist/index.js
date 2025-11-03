@@ -8420,11 +8420,11 @@ const F2 = x.forwardRef(
   }, c) => {
     const [u, l] = x.useState(""), [f, d] = x.useState(!1), v = x.useMemo(() => {
       if (!u) return e;
-      const p = u.toLowerCase();
+      const m = u.toLowerCase();
       return e.filter(
-        (h) => h.label.toLowerCase().includes(p)
+        (p) => p.label.toLowerCase().includes(m)
       );
-    }, [e, u]), m = e.find((p) => p.value === t);
+    }, [e, u]);
     return x.useEffect(() => {
       f || l("");
     }, [f]), /* @__PURE__ */ oe(
@@ -8436,7 +8436,7 @@ const F2 = x.forwardRef(
         open: f,
         onOpenChange: d,
         children: [
-          /* @__PURE__ */ A(D1, { ref: c, className: a, children: /* @__PURE__ */ A(D2, { children: m?.label || n }) }),
+          /* @__PURE__ */ A(D1, { ref: c, className: a, children: /* @__PURE__ */ A(D2, { placeholder: n }) }),
           /* @__PURE__ */ oe(F1, { children: [
             /* @__PURE__ */ oe("div", { className: "flex items-center border-b px-3 pb-2", children: [
               /* @__PURE__ */ A(Bk, { className: "mr-2 h-4 w-4 shrink-0 opacity-50" }),
@@ -8445,12 +8445,12 @@ const F2 = x.forwardRef(
                 {
                   placeholder: o,
                   value: u,
-                  onChange: (p) => l(p.target.value),
+                  onChange: (m) => l(m.target.value),
                   className: "h-8 border-0 shadow-none focus-visible:ring-0 px-0 bg-transparent"
                 }
               )
             ] }),
-            /* @__PURE__ */ A("div", { className: "max-h-[300px] overflow-auto", children: v.length === 0 ? /* @__PURE__ */ A("div", { className: "py-6 text-center text-sm text-muted-foreground", children: s }) : v.map((p) => /* @__PURE__ */ A(q1, { value: p.value, children: p.label }, p.value)) })
+            /* @__PURE__ */ A("div", { className: "max-h-[300px] overflow-auto", children: v.length === 0 ? /* @__PURE__ */ A("div", { className: "py-6 text-center text-sm text-muted-foreground", children: s }) : v.map((m) => /* @__PURE__ */ A(q1, { value: m.value, children: m.label }, m.value)) })
           ] })
         ]
       }
