@@ -467,6 +467,30 @@ export declare interface ODataResponse<T> {
     };
 }
 
+export declare interface PageAction {
+    key: string;
+    label: string;
+    icon?: React_2.ReactNode;
+    variant?: "primary" | "secondary" | "outline" | "ghost" | "danger";
+    onClick: () => void;
+    disabled?: boolean;
+}
+
+export declare const PageLayout: React_2.FC<PageLayoutProps>;
+
+export declare interface PageLayoutProps {
+    title: string;
+    icon?: React_2.ReactNode;
+    actions?: PageAction[];
+    showDefaultActions?: boolean;
+    onAdd?: () => void;
+    onEdit?: () => void;
+    onDelete?: () => void;
+    onRefresh?: () => void;
+    children?: React_2.ReactNode;
+    className?: string;
+}
+
 export declare interface PaginatedResult<T> {
     data: T[];
     total: number;
