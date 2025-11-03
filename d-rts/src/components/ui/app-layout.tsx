@@ -94,14 +94,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             )}
           </React.Fragment>
         ))}
-        {onLogout && (
-          <>
-            {userMenuItems.length > 0 && <DropdownSeparator />}
-            <DropdownItem onClick={onLogout} className="cursor-pointer text-destructive">
-              Sair
-            </DropdownItem>
-          </>
-        )}
       </DropdownContent>
     </Dropdown>
   )
