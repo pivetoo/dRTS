@@ -136,7 +136,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           isCollapsed ? "ml-[80px]" : "ml-[260px]"
         )}
       >
-        <div className="w-full h-full">
+        <div className="w-full h-full p-6">
           {children}
         </div>
       </main>

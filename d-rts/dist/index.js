@@ -30252,7 +30252,7 @@ const sQ = ({
           "transition-all duration-300 pt-[60px] min-h-screen",
           v ? "ml-[80px]" : "ml-[260px]"
         ),
-        children: /* @__PURE__ */ A("div", { className: "w-full h-full", children: d })
+        children: /* @__PURE__ */ A("div", { className: "w-full h-full p-6", children: d })
       }
     )
   ] });
@@ -30289,7 +30289,7 @@ const sQ = ({
     onClick: a
   }));
   const f = [...l, ...r];
-  return /* @__PURE__ */ se("div", { className: te("flex flex-col h-full", u), children: [
+  return /* @__PURE__ */ se("div", { className: te("flex flex-col h-full w-full", u), children: [
     /* @__PURE__ */ se("div", { className: "flex items-center justify-between mb-6 pb-4 border-b", children: [
       /* @__PURE__ */ se("div", { className: "flex items-center gap-3", children: [
         t && /* @__PURE__ */ A("div", { className: "flex items-center justify-center w-10 h-10 rounded-md bg-primary/10 text-primary", children: t }),

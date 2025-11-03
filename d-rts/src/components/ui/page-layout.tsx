@@ -74,7 +74,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   const allActions = [...defaultActions, ...actions]
 
   return (
-    <div className={cn("flex flex-col h-full", className)}>
+    <div className={cn("flex flex-col h-full w-full", className)}>
       <div className="flex items-center justify-between mb-6 pb-4 border-b">
         <div className="flex items-center gap-3">
           {icon && (
