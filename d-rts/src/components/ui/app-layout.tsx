@@ -1,4 +1,5 @@
 import * as React from "react"
+import { ChevronDown } from "lucide-react"
 import { cn } from "../../lib/utils"
 import { Sidebar } from "../ui/sidebar"
 import { Navbar } from "../ui/navbar"
@@ -62,7 +63,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   const userMenuTrigger = (
     <Dropdown>
       <DropdownTrigger asChild>
-        <button className="flex items-center gap-3 bg-transparent border-0 py-1 px-2.5 pr-2.5 rounded-md transition-all hover:bg-accent active:scale-[0.98] outline-none">
+        <button className="flex items-center gap-2 bg-transparent border-0 py-1 px-2.5 pr-2.5 rounded-md transition-all hover:bg-accent active:scale-[0.98] outline-none">
           <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center text-primary-foreground text-xs font-semibold overflow-hidden border-2 border-background">
             {user.avatar || user.name.charAt(0).toUpperCase()}
           </div>
@@ -74,6 +75,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
               {user.role}
             </span>
           </div>
+          <ChevronDown className="h-4 w-4 text-muted-foreground" />
         </button>
       </DropdownTrigger>
       <DropdownContent align="end" className="w-56">
