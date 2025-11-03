@@ -8446,7 +8446,7 @@ const F2 = x.forwardRef(
                   placeholder: o,
                   value: u,
                   onChange: (p) => l(p.target.value),
-                  className: "h-8 border-0 shadow-none focus-visible:ring-0 px-0"
+                  className: "h-8 border-0 shadow-none focus-visible:ring-0 px-0 bg-transparent"
                 }
               )
             ] }),

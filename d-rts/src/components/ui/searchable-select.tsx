@@ -82,7 +82,7 @@ export const SearchableSelect = React.forwardRef<
               placeholder={searchPlaceholder}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="h-8 border-0 shadow-none focus-visible:ring-0 px-0"
+              className="h-8 border-0 shadow-none focus-visible:ring-0 px-0 bg-transparent"
             />
           </div>
           <div className="max-h-[300px] overflow-auto">
