@@ -9949,7 +9949,7 @@ const VT = x.forwardRef(
               ),
               children: [
                 n,
-                !p && /* @__PURE__ */ ce("div", { className: "flex-1 overflow-hidden", children: [
+                !p && /* @__PURE__ */ ce("div", { className: "flex-1 overflow-hidden ml-3", children: [
                   t && /* @__PURE__ */ A("div", { className: "font-bold text-base text-foreground leading-tight tracking-tight", children: t }),
                   r && /* @__PURE__ */ A("div", { className: "text-xs text-secondary font-medium leading-tight mt-1", children: r })
                 ] })
