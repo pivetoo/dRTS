@@ -371,11 +371,11 @@ declare class HttpClient {
     updateBaseURL(url: string): void;
     private setupInterceptors;
     private transformError;
-    get<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>>;
-    post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>>;
-    put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>>;
-    delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>>;
-    patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>>;
+    get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
+    post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
+    put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
+    delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
+    patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
 }
 
 export declare const httpClient: HttpClient;

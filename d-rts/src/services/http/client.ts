@@ -1,6 +1,5 @@
 import axios, { type AxiosRequestConfig } from "axios"
-import type { ApiResponse, ApiError } from "./types"
-import { toast } from "../../components/ui/use-toast"
+import type { ApiError } from "./types"
 
 let globalLoaderContext: any = null
 let apiBaseURL: string = ""
@@ -107,13 +106,6 @@ class HttpClient {
         }
 
         const apiError = this.transformError(error)
-
-        toast({
-          title: "Erro",
-          description: apiError.message,
-          variant: "destructive",
-        })
-
         return Promise.reject(apiError)
       }
     )
@@ -169,159 +161,54 @@ class HttpClient {
     }
   }
 
-  async get<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    try {
-      const response = await this.instance.get(url, config)
+  async get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    const response = await this.instance.get(url, config)
 
-      if (response.data && typeof response.data === "object" && "data" in response.data) {
-        return response.data
-      }
-
-      return {
-        data: response.data,
-        success: true,
-        statusCode: response.status,
-      }
-    } catch (error: any) {
-      const apiError = error.isApiError ? error : this.transformError(error)
-
-      toast({
-        title: "Erro",
-        description: apiError.message,
-        variant: "destructive",
-      })
-
-      return {
-        data: null,
-        success: false,
-        statusCode: error.status || 500,
-        error: apiError,
-      }
+    if (response.data && typeof response.data === "object" && "data" in response.data) {
+      return response.data.data
     }
+
+    return response.data
   }
 
-  async post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    try {
-      const response = await this.instance.post(url, data, config)
+  async post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+    const response = await this.instance.post(url, data, config)
 
-      if (response.data && typeof response.data === "object" && "data" in response.data) {
-        return response.data
-      }
-
-      return {
-        data: response.data,
-        success: true,
-        statusCode: response.status,
-      }
-    } catch (error: any) {
-      const apiError = error.isApiError ? error : this.transformError(error)
-
-      toast({
-        title: "Erro",
-        description: apiError.message,
-        variant: "destructive",
-      })
-
-      return {
-        data: null,
-        success: false,
-        statusCode: error.status || 500,
-        error: apiError,
-      }
+    if (response.data && typeof response.data === "object" && "data" in response.data) {
+      return response.data.data
     }
+
+    return response.data
   }
 
-  async put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    try {
-      const response = await this.instance.put(url, data, config)
+  async put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+    const response = await this.instance.put(url, data, config)
 
-      if (response.data && typeof response.data === "object" && "data" in response.data) {
-        return response.data
-      }
-
-      return {
-        data: response.data,
-        success: true,
-        statusCode: response.status,
-      }
-    } catch (error: any) {
-      const apiError = error.isApiError ? error : this.transformError(error)
-
-      toast({
-        title: "Erro",
-        description: apiError.message,
-        variant: "destructive",
-      })
-
-      return {
-        data: null,
-        success: false,
-        statusCode: error.status || 500,
-        error: apiError,
-      }
+    if (response.data && typeof response.data === "object" && "data" in response.data) {
+      return response.data.data
     }
+
+    return response.data
   }
 
-  async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    try {
-      const response = await this.instance.delete(url, config)
+  async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    const response = await this.instance.delete(url, config)
 
-      if (response.data && typeof response.data === "object" && "data" in response.data) {
-        return response.data
-      }
-
-      return {
-        data: response.data,
-        success: true,
-        statusCode: response.status,
-      }
-    } catch (error: any) {
-      const apiError = error.isApiError ? error : this.transformError(error)
-
-      toast({
-        title: "Erro",
-        description: apiError.message,
-        variant: "destructive",
-      })
-
-      return {
-        data: null,
-        success: false,
-        statusCode: error.status || 500,
-        error: apiError,
-      }
+    if (response.data && typeof response.data === "object" && "data" in response.data) {
+      return response.data.data
     }
+
+    return response.data
   }
 
-  async patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    try {
-      const response = await this.instance.patch(url, data, config)
+  async patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+    const response = await this.instance.patch(url, data, config)
 
-      if (response.data && typeof response.data === "object" && "data" in response.data) {
-        return response.data
-      }
-
-      return {
-        data: response.data,
-        success: true,
-        statusCode: response.status,
-      }
-    } catch (error: any) {
-      const apiError = error.isApiError ? error : this.transformError(error)
-
-      toast({
-        title: "Erro",
-        description: apiError.message,
-        variant: "destructive",
-      })
-
-      return {
-        data: null,
-        success: false,
-        statusCode: error.status || 500,
-        error: apiError,
-      }
+    if (response.data && typeof response.data === "object" && "data" in response.data) {
+      return response.data.data
     }
+
+    return response.data
   }
 }
 
