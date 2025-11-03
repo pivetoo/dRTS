@@ -2,6 +2,7 @@ import { AxiosRequestConfig } from 'axios';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import { ClassProp } from 'class-variance-authority/types';
 import { ClassValue } from 'clsx';
+import { default as default_2 } from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { JSX } from 'react/jsx-runtime';
@@ -203,6 +204,15 @@ export declare const buttonVariants: (props?: ({
     variant?: "primary" | "secondary" | "success" | "error" | "danger" | "warning" | "info" | "outline" | "ghost" | "text" | "dark" | null | undefined;
     size?: "sm" | "md" | "lg" | "icon" | null | undefined;
 } & ClassProp) | undefined) => string;
+
+export declare const Callback: default_2.FC<CallbackProps>;
+
+export declare interface CallbackProps {
+    redirectTo?: string;
+    identityProviderUrl?: string;
+    onSuccess?: () => void;
+    onError?: (error: Error) => void;
+}
 
 export declare const Card: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLDivElement> & React_2.RefAttributes<HTMLDivElement>>;
 
@@ -551,6 +561,14 @@ export declare interface PieChartProps {
     width?: number | `${number}%`;
     height?: number | `${number}%`;
     className?: string;
+}
+
+export declare const ProtectedRoute: default_2.FC<ProtectedRouteProps>;
+
+export declare interface ProtectedRouteProps {
+    children: default_2.ReactElement;
+    isAuthenticated: boolean;
+    redirectTo?: string;
 }
 
 export declare const RadioGroup: React_2.ForwardRefExoticComponent<Omit<RadioGroupPrimitive.RadioGroupProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
