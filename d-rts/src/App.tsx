@@ -14,6 +14,7 @@ import {
   BarChart3,
   PanelTop,
   Table,
+  AppWindow,
 } from 'lucide-react'
 
 // Import examples
@@ -27,6 +28,7 @@ import { ChartsExample } from './examples/ChartsExample'
 import { TabsExample } from './examples/TabsExample'
 import { DataTableSimpleExample } from './examples/DataTableSimpleExample'
 import { DataTableDetailExample } from './examples/DataTableDetailExample'
+import { ModalExample } from './examples/ModalExample'
 
 type PageType =
   | 'home'
@@ -36,6 +38,7 @@ type PageType =
   | 'badge'
   | 'form'
   | 'feedback'
+  | 'modal'
   | 'charts'
   | 'tabs'
   | 'datatable-simple'
@@ -44,6 +47,7 @@ type PageType =
 function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [activePage, setActivePage] = useState<PageType>('home')
+  const [hasNotifications, setHasNotifications] = useState(true)
 
   const navigationItems: SidebarItemData[] = [
     {
@@ -126,6 +130,13 @@ function App() {
           onClick: () => setActivePage('feedback'),
         },
         {
+          key: 'modal',
+          label: 'Modal',
+          icon: <AppWindow className="h-4 w-4" />,
+          active: activePage === 'modal',
+          onClick: () => setActivePage('modal'),
+        },
+        {
           key: 'tabs',
           label: 'Tabs',
           icon: <PanelTop className="h-4 w-4" />,
@@ -156,7 +167,8 @@ function App() {
       card: 'Card - Cartões',
       badge: 'Badge - Etiquetas',
       form: 'Form Components - Formulários',
-      feedback: 'Feedback - Notificações e Modais',
+      feedback: 'Feedback - Notificações e Toasts',
+      modal: 'Modal - Diálogos e Confirmações',
       charts: 'Charts - Gráficos',
       tabs: 'Tabs - Abas',
       'datatable-simple': 'Data Table - Tabela Simples',
@@ -174,6 +186,7 @@ function App() {
       badge: <Tag size={20} />,
       form: <FormInput size={20} />,
       feedback: <MessageSquare size={20} />,
+      modal: <AppWindow size={20} />,
       charts: <BarChart3 size={20} />,
       tabs: <PanelTop size={20} />,
       'datatable-simple': <Table size={20} />,
@@ -260,6 +273,9 @@ function App() {
       case 'feedback':
         content = <FeedbackExample />
         break
+      case 'modal':
+        content = <ModalExample />
+        break
       case 'charts':
         content = <ChartsExample />
         break
@@ -285,7 +301,11 @@ function App() {
             name: 'Demo User',
             role: 'Developer',
           }}
-          hasNotifications={false}
+          hasNotifications={hasNotifications}
+          onNotificationClick={() => {
+            console.log('Notificações clicadas')
+            setHasNotifications(false)
+          }}
         />
 
         <div

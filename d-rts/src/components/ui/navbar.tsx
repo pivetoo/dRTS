@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Bell, ChevronDown, User, Languages, LogOut, Palette, Check } from "lucide-react"
+import { Bell, ChevronDown, User, Languages, LogOut, Palette, Check, Moon, Sun } from "lucide-react"
 import { cn } from "../../lib/utils"
 import { Breadcrumb } from "./breadcrumb"
 import type { BreadcrumbItem } from "./breadcrumb"
@@ -53,7 +53,7 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
     },
     ref
   ) => {
-    const { theme, setTheme } = useTheme()
+    const { theme, setTheme, isDark, toggleDark } = useTheme()
     const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false)
     const [isThemeMenuOpen, setIsThemeMenuOpen] = React.useState(false)
     const [isLanguageMenuOpen, setIsLanguageMenuOpen] = React.useState(false)
@@ -202,33 +202,59 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                       </button>
 
                       {isThemeMenuOpen && (
-                        <div className="absolute right-full top-0 mr-1 w-48 bg-popover border border-border rounded-md shadow-lg py-1">
-                          {themes.map((themeOption) => (
+                        <div className="absolute right-full top-0 mr-1 w-52 bg-popover border border-border rounded-md shadow-lg py-1">
+                          <div className="px-3 py-2 border-b border-border">
                             <button
-                              key={themeOption.value}
                               onClick={(e) => {
                                 e.stopPropagation()
-                                setTheme(themeOption.value)
-                                setIsThemeMenuOpen(false)
-                                setIsUserMenuOpen(false)
+                                toggleDark()
                               }}
-                              className={cn(
-                                "w-full flex items-center gap-3 px-3 py-2 text-sm transition-colors hover:bg-accent",
-                                theme === themeOption.value && "bg-accent"
-                              )}
+                              className="w-full flex items-center justify-between gap-3 py-1.5 text-sm transition-colors hover:text-primary"
                             >
-                              <div
-                                className={cn(
-                                  "w-4 h-4 rounded-full",
-                                  themeOption.color
-                                )}
-                              />
-                              <span className="flex-1 text-left">{themeOption.label}</span>
-                              {theme === themeOption.value && (
-                                <Check className="h-4 w-4 text-primary" />
-                              )}
+                              <div className="flex items-center gap-2">
+                                {isDark ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+                                <span>Modo {isDark ? 'Escuro' : 'Claro'}</span>
+                              </div>
+                              <div className={cn(
+                                "relative w-9 h-5 rounded-full transition-colors",
+                                isDark ? "bg-primary" : "bg-muted"
+                              )}>
+                                <div className={cn(
+                                  "absolute top-0.5 w-4 h-4 rounded-full bg-background transition-transform",
+                                  isDark ? "left-[18px]" : "left-0.5"
+                                )} />
+                              </div>
                             </button>
-                          ))}
+                          </div>
+
+                          <div className="py-1">
+                            {themes.map((themeOption) => (
+                              <button
+                                key={themeOption.value}
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  setTheme(themeOption.value)
+                                  setIsThemeMenuOpen(false)
+                                  setIsUserMenuOpen(false)
+                                }}
+                                className={cn(
+                                  "w-full flex items-center gap-3 px-3 py-2 text-sm transition-colors hover:bg-accent",
+                                  theme === themeOption.value && "bg-accent"
+                                )}
+                              >
+                                <div
+                                  className={cn(
+                                    "w-4 h-4 rounded-full",
+                                    themeOption.color
+                                  )}
+                                />
+                                <span className="flex-1 text-left">{themeOption.label}</span>
+                                {theme === themeOption.value && (
+                                  <Check className="h-4 w-4 text-primary" />
+                                )}
+                              </button>
+                            ))}
+                          </div>
                         </div>
                       )}
                     </div>

@@ -804,6 +804,8 @@ export declare type Theme = "default" | "ocean" | "forest" | "twilight" | "sunse
 declare interface ThemeContextType {
     theme: Theme;
     setTheme: (theme: Theme) => void;
+    isDark: boolean;
+    toggleDark: () => void;
 }
 
 export declare const ThemeProvider: React_2.FC<ThemeProviderProps>;
@@ -811,6 +813,7 @@ export declare const ThemeProvider: React_2.FC<ThemeProviderProps>;
 declare interface ThemeProviderProps {
     children: React_2.ReactNode;
     defaultTheme?: Theme;
+    defaultDark?: boolean;
 }
 
 export declare function ThemeSelector(): JSX.Element;
