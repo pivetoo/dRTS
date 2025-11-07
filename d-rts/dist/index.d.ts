@@ -799,6 +799,22 @@ export declare const TabsList: React_2.ForwardRefExoticComponent<Omit<TabsPrimit
 
 export declare const TabsTrigger: React_2.ForwardRefExoticComponent<Omit<TabsPrimitive.TabsTriggerProps & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
+export declare type Theme = "default" | "ocean" | "forest" | "twilight" | "sunset" | "flamingo";
+
+declare interface ThemeContextType {
+    theme: Theme;
+    setTheme: (theme: Theme) => void;
+}
+
+export declare const ThemeProvider: React_2.FC<ThemeProviderProps>;
+
+declare interface ThemeProviderProps {
+    children: React_2.ReactNode;
+    defaultTheme?: Theme;
+}
+
+export declare function ThemeSelector(): JSX.Element;
+
 export declare const Toast: React_2.ForwardRefExoticComponent<Omit<ToastPrimitives.ToastProps & React_2.RefAttributes<HTMLLIElement>, "ref"> & VariantProps<(props?: ({
     variant?: "success" | "warning" | "info" | "default" | "destructive" | null | undefined;
 } & ClassProp) | undefined) => string> & React_2.RefAttributes<HTMLLIElement>>;
@@ -897,6 +913,8 @@ export declare interface User {
     emailConfirmed?: boolean;
     lastLoginAt?: string;
 }
+
+export declare const useTheme: () => ThemeContextType;
 
 export declare function useToast(): {
     toast: typeof toast;

@@ -58,7 +58,10 @@ export function DataTableWithDetail<T = any>({
 
   return (
     <div className={cn("grid grid-cols-1 lg:grid-cols-12 gap-6", className)}>
-      <div className={cn(`lg:col-span-${gridRatio[0]}`, tableClassName)}>
+      <div
+        className={cn("lg:col-span-7", tableClassName)}
+        style={{ gridColumn: `span ${gridRatio[0]} / span ${gridRatio[0]}` }}
+      >
         <Card className="overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
@@ -128,7 +131,10 @@ export function DataTableWithDetail<T = any>({
         </Card>
       </div>
 
-      <div className={cn(`lg:col-span-${gridRatio[1]}`, detailClassName)}>
+      <div
+        className={cn("lg:col-span-5", detailClassName)}
+        style={{ gridColumn: `span ${gridRatio[1]} / span ${gridRatio[1]}` }}
+      >
         {selectedRow && renderDetail ? (
           <Card className="sticky top-6">{renderDetail(selectedRow)}</Card>
         ) : (

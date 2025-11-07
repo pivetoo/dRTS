@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { GlobalLoaderProvider, Toaster } from './components/ui'
+import { GlobalLoaderProvider, Toaster, ThemeProvider } from './components/ui'
 import { Sidebar, type SidebarItemData, type SidebarGroup } from './components/ui/sidebar'
 import { Navbar, type BreadcrumbItem } from './components/ui/navbar'
 import { PageLayout } from './components/ui/page-layout'
@@ -307,27 +307,29 @@ function App() {
   }
 
   return (
-    <GlobalLoaderProvider>
-      <div className="flex min-h-screen">
-        <Sidebar
-          title="dRTS"
-          subtitle="Component Library"
-          logo={
-            <div className="w-8 h-8 rounded-md bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
-              D
-            </div>
-          }
-          items={navigationItems}
-          groups={navigationGroups}
-          isCollapsed={sidebarCollapsed}
-          onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
-        />
+    <ThemeProvider>
+      <GlobalLoaderProvider>
+        <div className="flex min-h-screen">
+          <Sidebar
+            title="dRTS"
+            subtitle="Component Library"
+            logo={
+              <div className="w-8 h-8 rounded-md bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
+                D
+              </div>
+            }
+            items={navigationItems}
+            groups={navigationGroups}
+            isCollapsed={sidebarCollapsed}
+            onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
+          />
 
-        {renderContent()}
+          {renderContent()}
 
-        <Toaster />
-      </div>
-    </GlobalLoaderProvider>
+          <Toaster />
+        </div>
+      </GlobalLoaderProvider>
+    </ThemeProvider>
   )
 }
 
