@@ -79,7 +79,6 @@ export declare interface AppLayoutProps {
     initialCollapsed?: boolean;
     onLogout?: () => void;
     onNotificationClick?: () => void;
-    userMenuItems?: DropdownItemData[];
     hasNotifications?: boolean;
     breadcrumbs?: BreadcrumbItem[];
     children?: React_2.ReactNode;
@@ -336,13 +335,6 @@ export declare const DropdownGroup: React_2.ForwardRefExoticComponent<DropdownMe
 export declare const DropdownItem: React_2.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuItemProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
     inset?: boolean;
 } & React_2.RefAttributes<HTMLDivElement>>;
-
-export declare interface DropdownItemData {
-    label: string;
-    icon?: React_2.ReactNode;
-    onClick?: () => void;
-    separator?: boolean;
-}
 
 export declare const DropdownLabel: React_2.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuLabelProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & {
     inset?: boolean;
