@@ -12,7 +12,7 @@ const GlobalLoader: React.FC<GlobalLoaderProps> = ({ isVisible, className }) => 
   return (
     <div
       className={cn(
-        "fixed inset-0 bg-white/80 dark:bg-black/80 backdrop-blur-sm flex items-center justify-center z-[9999]",
+        "fixed inset-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm flex items-center justify-center z-[9999]",
         className
       )}
     >
