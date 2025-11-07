@@ -154,7 +154,6 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
 )
 Sidebar.displayName = "Sidebar"
 
-// Legacy exports for backward compatibility
 const SidebarHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
     <div ref={ref} className={cn("flex items-center border-b p-4", className)} {...props} />

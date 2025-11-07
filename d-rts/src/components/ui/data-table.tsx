@@ -36,13 +36,15 @@ export function DataTable<T = any>({
   data,
   loading = false,
   rowKey,
-  selectable = false,
+  selectable,
   selectedRows = [],
   onSelectionChange,
   onRowClick,
   className,
   emptyText = "Nenhum registro encontrado"
 }: DataTableProps<T>) {
+  const isSelectable = selectable !== undefined ? selectable : !!onSelectionChange
+
   const getRowKey = (record: T): string | number => {
     if (typeof rowKey === "function") {
       return rowKey(record)
@@ -56,20 +58,18 @@ export function DataTable<T = any>({
   }
 
   const handleSelectRow = (record: T, e: React.MouseEvent) => {
-    if (!selectable || !onSelectionChange) return
+    if (!isSelectable || !onSelectionChange) return
 
     const key = getRowKey(record)
     const isSelected = isRowSelected(record)
 
     if (e.ctrlKey || e.metaKey) {
-      // Ctrl/Cmd + Click: adiciona/remove da seleção
       if (isSelected) {
         onSelectionChange(selectedRows.filter((row) => getRowKey(row) !== key))
       } else {
         onSelectionChange([...selectedRows, record])
       }
     } else if (e.shiftKey && selectedRows.length > 0) {
-      // Shift + Click: seleciona range
       const lastSelectedKey = getRowKey(selectedRows[selectedRows.length - 1])
       const currentIndex = data.findIndex((row) => getRowKey(row) === key)
       const lastIndex = data.findIndex((row) => getRowKey(row) === lastSelectedKey)
@@ -78,7 +78,6 @@ export function DataTable<T = any>({
       const end = Math.max(currentIndex, lastIndex)
       const range = data.slice(start, end + 1)
 
-      // Mantém seleções anteriores e adiciona o range
       const newSelection = [...selectedRows]
       range.forEach((row) => {
         const rowKey = getRowKey(row)
@@ -88,8 +87,7 @@ export function DataTable<T = any>({
       })
       onSelectionChange(newSelection)
     } else {
-      // Click normal: seleciona apenas este item
-      if (isSelected && selectedRows.length === 1) {
+      if (isSelected) {
         onSelectionChange([])
       } else {
         onSelectionChange([record])
@@ -97,8 +95,17 @@ export function DataTable<T = any>({
     }
   }
 
+  const handleTableClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget && isSelectable && onSelectionChange) {
+      onSelectionChange([])
+    }
+  }
+
   return (
-    <div className={cn("rounded-md border", className)}>
+    <div
+      className={cn("rounded-md border", className)}
+      onClick={handleTableClick}
+    >
       <Table>
         <TableHeader>
           <TableRow>
@@ -116,7 +123,7 @@ export function DataTable<T = any>({
           {loading ? (
             <TableRow>
               <TableCell
-                colSpan={columns.length + (selectable ? 1 : 0)}
+                colSpan={columns.length + (isSelectable ? 1 : 0)}
                 className="text-center py-8 text-muted-foreground"
               >
                 Carregando...
@@ -125,7 +132,7 @@ export function DataTable<T = any>({
           ) : data.length === 0 ? (
             <TableRow>
               <TableCell
-                colSpan={columns.length + (selectable ? 1 : 0)}
+                colSpan={columns.length + (isSelectable ? 1 : 0)}
                 className="text-center py-8 text-muted-foreground"
               >
                 {emptyText}
@@ -141,16 +148,16 @@ export function DataTable<T = any>({
                   key={key}
                   data-state={selected ? "selected" : ""}
                   onClick={(e) => {
-                    if (selectable) {
+                    if (isSelectable) {
                       handleSelectRow(record, e)
                     } else {
                       onRowClick?.(record)
                     }
                   }}
                   className={cn(
-                    selectable || onRowClick ? "cursor-pointer" : "",
-                    selectable && "select-none",
-                    selected && "!bg-secondary/20 hover:!bg-secondary/30"
+                    isSelectable || onRowClick ? "cursor-pointer" : "",
+                    isSelectable && "select-none",
+                    selected && "!bg-secondary/20"
                   )}
                 >
                   {columns.map((column) => {

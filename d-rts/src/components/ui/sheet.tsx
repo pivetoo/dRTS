@@ -5,91 +5,88 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "../../lib/utils"
 
-const Modal = DialogPrimitive.Root
+const Sheet = DialogPrimitive.Root
 
-const ModalTrigger = DialogPrimitive.Trigger
+const SheetTrigger = DialogPrimitive.Trigger
 
-const ModalPortal = DialogPrimitive.Portal
+const SheetClose = DialogPrimitive.Close
 
-const ModalClose = DialogPrimitive.Close
+const SheetPortal = DialogPrimitive.Portal
 
-const ModalOverlay = React.forwardRef<
+const SheetOverlay = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Overlay
-    ref={ref}
     className={cn(
       "fixed inset-0 z-[200] bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     )}
     {...props}
+    ref={ref}
   />
 ))
-ModalOverlay.displayName = DialogPrimitive.Overlay.displayName
+SheetOverlay.displayName = DialogPrimitive.Overlay.displayName
 
-const modalContentVariants = cva(
-  "fixed left-[50%] top-[50%] z-[201] grid w-full translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-lg",
+const sheetVariants = cva(
+  "fixed z-[201] gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
   {
     variants: {
-      size: {
-        sm: "max-w-sm",
-        md: "max-w-md",
-        lg: "max-w-lg",
-        xl: "max-w-xl",
-        "2xl": "max-w-2xl",
-        "3xl": "max-w-3xl",
-        "4xl": "max-w-4xl",
-        "5xl": "max-w-5xl",
-        full: "max-w-[95vw]",
+      side: {
+        top: "inset-x-0 top-0 border-b data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top",
+        bottom:
+          "inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
+        left: "inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm",
+        right:
+          "inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",
       },
     },
     defaultVariants: {
-      size: "lg",
+      side: "right",
     },
   }
 )
 
-export interface ModalContentProps
+export interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>,
-    VariantProps<typeof modalContentVariants> {}
+    VariantProps<typeof sheetVariants> {}
 
-const ModalContent = React.forwardRef<
+const SheetContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
-  ModalContentProps
->(({ className, children, size, ...props }, ref) => (
-  <ModalPortal>
-    <ModalOverlay />
+  SheetContentProps
+>(({ side = "right", className, children, ...props }, ref) => (
+  <SheetPortal>
+    <SheetOverlay />
     <DialogPrimitive.Content
       ref={ref}
-      className={cn(modalContentVariants({ size }), className)}
+      className={cn(sheetVariants({ side }), className)}
       {...props}
     >
       {children}
       <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
         <X className="h-4 w-4" />
-        <span className="sr-only">Close</span>
+        <span className="sr-only">Fechar</span>
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>
-  </ModalPortal>
+  </SheetPortal>
 ))
-ModalContent.displayName = DialogPrimitive.Content.displayName
+SheetContent.displayName = DialogPrimitive.Content.displayName
 
-const ModalHeader = ({
+const SheetHeader = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      "flex flex-col space-y-1.5 text-center sm:text-left",
+      "flex flex-col space-y-2 text-center sm:text-left",
       className
     )}
     {...props}
   />
 )
-ModalHeader.displayName = "ModalHeader"
+SheetHeader.displayName = "SheetHeader"
 
-const ModalFooter = ({
+const SheetFooter = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
@@ -101,24 +98,21 @@ const ModalFooter = ({
     {...props}
   />
 )
-ModalFooter.displayName = "ModalFooter"
+SheetFooter.displayName = "SheetFooter"
 
-const ModalTitle = React.forwardRef<
+const SheetTitle = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
-    className={cn(
-      "text-lg font-semibold leading-none tracking-tight",
-      className
-    )}
+    className={cn("text-lg font-semibold text-foreground", className)}
     {...props}
   />
 ))
-ModalTitle.displayName = DialogPrimitive.Title.displayName
+SheetTitle.displayName = DialogPrimitive.Title.displayName
 
-const ModalDescription = React.forwardRef<
+const SheetDescription = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >(({ className, ...props }, ref) => (
@@ -128,17 +122,17 @@ const ModalDescription = React.forwardRef<
     {...props}
   />
 ))
-ModalDescription.displayName = DialogPrimitive.Description.displayName
+SheetDescription.displayName = DialogPrimitive.Description.displayName
 
 export {
-  Modal,
-  ModalPortal,
-  ModalOverlay,
-  ModalClose,
-  ModalTrigger,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalTitle,
-  ModalDescription,
+  Sheet,
+  SheetPortal,
+  SheetOverlay,
+  SheetTrigger,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetFooter,
+  SheetTitle,
+  SheetDescription,
 }

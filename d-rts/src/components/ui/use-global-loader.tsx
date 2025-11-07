@@ -1,4 +1,5 @@
 import * as React from "react"
+import { GlobalLoader } from "./global-loader"
 
 interface GlobalLoaderContextType {
   isLoading: boolean
@@ -36,6 +37,7 @@ export const GlobalLoaderProvider: React.FC<GlobalLoaderProviderProps> = ({ chil
   return (
     <GlobalLoaderContext.Provider value={{ isLoading, showLoader, hideLoader }}>
       {children}
+      <GlobalLoader isVisible={isLoading} />
     </GlobalLoaderContext.Provider>
   )
 }

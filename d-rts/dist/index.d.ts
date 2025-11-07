@@ -299,6 +299,32 @@ export declare interface DataTableProps<T = any> {
     emptyText?: string;
 }
 
+export declare function DataTableWithDetail<T = any>({ columns, data, rowKey, selectedRow, onRowSelect, renderDetail, renderPagination, emptyDetailMessage, emptyDetailDescription, className, tableClassName, detailClassName, gridRatio, }: DataTableWithDetailProps<T>): JSX.Element;
+
+export declare interface DataTableWithDetailColumn<T = any> {
+    key: string;
+    title: string;
+    dataIndex?: keyof T;
+    render?: (value: any, record: T) => React_2.ReactNode;
+    width?: string | number;
+}
+
+export declare interface DataTableWithDetailProps<T = any> {
+    columns: DataTableWithDetailColumn<T>[];
+    data: T[];
+    rowKey: keyof T | ((record: T) => string | number);
+    selectedRow?: T | null;
+    onRowSelect?: (record: T | null) => void;
+    renderDetail?: (record: T) => React_2.ReactNode;
+    renderPagination?: () => React_2.ReactNode;
+    emptyDetailMessage?: string;
+    emptyDetailDescription?: string;
+    className?: string;
+    tableClassName?: string;
+    detailClassName?: string;
+    gridRatio?: [number, number];
+}
+
 export declare const Dropdown: React_2.FC<DropdownMenuPrimitive.DropdownMenuProps>;
 
 export declare const DropdownCheckboxItem: React_2.ForwardRefExoticComponent<Omit<DropdownMenuPrimitive.DropdownMenuCheckboxItemProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
@@ -664,6 +690,39 @@ export declare const SelectValue: React_2.ForwardRefExoticComponent<SelectPrimit
 export declare const setApiBaseURL: (url: string) => void;
 
 export declare const setGlobalLoaderContext: (context: any) => void;
+
+export declare const Sheet: React_2.FC<DialogPrimitive.DialogProps>;
+
+export declare const SheetClose: React_2.ForwardRefExoticComponent<DialogPrimitive.DialogCloseProps & React_2.RefAttributes<HTMLButtonElement>>;
+
+export declare const SheetContent: React_2.ForwardRefExoticComponent<SheetContentProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare interface SheetContentProps extends React_2.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>, VariantProps<typeof sheetVariants> {
+}
+
+export declare const SheetDescription: React_2.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogDescriptionProps & React_2.RefAttributes<HTMLParagraphElement>, "ref"> & React_2.RefAttributes<HTMLParagraphElement>>;
+
+export declare const SheetFooter: {
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX.Element;
+    displayName: string;
+};
+
+export declare const SheetHeader: {
+    ({ className, ...props }: React_2.HTMLAttributes<HTMLDivElement>): JSX.Element;
+    displayName: string;
+};
+
+export declare const SheetOverlay: React_2.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogOverlayProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare const SheetPortal: React_2.FC<DialogPrimitive.DialogPortalProps>;
+
+export declare const SheetTitle: React_2.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogTitleProps & React_2.RefAttributes<HTMLHeadingElement>, "ref"> & React_2.RefAttributes<HTMLHeadingElement>>;
+
+export declare const SheetTrigger: React_2.ForwardRefExoticComponent<DialogPrimitive.DialogTriggerProps & React_2.RefAttributes<HTMLButtonElement>>;
+
+declare const sheetVariants: (props?: ({
+    side?: "left" | "right" | "top" | "bottom" | null | undefined;
+} & ClassProp) | undefined) => string;
 
 export declare const Sidebar: React_2.ForwardRefExoticComponent<SidebarProps & React_2.RefAttributes<HTMLDivElement>>;
 

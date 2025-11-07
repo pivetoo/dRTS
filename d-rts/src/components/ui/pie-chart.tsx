@@ -45,12 +45,12 @@ export const PieChart = React.forwardRef<HTMLDivElement, PieChartProps>(
     const defaultColors = [
       "hsl(var(--primary))",
       "hsl(var(--secondary))",
-      "hsl(221.2 83.2% 53.3%)", // warning
-      "hsl(204 94% 94%)", // info
-      "hsl(142 71% 45%)", // success
-      "hsl(0 84.2% 60.2%)", // error/destructive
-      "hsl(210 40% 96.1%)", // primary light
-      "hsl(220 14.3% 95.9%)", // secondary light
+      "hsl(221.2 83.2% 53.3%)",
+      "hsl(204 94% 94%)",
+      "hsl(142 71% 45%)",
+      "hsl(0 84.2% 60.2%)",
+      "hsl(210 40% 96.1%)",
+      "hsl(220 14.3% 95.9%)"
     ]
 
     const chartColors = colors || defaultColors

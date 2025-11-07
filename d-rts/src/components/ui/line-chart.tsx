@@ -42,10 +42,10 @@ export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
     const defaultColors = [
       "hsl(var(--primary))",
       "hsl(var(--secondary))",
-      "hsl(221.2 83.2% 53.3%)", // warning
-      "hsl(204 94% 94%)", // info
-      "hsl(142 71% 45%)", // success
-      "hsl(0 84.2% 60.2%)", // error/destructive
+      "hsl(221.2 83.2% 53.3%)",
+      "hsl(204 94% 94%)",
+      "hsl(142 71% 45%)",
+      "hsl(0 84.2% 60.2%)"
     ]
 
     const chartColors = colors || defaultColors
