@@ -102,23 +102,34 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children, onLogout }
 
   const isAuthenticated = !!user && !!accessToken
 
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        contract,
-        accessToken,
-        refreshToken,
-        isAuthenticated,
-        login,
-        logout,
-        logoutAllDevices,
-        refreshAccessToken,
-        getActiveSessions,
-        updateUser,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+  const value = React.useMemo(
+    () => ({
+      user,
+      contract,
+      accessToken,
+      refreshToken,
+      isAuthenticated,
+      login,
+      logout,
+      logoutAllDevices,
+      refreshAccessToken,
+      getActiveSessions,
+      updateUser,
+    }),
+    [
+      user,
+      contract,
+      accessToken,
+      refreshToken,
+      isAuthenticated,
+      login,
+      logout,
+      logoutAllDevices,
+      refreshAccessToken,
+      getActiveSessions,
+      updateUser,
+    ]
   )
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

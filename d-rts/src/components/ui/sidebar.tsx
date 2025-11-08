@@ -27,6 +27,7 @@ export interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   collapsedWidth?: number
   showCollapseButton?: boolean
   onLogout?: () => void
+  onLogoClick?: () => void
 }
 
 const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
@@ -40,10 +41,11 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       groups = [],
       isCollapsed = false,
       onToggleCollapse,
-      width = 260,
-      collapsedWidth = 80,
+      width = 220,
+      collapsedWidth = 64,
       showCollapseButton = true,
       onLogout,
+      onLogoClick,
       ...props
     },
     ref
@@ -93,9 +95,11 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       >
         {(title || subtitle || logo) && (
           <div
+            onClick={onLogoClick}
             className={cn(
-              "flex items-center min-h-[72px] bg-card mb-1",
-              collapsed ? "justify-center px-2 py-4.5" : "justify-start px-5 py-4.5"
+              "flex items-center min-h-[60px] bg-card mb-1",
+              collapsed ? "justify-center px-2 py-4.5" : "justify-start px-5 py-4.5",
+              onLogoClick && "cursor-pointer hover:bg-accent transition-colors"
             )}
           >
             {logo}
@@ -108,7 +112,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
           </div>
         )}
 
-        <div className="flex-1 overflow-y-auto overflow-x-hidden py-4">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden py-4 scrollbar-hide">
           {items.length > 0 && renderItems(items)}
 
           {groups.map((group) => (

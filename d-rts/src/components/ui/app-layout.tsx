@@ -1,11 +1,11 @@
 import * as React from "react"
 import { cn } from "../../lib/utils"
 import { Sidebar } from "../ui/sidebar"
-import { Navbar } from "../ui/navbar"
+import { Navbar, type Module, type NotificationItem } from "../ui/navbar"
 import type { SidebarItemData, SidebarGroup } from "../ui/sidebar"
 import type { BreadcrumbItem } from "../ui/breadcrumb"
 
-export type { BreadcrumbItem, SidebarItemData, SidebarGroup }
+export type { BreadcrumbItem, SidebarItemData, SidebarGroup, Module }
 
 export interface AppLayoutProps {
   title: string
@@ -21,9 +21,15 @@ export interface AppLayoutProps {
   menuGroups?: SidebarGroup[]
   initialCollapsed?: boolean
   onLogout?: () => void
-  onNotificationClick?: () => void
-  hasNotifications?: boolean
+  notifications?: NotificationItem[]
+  onNotificationRead?: (id: string) => void
+  onMarkAllAsRead?: () => void
+  onViewAllNotifications?: () => void
   breadcrumbs?: BreadcrumbItem[]
+  modules?: Module[]
+  currentModule?: string
+  onModuleChange?: (moduleId: string) => void
+  onLogoClick?: () => void
   children?: React.ReactNode
 }
 
@@ -36,9 +42,15 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   menuGroups = [],
   initialCollapsed = true,
   onLogout,
-  onNotificationClick,
-  hasNotifications = false,
+  notifications,
+  onNotificationRead,
+  onMarkAllAsRead,
+  onViewAllNotifications,
   breadcrumbs = [],
+  modules,
+  currentModule,
+  onModuleChange,
+  onLogoClick,
   children,
 }) => {
   const [isCollapsed, setIsCollapsed] = React.useState(initialCollapsed)
@@ -54,6 +66,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         isCollapsed={isCollapsed}
         onToggleCollapse={() => setIsCollapsed(!isCollapsed)}
         onLogout={onLogout}
+        onLogoClick={onLogoClick}
       />
 
       <Navbar
@@ -64,14 +77,19 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           role: user.role,
           avatar: user.avatar,
         }}
-        onNotificationClick={onNotificationClick}
-        hasNotifications={hasNotifications}
+        notifications={notifications}
+        onNotificationRead={onNotificationRead}
+        onMarkAllAsRead={onMarkAllAsRead}
+        onViewAllNotifications={onViewAllNotifications}
+        modules={modules}
+        currentModule={currentModule}
+        onModuleChange={onModuleChange}
       />
 
       <main
         className={cn(
-          "transition-all duration-300 pt-[60px] min-h-screen",
-          isCollapsed ? "ml-[80px]" : "ml-[260px]"
+          "transition-all duration-300 pt-[52px] min-h-screen",
+          isCollapsed ? "ml-[64px]" : "ml-[220px]"
         )}
       >
         <div className="w-full h-full p-6">

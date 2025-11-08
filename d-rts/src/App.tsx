@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { GlobalLoaderProvider, Toaster, ThemeProvider } from './components/ui'
 import { Sidebar, type SidebarItemData, type SidebarGroup } from './components/ui/sidebar'
-import { Navbar, type BreadcrumbItem } from './components/ui/navbar'
+import { Navbar, type BreadcrumbItem, type NotificationItem } from './components/ui/navbar'
 import { PageLayout } from './components/ui/page-layout'
 import {
   Home,
@@ -29,6 +29,7 @@ import { TabsExample } from './examples/TabsExample'
 import { DataTableSimpleExample } from './examples/DataTableSimpleExample'
 import { DataTableDetailExample } from './examples/DataTableDetailExample'
 import { ModalExample } from './examples/ModalExample'
+import { ERPExample } from './examples/ERPExample'
 
 type PageType =
   | 'home'
@@ -43,11 +44,98 @@ type PageType =
   | 'tabs'
   | 'datatable-simple'
   | 'datatable-detail'
+  | 'erp'
 
 function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [activePage, setActivePage] = useState<PageType>('home')
-  const [hasNotifications, setHasNotifications] = useState(true)
+  const [notifications, setNotifications] = useState<NotificationItem[]>([
+    {
+      id: '1',
+      title: 'Novo recurso disponível',
+      message: 'A versão 2.0 do sistema foi lançada com diversas melhorias e novos componentes.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 5),
+      read: false,
+      type: 'info',
+    },
+    {
+      id: '2',
+      title: 'Atualização concluída com sucesso',
+      message: 'Todos os seus dados foram sincronizados corretamente.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 30),
+      read: false,
+      type: 'success',
+    },
+    {
+      id: '3',
+      title: 'Atenção: Manutenção programada',
+      message: 'O sistema estará em manutenção no sábado das 2h às 6h da manhã.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2),
+      read: true,
+      type: 'warning',
+    },
+    {
+      id: '4',
+      title: 'Erro ao processar solicitação',
+      message: 'Não foi possível processar sua última solicitação. Por favor, tente novamente.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 5),
+      read: true,
+      type: 'error',
+    },
+    {
+      id: '5',
+      title: 'Bem-vindo ao dRTS!',
+      message: 'Explore todos os componentes disponíveis no menu lateral.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24),
+      read: true,
+      type: 'info',
+    },
+  ])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const types: Array<'info' | 'success' | 'warning' | 'error'> = ['info', 'success', 'warning', 'error']
+      const randomType = types[Math.floor(Math.random() * types.length)]
+
+      const messages = {
+        info: { title: 'Nova informação', message: 'Há uma nova atualização disponível no sistema.' },
+        success: { title: 'Operação concluída', message: 'Sua tarefa foi processada com sucesso.' },
+        warning: { title: 'Aviso importante', message: 'Verifique suas configurações de segurança.' },
+        error: { title: 'Falha detectada', message: 'Ocorreu um erro ao tentar salvar os dados.' },
+      }
+
+      const newNotification: NotificationItem = {
+        id: Date.now().toString(),
+        title: messages[randomType].title,
+        message: messages[randomType].message,
+        timestamp: new Date(),
+        read: false,
+        type: randomType,
+      }
+
+      setNotifications(prev => [newNotification, ...prev])
+    }, 30000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  const handleNotificationRead = (id: string) => {
+    setNotifications(prev =>
+      prev.map(notif =>
+        notif.id === id ? { ...notif, read: true } : notif
+      )
+    )
+  }
+
+  const handleMarkAllAsRead = () => {
+    setNotifications(prev =>
+      prev.map(notif => ({ ...notif, read: true }))
+    )
+  }
+
+  const handleViewAllNotifications = () => {
+    console.log('Navegar para página de notificações')
+  }
 
   const navigationItems: SidebarItemData[] = [
     {
@@ -157,6 +245,18 @@ function App() {
         },
       ],
     },
+    {
+      label: 'Exemplos Avançados',
+      items: [
+        {
+          key: 'erp',
+          label: 'ERP System',
+          icon: <AppWindow className="h-4 w-4" />,
+          active: activePage === 'erp',
+          onClick: () => setActivePage('erp'),
+        },
+      ],
+    },
   ]
 
   const getPageTitle = (): string => {
@@ -173,6 +273,7 @@ function App() {
       tabs: 'Tabs - Abas',
       'datatable-simple': 'Data Table - Tabela Simples',
       'datatable-detail': 'Data Table - Tabela com Detalhes',
+      erp: 'ERP System - Exemplo Completo',
     }
     return titles[activePage]
   }
@@ -191,6 +292,7 @@ function App() {
       tabs: <PanelTop size={20} />,
       'datatable-simple': <Table size={20} />,
       'datatable-detail': <Table size={20} />,
+      erp: <AppWindow size={20} />,
     }
     return icons[activePage]
   }
@@ -205,6 +307,17 @@ function App() {
     }
 
     return breadcrumbs
+  }
+
+  if (activePage === 'erp') {
+    return (
+      <ThemeProvider>
+        <GlobalLoaderProvider>
+          <ERPExample />
+          <Toaster />
+        </GlobalLoaderProvider>
+      </ThemeProvider>
+    )
   }
 
   const renderContent = () => {
@@ -301,11 +414,10 @@ function App() {
             name: 'Demo User',
             role: 'Developer',
           }}
-          hasNotifications={hasNotifications}
-          onNotificationClick={() => {
-            console.log('Notificações clicadas')
-            setHasNotifications(false)
-          }}
+          notifications={notifications}
+          onNotificationRead={handleNotificationRead}
+          onMarkAllAsRead={handleMarkAllAsRead}
+          onViewAllNotifications={handleViewAllNotifications}
         />
 
         <div
