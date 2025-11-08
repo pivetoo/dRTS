@@ -78,9 +78,15 @@ export declare interface AppLayoutProps {
     menuGroups?: SidebarGroup[];
     initialCollapsed?: boolean;
     onLogout?: () => void;
-    onNotificationClick?: () => void;
-    hasNotifications?: boolean;
+    notifications?: NotificationItem[];
+    onNotificationRead?: (id: string) => void;
+    onMarkAllAsRead?: () => void;
+    onViewAllNotifications?: () => void;
     breadcrumbs?: BreadcrumbItem[];
+    modules?: Module[];
+    currentModule?: string;
+    onModuleChange?: (moduleId: string) => void;
+    onLogoClick?: () => void;
     children?: React_2.ReactNode;
 }
 
@@ -482,6 +488,12 @@ export declare const ModalTitle: React_2.ForwardRefExoticComponent<Omit<DialogPr
 
 export declare const ModalTrigger: React_2.ForwardRefExoticComponent<DialogPrimitive.DialogTriggerProps & React_2.RefAttributes<HTMLButtonElement>>;
 
+export declare interface Module {
+    id: string;
+    name: string;
+    icon?: React_2.ReactNode;
+}
+
 export declare const Navbar: React_2.ForwardRefExoticComponent<NavbarProps & React_2.RefAttributes<HTMLElement>>;
 
 export declare interface NavbarProps extends React_2.HTMLAttributes<HTMLElement> {
@@ -492,16 +504,30 @@ export declare interface NavbarProps extends React_2.HTMLAttributes<HTMLElement>
         role: string;
         avatar?: React_2.ReactNode;
     };
-    onNotificationClick?: () => void;
-    hasNotifications?: boolean;
+    notifications?: NotificationItem[];
+    onNotificationRead?: (id: string) => void;
+    onMarkAllAsRead?: () => void;
+    onViewAllNotifications?: () => void;
     userMenuTrigger?: React_2.ReactNode;
     actions?: React_2.ReactNode;
+    modules?: Module[];
+    currentModule?: string;
+    onModuleChange?: (moduleId: string) => void;
 }
 
 export declare interface NavigationConfig {
     basePath?: string;
     items?: SidebarItemData[];
     groups?: SidebarGroup[];
+}
+
+export declare interface NotificationItem {
+    id: string;
+    title: string;
+    message: string;
+    timestamp: Date;
+    read: boolean;
+    type?: 'info' | 'success' | 'warning' | 'error';
 }
 
 export declare class ODataHelper {
@@ -759,6 +785,7 @@ export declare interface SidebarProps extends React_2.HTMLAttributes<HTMLDivElem
     collapsedWidth?: number;
     showCollapseButton?: boolean;
     onLogout?: () => void;
+    onLogoClick?: () => void;
 }
 
 declare interface State {
