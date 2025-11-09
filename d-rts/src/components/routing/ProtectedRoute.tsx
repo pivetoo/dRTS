@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
 export interface ProtectedRouteProps {
@@ -16,14 +16,9 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 }) => {
   const location = useLocation();
 
-  useEffect(() => {
-    if (!isAuthenticated && externalRedirect && redirectTo) {
-      window.location.href = redirectTo;
-    }
-  }, [isAuthenticated, externalRedirect, redirectTo]);
-
   if (!isAuthenticated) {
-    if (externalRedirect) {
+    if (externalRedirect && redirectTo) {
+      window.location.href = redirectTo;
       return null;
     }
     return <Navigate to={redirectTo} state={{ from: location }} replace />;
