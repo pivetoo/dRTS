@@ -29926,8 +29926,7 @@ function RX({
           Ui,
           {
             colSpan: e.length + (l ? 1 : 0),
-            className: "text-center py-8 text-muted-foreground",
-            children: "Carregando..."
+            className: "text-center py-8 text-muted-foreground"
           }
         ) }) : t.length === 0 ? /* @__PURE__ */ y(Xo, { children: /* @__PURE__ */ y(
           Ui,

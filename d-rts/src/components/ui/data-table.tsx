@@ -126,7 +126,6 @@ export function DataTable<T = any>({
                 colSpan={columns.length + (isSelectable ? 1 : 0)}
                 className="text-center py-8 text-muted-foreground"
               >
-                Carregando...
               </TableCell>
             </TableRow>
           ) : data.length === 0 ? (
