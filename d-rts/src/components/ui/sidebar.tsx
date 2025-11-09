@@ -1,10 +1,12 @@
 import * as React from "react"
-import { ChevronLeft, ChevronRight, LogOut } from "lucide-react"
+import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp, LogOut } from "lucide-react"
 import { cn } from "../../lib/utils"
 
 export interface SidebarGroup {
   label: string
   items: SidebarItemData[]
+  collapsible?: boolean
+  defaultExpanded?: boolean
 }
 
 export interface SidebarItemData {
@@ -51,9 +53,23 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
     ref
   ) => {
     const [internalCollapsed, setInternalCollapsed] = React.useState(false)
+    const [expandedGroups, setExpandedGroups] = React.useState<Record<string, boolean>>(() => {
+      const initial: Record<string, boolean> = {}
+      groups.forEach((group) => {
+        initial[group.label] = group.defaultExpanded !== false
+      })
+      return initial
+    })
 
     const collapsed = onToggleCollapse ? isCollapsed : internalCollapsed
     const handleToggle = onToggleCollapse || (() => setInternalCollapsed(!internalCollapsed))
+
+    const toggleGroup = (groupLabel: string) => {
+      setExpandedGroups((prev) => ({
+        ...prev,
+        [groupLabel]: !prev[groupLabel],
+      }))
+    }
 
     const renderItems = (itemList: SidebarItemData[]) =>
       itemList.map((item) => (
@@ -115,16 +131,36 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         <div className="flex-1 overflow-y-auto overflow-x-hidden py-4 scrollbar-hide">
           {items.length > 0 && renderItems(items)}
 
-          {groups.map((group) => (
-            <div key={group.label} className="mb-6">
-              {!collapsed && (
-                <div className="px-4 py-1 text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">
-                  {group.label}
-                </div>
-              )}
-              {renderItems(group.items)}
-            </div>
-          ))}
+          {groups.map((group) => {
+            const isExpanded = expandedGroups[group.label]
+            const isCollapsible = group.collapsible !== false
+
+            return (
+              <div key={group.label} className="mb-6">
+                {!collapsed && (
+                  <div
+                    onClick={() => isCollapsible && toggleGroup(group.label)}
+                    className={cn(
+                      "px-4 py-1 text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 flex items-center justify-between",
+                      isCollapsible && "cursor-pointer hover:text-foreground transition-colors"
+                    )}
+                  >
+                    <span>{group.label}</span>
+                    {isCollapsible && (
+                      <div className="w-3 h-3">
+                        {isExpanded ? (
+                          <ChevronUp className="w-3 h-3" />
+                        ) : (
+                          <ChevronDown className="w-3 h-3" />
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+                {isExpanded && renderItems(group.items)}
+              </div>
+            )
+          })}
         </div>
 
         {onLogout && (

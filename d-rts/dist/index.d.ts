@@ -751,6 +751,8 @@ export declare const SidebarFooter: React_2.ForwardRefExoticComponent<React_2.HT
 export declare interface SidebarGroup {
     label: string;
     items: SidebarItemData[];
+    collapsible?: boolean;
+    defaultExpanded?: boolean;
 }
 
 export declare const SidebarHeader: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLDivElement> & React_2.RefAttributes<HTMLDivElement>>;
