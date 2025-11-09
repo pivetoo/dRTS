@@ -638,6 +638,7 @@ export declare interface ProtectedRouteProps {
     children: default_2.ReactElement;
     isAuthenticated: boolean;
     redirectTo?: string;
+    externalRedirect?: boolean;
 }
 
 export declare const RadioGroup: React_2.ForwardRefExoticComponent<Omit<RadioGroupPrimitive.RadioGroupProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
