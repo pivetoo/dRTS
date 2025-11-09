@@ -10154,12 +10154,14 @@ const PP = m.forwardRef(
     onLogoClick: p,
     ...h
   }, v) => {
-    const [f, g] = m.useState(!1), [b, w] = m.useState(() => {
+    const [f, g] = m.useState(!1), [b, w] = m.useState({});
+    m.useEffect(() => {
       const O = {};
-      return a.forEach((A) => {
+      a.forEach((A) => {
         O[A.label] = A.defaultExpanded !== !1;
-      }), O;
-    }), x = s ? i : f, E = s || (() => g(!f)), S = (O) => {
+      }), w(O);
+    }, [a]);
+    const x = s ? i : f, E = s || (() => g(!f)), S = (O) => {
       w((A) => ({
         ...A,
         [O]: !A[O]

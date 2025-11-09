@@ -53,13 +53,15 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
     ref
   ) => {
     const [internalCollapsed, setInternalCollapsed] = React.useState(false)
-    const [expandedGroups, setExpandedGroups] = React.useState<Record<string, boolean>>(() => {
+    const [expandedGroups, setExpandedGroups] = React.useState<Record<string, boolean>>({})
+
+    React.useEffect(() => {
       const initial: Record<string, boolean> = {}
       groups.forEach((group) => {
         initial[group.label] = group.defaultExpanded !== false
       })
-      return initial
-    })
+      setExpandedGroups(initial)
+    }, [groups])
 
     const collapsed = onToggleCollapse ? isCollapsed : internalCollapsed
     const handleToggle = onToggleCollapse || (() => setInternalCollapsed(!internalCollapsed))
