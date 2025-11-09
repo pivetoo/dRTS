@@ -2,6 +2,7 @@ import * as React from "react"
 import { Plus, Edit, Trash2, RefreshCw } from "lucide-react"
 import { cn } from "../../lib/utils"
 import { Button } from "./button"
+import { useToast } from "./use-toast"
 
 export interface PageAction {
   key: string
@@ -21,6 +22,7 @@ export interface PageLayoutProps {
   onEdit?: () => void
   onDelete?: () => void
   onRefresh?: () => void
+  selectedRowsCount?: number
   children?: React.ReactNode
   className?: string
 }
@@ -34,9 +36,44 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   onEdit,
   onDelete,
   onRefresh,
+  selectedRowsCount = 0,
   children,
   className
 }) => {
+  const { toast } = useToast()
+
+  const handleEdit = () => {
+    if (selectedRowsCount === 0) {
+      toast({
+        title: 'Atenção',
+        description: 'Selecione um registro para editar.',
+        variant: 'warning',
+      })
+      return
+    }
+    if (selectedRowsCount > 1) {
+      toast({
+        title: 'Atenção',
+        description: 'Selecione apenas um registro para editar.',
+        variant: 'warning',
+      })
+      return
+    }
+    onEdit?.()
+  }
+
+  const handleDelete = () => {
+    if (selectedRowsCount === 0) {
+      toast({
+        title: 'Atenção',
+        description: 'Selecione ao menos um registro para excluir.',
+        variant: 'warning',
+      })
+      return
+    }
+    onDelete?.()
+  }
+
   const defaultActions: PageAction[] = []
 
   if (showDefaultActions) {
@@ -56,7 +93,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         label: "Editar",
         icon: <Edit className="h-4 w-4" />,
         variant: "outline",
-        onClick: onEdit
+        onClick: handleEdit
       })
     }
 
@@ -66,7 +103,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         label: "Excluir",
         icon: <Trash2 className="h-4 w-4" />,
         variant: "outline",
-        onClick: onDelete
+        onClick: handleDelete
       })
     }
   }

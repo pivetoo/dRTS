@@ -590,6 +590,7 @@ export declare interface PageLayoutProps {
     onEdit?: () => void;
     onDelete?: () => void;
     onRefresh?: () => void;
+    selectedRowsCount?: number;
     children?: React_2.ReactNode;
     className?: string;
 }
