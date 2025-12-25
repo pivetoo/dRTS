@@ -790,6 +790,7 @@ export declare interface SidebarProps extends React_2.HTMLAttributes<HTMLDivElem
     showCollapseButton?: boolean;
     onLogout?: () => void;
     onLogoClick?: () => void;
+    companyLogo?: string;
 }
 
 declare interface State {
