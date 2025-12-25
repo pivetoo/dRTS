@@ -10249,7 +10249,7 @@ const PP = m.forwardRef(
             "button",
             {
               onClick: S,
-              className: "absolute top-28 -right-3 bg-card border border-border rounded-sm p-1 cursor-pointer flex items-center justify-center transition-all w-6 h-6 shadow-sm hover:bg-accent hover:shadow-md active:scale-95",
+              className: "absolute bottom-20 -right-3 bg-card border border-border rounded-sm p-1 cursor-pointer flex items-center justify-center transition-all w-6 h-6 shadow-sm hover:bg-accent hover:shadow-md active:scale-95",
               children: /* @__PURE__ */ b("div", { className: "w-3.5 h-3.5 text-muted-foreground flex items-center justify-center", children: E ? /* @__PURE__ */ b(Bf, { className: "w-3.5 h-3.5" }) : /* @__PURE__ */ b(x_, { className: "w-3.5 h-3.5" }) })
             }
           )

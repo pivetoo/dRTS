@@ -180,7 +180,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         {showCollapseButton && (
           <button
             onClick={handleToggle}
-            className="absolute top-28 -right-3 bg-card border border-border rounded-sm p-1 cursor-pointer flex items-center justify-center transition-all w-6 h-6 shadow-sm hover:bg-accent hover:shadow-md active:scale-95"
+            className="absolute bottom-20 -right-3 bg-card border border-border rounded-sm p-1 cursor-pointer flex items-center justify-center transition-all w-6 h-6 shadow-sm hover:bg-accent hover:shadow-md active:scale-95"
           >
             <div className="w-3.5 h-3.5 text-muted-foreground flex items-center justify-center">
               {collapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
