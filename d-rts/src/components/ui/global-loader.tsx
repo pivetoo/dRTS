@@ -17,7 +17,7 @@ const GlobalLoader: React.FC<GlobalLoaderProps> = ({ isVisible, className }) => 
       )}
     >
       <div className="flex flex-col items-center gap-4">
-        <div className="relative w-[200px] h-[200px] rounded-full border-[12px] border-border border-t-primary animate-spin" />
+        <div className="relative w-[200px] h-[200px] rounded-full border-[12px] border-border border-t-foreground animate-spin" />
       </div>
     </div>
   )

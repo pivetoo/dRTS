@@ -10798,7 +10798,7 @@ const NP = ({ isVisible: e, className: t }) => e ? /* @__PURE__ */ b(
       "fixed inset-0 backdrop-blur-sm flex items-center justify-center z-[9999]",
       t
     ),
-    children: /* @__PURE__ */ b("div", { className: "flex flex-col items-center gap-4", children: /* @__PURE__ */ b("div", { className: "relative w-[200px] h-[200px] rounded-full border-[12px] border-border border-t-primary animate-spin" }) })
+    children: /* @__PURE__ */ b("div", { className: "flex flex-col items-center gap-4", children: /* @__PURE__ */ b("div", { className: "relative w-[200px] h-[200px] rounded-full border-[12px] border-border border-t-foreground animate-spin" }) })
   }
 ) : null;
 NP.displayName = "GlobalLoader";
