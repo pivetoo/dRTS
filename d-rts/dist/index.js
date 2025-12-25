@@ -29750,9 +29750,10 @@ const NX = ({
   currentModule: v,
   onModuleChange: f,
   onLogoClick: g,
-  children: y
+  companyLogo: y,
+  children: w
 }) => {
-  const [w, x] = m.useState(i);
+  const [x, E] = m.useState(i);
   return /* @__PURE__ */ j("div", { className: "relative min-h-screen bg-background", children: [
     /* @__PURE__ */ b(
       PP,
@@ -29762,16 +29763,17 @@ const NX = ({
         logo: r,
         items: o,
         groups: a,
-        isCollapsed: w,
-        onToggleCollapse: () => x(!w),
+        isCollapsed: x,
+        onToggleCollapse: () => E(!x),
         onLogout: s,
-        onLogoClick: g
+        onLogoClick: g,
+        companyLogo: y
       }
     ),
     /* @__PURE__ */ b(
       CP,
       {
-        isCollapsed: w,
+        isCollapsed: x,
         breadcrumbs: p,
         user: {
           name: n.name,
@@ -29792,9 +29794,9 @@ const NX = ({
       {
         className: K(
           "transition-all duration-300 pt-[52px] min-h-screen",
-          w ? "ml-[64px]" : "ml-[220px]"
+          x ? "ml-[64px]" : "ml-[220px]"
         ),
-        children: /* @__PURE__ */ b("div", { className: "w-full h-full p-6", children: y })
+        children: /* @__PURE__ */ b("div", { className: "w-full h-full p-6", children: w })
       }
     )
   ] });

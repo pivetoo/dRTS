@@ -30,6 +30,7 @@ export interface AppLayoutProps {
   currentModule?: string
   onModuleChange?: (moduleId: string) => void
   onLogoClick?: () => void
+  companyLogo?: string
   children?: React.ReactNode
 }
 
@@ -51,6 +52,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   currentModule,
   onModuleChange,
   onLogoClick,
+  companyLogo,
   children,
 }) => {
   const [isCollapsed, setIsCollapsed] = React.useState(initialCollapsed)
@@ -67,6 +69,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         onToggleCollapse={() => setIsCollapsed(!isCollapsed)}
         onLogout={onLogout}
         onLogoClick={onLogoClick}
+        companyLogo={companyLogo}
       />
 
       <Navbar

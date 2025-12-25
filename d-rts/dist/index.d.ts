@@ -87,6 +87,7 @@ export declare interface AppLayoutProps {
     currentModule?: string;
     onModuleChange?: (moduleId: string) => void;
     onLogoClick?: () => void;
+    companyLogo?: string;
     children?: React_2.ReactNode;
 }
 
