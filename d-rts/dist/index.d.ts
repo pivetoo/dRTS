@@ -514,6 +514,7 @@ export declare interface NavbarProps extends React_2.HTMLAttributes<HTMLElement>
     modules?: Module[];
     currentModule?: string;
     onModuleChange?: (moduleId: string) => void;
+    onLogout?: () => void;
 }
 
 export declare interface NavigationConfig {

@@ -37,6 +37,7 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   modules?: Module[]
   currentModule?: string
   onModuleChange?: (moduleId: string) => void
+  onLogout?: () => void
 }
 
 export type { BreadcrumbItem }
@@ -69,6 +70,7 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
       modules,
       currentModule,
       onModuleChange,
+      onLogout,
       ...props
     },
     ref
@@ -508,7 +510,13 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                     <div className="border-t border-border my-1" />
 
                     <div className="py-1">
-                      <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-accent text-destructive">
+                      <button
+                        onClick={() => {
+                          setIsUserMenuOpen(false)
+                          onLogout?.()
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-accent text-destructive"
+                      >
                         <LogOut className="h-4 w-4" />
                         Sair
                       </button>

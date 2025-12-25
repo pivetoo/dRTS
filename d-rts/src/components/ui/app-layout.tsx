@@ -87,6 +87,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         modules={modules}
         currentModule={currentModule}
         onModuleChange={onModuleChange}
+        onLogout={onLogout}
       />
 
       <main
