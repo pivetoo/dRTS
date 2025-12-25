@@ -822,7 +822,7 @@ export declare const TabsList: React_2.ForwardRefExoticComponent<Omit<TabsPrimit
 
 export declare const TabsTrigger: React_2.ForwardRefExoticComponent<Omit<TabsPrimitive.TabsTriggerProps & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
-export declare type Theme = "default" | "ocean" | "forest" | "twilight" | "sunset" | "flamingo";
+export declare type Theme = "default";
 
 declare interface ThemeContextType {
     theme: Theme;

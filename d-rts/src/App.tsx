@@ -15,6 +15,7 @@ import {
   PanelTop,
   Table,
   AppWindow,
+  Palette,
 } from 'lucide-react'
 
 // Import examples
@@ -30,6 +31,7 @@ import { DataTableSimpleExample } from './examples/DataTableSimpleExample'
 import { DataTableDetailExample } from './examples/DataTableDetailExample'
 import { ModalExample } from './examples/ModalExample'
 import { ERPExample } from './examples/ERPExample'
+import { ColorPaletteExample } from './examples/ColorPaletteExample'
 
 type PageType =
   | 'home'
@@ -45,6 +47,7 @@ type PageType =
   | 'datatable-simple'
   | 'datatable-detail'
   | 'erp'
+  | 'colors'
 
 function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
@@ -243,6 +246,13 @@ function App() {
           active: activePage === 'charts',
           onClick: () => setActivePage('charts'),
         },
+        {
+          key: 'colors',
+          label: 'Paleta de Cores',
+          icon: <Palette className="h-4 w-4" />,
+          active: activePage === 'colors',
+          onClick: () => setActivePage('colors'),
+        },
       ],
     },
     {
@@ -274,6 +284,7 @@ function App() {
       'datatable-simple': 'Data Table - Tabela Simples',
       'datatable-detail': 'Data Table - Tabela com Detalhes',
       erp: 'ERP System - Exemplo Completo',
+      colors: 'Paleta de Cores - Laranja e Azul',
     }
     return titles[activePage]
   }
@@ -293,6 +304,7 @@ function App() {
       'datatable-simple': <Table size={20} />,
       'datatable-detail': <Table size={20} />,
       erp: <AppWindow size={20} />,
+      colors: <Palette size={20} />,
     }
     return icons[activePage]
   }
@@ -400,6 +412,9 @@ function App() {
         break
       case 'datatable-detail':
         content = <DataTableDetailExample />
+        break
+      case 'colors':
+        content = <ColorPaletteExample />
         break
       default:
         content = <div>Página não encontrada</div>

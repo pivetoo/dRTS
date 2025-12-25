@@ -42,12 +42,7 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
 export type { BreadcrumbItem }
 
 const themes: { value: Theme; label: string; color: string }[] = [
-  { value: "default", label: "Graphite", color: "bg-slate-600" },
-  { value: "ocean", label: "Ocean", color: "bg-cyan-600" },
-  { value: "forest", label: "Forest", color: "bg-green-600" },
-  { value: "twilight", label: "Twilight", color: "bg-purple-600" },
-  { value: "sunset", label: "Sunset", color: "bg-orange-600" },
-  { value: "flamingo", label: "Flamingo", color: "bg-pink-500" },
+  { value: "default", label: "Padrão", color: "bg-orange-600" },
 ]
 
 type Language = "pt-BR" | "es" | "en-US"

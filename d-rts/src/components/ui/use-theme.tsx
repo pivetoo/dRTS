@@ -1,6 +1,6 @@
 import * as React from "react"
 
-export type Theme = "default" | "ocean" | "forest" | "twilight" | "sunset" | "flamingo"
+export type Theme = "default"
 
 interface ThemeContextType {
   theme: Theme
