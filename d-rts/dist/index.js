@@ -3165,7 +3165,7 @@ const Ue = (e) => {
     orderSensitiveModifiers: ["*", "**", "after", "backdrop", "before", "details-content", "file", "first-letter", "first-line", "marker", "placeholder", "selection"]
   };
 }, NN = /* @__PURE__ */ uN(_N);
-class q7 {
+class H7 {
   static buildQuery(t) {
     const r = [];
     return t.$top !== void 0 && r.push(`$top=${t.$top}`), t.$skip !== void 0 && r.push(`$skip=${t.$skip}`), t.$count !== void 0 && r.push(`$count=${t.$count}`), t.$filter && r.push(`$filter=${encodeURIComponent(t.$filter)}`), t.$orderby && r.push(`$orderby=${encodeURIComponent(t.$orderby)}`), t.$select && r.push(`$select=${t.$select}`), t.$expand && r.push(`$expand=${t.$expand}`), r.length > 0 ? `?${r.join("&")}` : "";
@@ -3358,7 +3358,7 @@ const LN = Sa(
     }
   }
 );
-function H7({ className: e, variant: t, ...r }) {
+function G7({ className: e, variant: t, ...r }) {
   return /* @__PURE__ */ b("div", { className: K(LN({ variant: t }), e), ...r });
 }
 function $N(e, t) {
@@ -4852,7 +4852,7 @@ $0.displayName = L0;
 function Yf(e) {
   return e ? "open" : "closed";
 }
-var B0 = "DialogTitleWarning", [G7, F0] = $N(B0, {
+var B0 = "DialogTitleWarning", [Y7, F0] = $N(B0, {
   contentName: Cn,
   titleName: Gf,
   docsSlug: "dialog"
@@ -4872,7 +4872,7 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
     t && o && (document.getElementById(t) || console.warn(n));
   }, [n, e, t]), null;
 }, z0 = A0, U0 = T0, W0 = N0, ec = k0, tc = I0, rc = M0, nc = j0, oc = $0;
-const dI = z0, Y7 = U0, fI = W0, X7 = oc, K0 = m.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ b(
+const dI = z0, X7 = U0, fI = W0, Z7 = oc, K0 = m.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ b(
   ec,
   {
     ref: r,
@@ -7495,7 +7495,7 @@ var GM = "DropdownMenuSubContent", lE = m.forwardRef((e, t) => {
 });
 lE.displayName = GM;
 var YM = Gx, XM = Xx, uE = Zx, dE = Qx, ZM = eE, fE = tE, pE = rE, hE = nE, JM = oE, mE = aE, vE = iE, gE = sE, QM = qM, yE = cE, bE = lE;
-const Z7 = YM, J7 = XM, Q7 = ZM, eX = uE, tX = QM, rX = JM, eD = m.forwardRef(({ className: e, inset: t, children: r, ...n }, o) => /* @__PURE__ */ j(
+const J7 = YM, Q7 = XM, eX = ZM, tX = uE, rX = QM, nX = JM, eD = m.forwardRef(({ className: e, inset: t, children: r, ...n }, o) => /* @__PURE__ */ j(
   yE,
   {
     ref: o,
@@ -8433,7 +8433,7 @@ function ND(e, t) {
   return e.map((r, n) => e[(t + n) % e.length]);
 }
 var kD = xE, XE = SE, ID = OE, RD = AE, MD = CE, ZE = TE, DD = IE, jD = ME, JE = jE, QE = $E, LD = BE, $D = zE, eS = UE, tS = WE, rS = VE;
-const BD = kD, nX = jD, FD = ID, nS = m.forwardRef(({ className: e, children: t, ...r }, n) => /* @__PURE__ */ j(
+const BD = kD, oX = jD, FD = ID, nS = m.forwardRef(({ className: e, children: t, ...r }, n) => /* @__PURE__ */ j(
   XE,
   {
     ref: n,
@@ -9107,7 +9107,7 @@ function LS(e, t) {
   return `${e}-content-${t}`;
 }
 var u2 = _S, $S = kS, BS = RS, FS = DS;
-const oX = u2, d2 = m.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ b(
+const aX = u2, d2 = m.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ b(
   $S,
   {
     ref: r,
@@ -9726,7 +9726,7 @@ function dP() {
     dismiss: (r) => Qo({ type: "DISMISS_TOAST", toastId: r })
   };
 }
-function aX() {
+function iX() {
   const { toasts: e } = dP();
   return /* @__PURE__ */ j(I2, { children: [
     e.map(function({ id: t, title: r, description: n, action: o, ...a }) {
@@ -9859,7 +9859,7 @@ var jd = "TooltipTrigger", mP = m.forwardRef(
   }
 );
 mP.displayName = jd;
-var U2 = "TooltipPortal", [iX, W2] = xc(U2, {
+var U2 = "TooltipPortal", [sX, W2] = xc(U2, {
   forceMount: void 0
 }), io = "TooltipContent", vP = m.forwardRef(
   (e, t) => {
@@ -10047,7 +10047,7 @@ function ej(e) {
   return r.pop(), t.length === 1 && r.length === 1 && t[0].x === r[0].x && t[0].y === r[0].y ? t : t.concat(r);
 }
 var tj = pP, rj = hP, nj = mP, bP = vP;
-const sX = tj, cX = rj, lX = nj, oj = m.forwardRef(({ className: e, sideOffset: t = 4, ...r }, n) => /* @__PURE__ */ b(
+const cX = tj, lX = rj, uX = nj, oj = m.forwardRef(({ className: e, sideOffset: t = 4, ...r }, n) => /* @__PURE__ */ b(
   bP,
   {
     ref: n,
@@ -10328,7 +10328,7 @@ const AP = m.createContext(null), fj = () => {
   if (!e)
     throw new Error("useTheme must be used within ThemeProvider");
   return e;
-}, uX = ({
+}, dX = ({
   children: e,
   defaultTheme: t = "default",
   defaultDark: r = !1
@@ -10807,12 +10807,12 @@ const TP = ({ isVisible: e, className: t }) => e ? /* @__PURE__ */ b(
   }
 ) : null;
 TP.displayName = "GlobalLoader";
-const _P = m.createContext(null), dX = () => {
+const _P = m.createContext(null), fX = () => {
   const e = m.useContext(_P);
   if (!e)
     throw new Error("useGlobalLoader must be used within GlobalLoaderProvider");
   return e;
-}, fX = ({ children: e }) => {
+}, pX = ({ children: e }) => {
   const [t, r] = m.useState(0), n = m.useCallback(() => {
     r((i) => i + 1);
   }, []), o = m.useCallback(() => {
@@ -22279,7 +22279,7 @@ var pK = {
 }), {
   setChartData: vb,
   setDataStartEndIndexes: hK,
-  setComputedData: pX
+  setComputedData: hX
 } = xC.actions, mK = xC.reducer, vK = ["x", "y"];
 function gb(e, t) {
   var r = Object.keys(e);
@@ -23563,10 +23563,10 @@ var LV = {
     }
   }
 }), {
-  addRadiusAxis: hX,
-  removeRadiusAxis: mX,
-  addAngleAxis: vX,
-  removeAngleAxis: gX
+  addRadiusAxis: mX,
+  removeRadiusAxis: vX,
+  addAngleAxis: gX,
+  removeAngleAxis: yX
 } = DC.actions, $V = DC.reducer;
 function $b(e, t) {
   var r = Object.keys(e);
@@ -24764,8 +24764,8 @@ var eH = {
   removeXAxis: rH,
   addYAxis: nH,
   removeYAxis: oH,
-  addZAxis: yX,
-  removeZAxis: bX,
+  addZAxis: bX,
+  removeZAxis: wX,
   updateYAxisWidth: aH
 } = UC.actions, iH = UC.reducer, sH = T([Ve], (e) => {
   if (e)
@@ -25003,9 +25003,9 @@ var EH = function(t) {
     }
   }
 }), {
-  addErrorBar: wX,
-  replaceErrorBar: xX,
-  removeErrorBar: EX
+  addErrorBar: xX,
+  replaceErrorBar: EX,
+  removeErrorBar: SX
 } = WC.actions, PH = WC.reducer, OH = ["children"];
 function AH(e, t) {
   if (e == null) return {};
@@ -25820,7 +25820,7 @@ var m6 = (e, t, r, n, o, a, i) => {
     }
   }
 }), {
-  setBrushSettings: SX
+  setBrushSettings: PX
 } = YC.actions, O6 = YC.reducer;
 function A6(e, t, r) {
   return (t = C6(t)) in e ? Object.defineProperty(e, t, { value: r, enumerable: !0, configurable: !0, writable: !0 }) : e[t] = r, e;
@@ -25935,12 +25935,12 @@ var N6 = function(t) {
     }
   }
 }), {
-  addDot: PX,
-  removeDot: OX,
-  addArea: AX,
-  removeArea: CX,
-  addLine: TX,
-  removeLine: _X
+  addDot: OX,
+  removeDot: AX,
+  addArea: CX,
+  removeArea: TX,
+  addLine: _X,
+  removeLine: NX
 } = XC.actions, I6 = XC.reducer, R6 = /* @__PURE__ */ Mt(void 0), M6 = (e) => {
   var {
     children: t
@@ -29742,7 +29742,7 @@ const nY = m.forwardRef(
   }
 );
 nY.displayName = "PieChart";
-const NX = ({
+const kX = ({
   title: e,
   subtitle: t,
   logo: r,
@@ -29811,7 +29811,7 @@ const NX = ({
       }
     )
   ] });
-}, kX = ({
+}, IX = ({
   title: e,
   icon: t,
   actions: r = [],
@@ -29909,7 +29909,7 @@ const NX = ({
     /* @__PURE__ */ b("div", { className: "flex-1 overflow-auto", children: u })
   ] });
 };
-function IX({
+function RX({
   columns: e,
   data: t,
   loading: r = !1,
@@ -29993,7 +29993,7 @@ function IX({
     }
   );
 }
-function RX({
+function MX({
   columns: e,
   data: t,
   rowKey: r,
@@ -30075,7 +30075,7 @@ function RX({
     )
   ] });
 }
-const MX = z0, DX = U0, jX = oc, oY = W0, _T = m.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ b(
+const DX = z0, jX = U0, LX = oc, oY = W0, _T = m.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ b(
   ec,
   {
     className: K(
@@ -30167,7 +30167,7 @@ const uY = m.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ b(
   }
 ));
 uY.displayName = nc.displayName;
-function LX() {
+function $X() {
   return /* @__PURE__ */ b("div", { className: "relative", children: /* @__PURE__ */ b(
     "button",
     {
@@ -30177,7 +30177,7 @@ function LX() {
     }
   ) });
 }
-const $X = ({
+const BX = ({
   children: e,
   isAuthenticated: t,
   redirectTo: r = "/",
@@ -31938,27 +31938,27 @@ Me.getAdapter = XT.getAdapter;
 Me.HttpStatusCode = Lf;
 Me.default = Me;
 const {
-  Axios: zX,
-  AxiosError: UX,
-  CanceledError: WX,
-  isCancel: KX,
-  CancelToken: VX,
-  VERSION: qX,
-  all: HX,
-  Cancel: GX,
-  isAxiosError: YX,
-  spread: XX,
-  toFormData: ZX,
-  AxiosHeaders: JX,
-  HttpStatusCode: QX,
-  formToJSON: eZ,
-  getAdapter: tZ,
-  mergeConfig: rZ
+  Axios: UX,
+  AxiosError: WX,
+  CanceledError: KX,
+  isCancel: VX,
+  CancelToken: qX,
+  VERSION: HX,
+  all: GX,
+  Cancel: YX,
+  isAxiosError: XX,
+  spread: ZX,
+  toFormData: JX,
+  AxiosHeaders: QX,
+  HttpStatusCode: eZ,
+  formToJSON: tZ,
+  getAdapter: rZ,
+  mergeConfig: nZ
 } = Me;
 let mn = null, $f = "";
-const nZ = (e) => {
+const oZ = (e) => {
   mn = e;
-}, oZ = (e) => {
+}, aZ = (e) => {
   $f = e, br.updateBaseURL(e);
 };
 class F7 {
@@ -32180,7 +32180,7 @@ const e_ = m.createContext(null), z7 = () => {
   if (!e)
     throw new Error("useAuth must be used within AuthProvider");
   return e;
-}, aZ = ({ children: e, onLogout: t }) => {
+}, iZ = ({ children: e, onLogout: t }) => {
   const [r, n] = m.useState(() => {
     const w = localStorage.getItem("@IdentityProvider:user");
     return w ? JSON.parse(w) : null;
@@ -32243,7 +32243,16 @@ const e_ = m.createContext(null), z7 = () => {
     ]
   );
   return /* @__PURE__ */ b(e_.Provider, { value: y, children: e });
-}, iZ = ({
+}, U7 = (e) => {
+  try {
+    const r = e.split(".")[1].replace(/-/g, "+").replace(/_/g, "/"), n = decodeURIComponent(
+      atob(r).split("").map((o) => "%" + ("00" + o.charCodeAt(0).toString(16)).slice(-2)).join("")
+    );
+    return JSON.parse(n);
+  } catch {
+    return null;
+  }
+}, sZ = ({
   redirectTo: e = "/",
   identityProviderUrl: t,
   onSuccess: r,
@@ -32256,35 +32265,37 @@ const e_ = m.createContext(null), z7 = () => {
         const c = a.get("accessToken"), u = a.get("refreshToken");
         if (!c || !u)
           throw new Error("Tokens não encontrados na URL");
-        i({
+        const l = U7(c), d = l?.email, p = Array.isArray(d) ? d[0] : d || "", h = {
           accessToken: c,
           refreshToken: u,
           user: {
-            id: 0,
-            username: "",
-            email: "",
-            name: ""
+            id: Number(l?.user_id || l?.nameid || 0),
+            username: l?.username || l?.unique_name || "",
+            email: p,
+            name: l?.name || l?.given_name || ""
           },
           contract: {
-            contractId: 0,
-            clientId: "",
-            applicationName: "",
-            companyName: "",
+            contractId: Number(l?.contract_id || 0),
+            clientId: l?.client_id || "",
+            applicationName: l?.application_name || "",
+            companyName: l?.company_name || "",
             companyDocument: "",
             urlBase: "",
             redirectUris: [],
             maxUsers: 0,
-            isIdentityProvider: !1
+            isIdentityProvider: !1,
+            profileName: l?.profile_name || ""
           }
-        }), r && r(), o(e, { replace: !0 });
+        };
+        i(h), r && r(), o(e, { replace: !0 });
       } catch (c) {
-        console.error("Erro no callback de autenticação:", c), n && n(c);
+        n && n(c);
         const u = t || void 0;
-        u ? window.location.href = u : console.error("URL do Identity Provider não configurada");
+        u && (window.location.href = u);
       }
     })();
   }, [a, i, o, e, t, r, n]), /* @__PURE__ */ b("div", { className: "flex flex-col items-center justify-center min-h-screen bg-background gap-6", children: /* @__PURE__ */ b("div", { className: "w-12 h-12 border-4 border-border border-t-primary rounded-full animate-spin" }) });
-}, sZ = () => {
+}, cZ = () => {
   const [e, t] = m.useState({});
   return {
     fieldErrors: e,
@@ -32303,7 +32314,7 @@ const e_ = m.createContext(null), z7 = () => {
     getError: (a) => e[a] || ""
   };
 };
-function cZ(e = {}) {
+function lZ(e = {}) {
   const [t, r] = Ke({
     data: null,
     loading: !1,
@@ -32352,7 +32363,7 @@ function cZ(e = {}) {
     hasData: !!t.data
   };
 }
-const lZ = (e) => {
+const uZ = (e) => {
   const t = Uw(), r = zw(), n = e.basePath || "", o = (c) => {
     const u = n + c;
     return r.pathname === u || c !== "/" && r.pathname.startsWith(u);
@@ -32377,15 +32388,15 @@ const lZ = (e) => {
   };
 };
 export {
-  NX as AppLayout,
+  kX as AppLayout,
   rY as AreaChart,
-  aZ as AuthProvider,
+  iZ as AuthProvider,
   md as AuthService,
-  H7 as Badge,
+  G7 as Badge,
   eY as BarChart,
   OP as Breadcrumb,
   Yi as Button,
-  iZ as Callback,
+  sZ as Callback,
   ji as Card,
   DN as CardContent,
   MN as CardDescription,
@@ -32395,29 +32406,29 @@ export {
   pj as ChartContainer,
   ZN as Checkbox,
   hI as ConfirmModal,
-  IX as DataTable,
-  RX as DataTableWithDetail,
-  Z7 as Dropdown,
+  RX as DataTable,
+  MX as DataTableWithDetail,
+  J7 as Dropdown,
   oD as DropdownCheckboxItem,
   rD as DropdownContent,
-  Q7 as DropdownGroup,
+  eX as DropdownGroup,
   nD as DropdownItem,
   iD as DropdownLabel,
-  eX as DropdownPortal,
-  rX as DropdownRadioGroup,
+  tX as DropdownPortal,
+  nX as DropdownRadioGroup,
   aD as DropdownRadioItem,
   sD as DropdownSeparator,
   cD as DropdownShortcut,
-  tX as DropdownSub,
+  rX as DropdownSub,
   tD as DropdownSubContent,
   eD as DropdownSubTrigger,
-  J7 as DropdownTrigger,
+  Q7 as DropdownTrigger,
   TP as GlobalLoader,
-  fX as GlobalLoaderProvider,
+  pX as GlobalLoaderProvider,
   a0 as Input,
   tY as LineChart,
   dI as Modal,
-  X7 as ModalClose,
+  Z7 as ModalClose,
   V0 as ModalContent,
   Y0 as ModalDescription,
   H0 as ModalFooter,
@@ -32425,18 +32436,18 @@ export {
   K0 as ModalOverlay,
   fI as ModalPortal,
   G0 as ModalTitle,
-  Y7 as ModalTrigger,
+  X7 as ModalTrigger,
   CP as Navbar,
-  q7 as ODataHelper,
-  kX as PageLayout,
+  H7 as ODataHelper,
+  IX as PageLayout,
   nY as PieChart,
-  $X as ProtectedRoute,
+  BX as ProtectedRoute,
   e2 as RadioGroup,
   t2 as RadioGroupItem,
   WD as SearchableSelect,
   BD as Select,
   iS as SelectContent,
-  nX as SelectGroup,
+  oX as SelectGroup,
   sS as SelectItem,
   zD as SelectLabel,
   aS as SelectScrollDownButton,
@@ -32444,8 +32455,8 @@ export {
   UD as SelectSeparator,
   nS as SelectTrigger,
   FD as SelectValue,
-  MX as Sheet,
-  jX as SheetClose,
+  DX as Sheet,
+  LX as SheetClose,
   iY as SheetContent,
   uY as SheetDescription,
   cY as SheetFooter,
@@ -32453,7 +32464,7 @@ export {
   _T as SheetOverlay,
   oY as SheetPortal,
   lY as SheetTitle,
-  DX as SheetTrigger,
+  jX as SheetTrigger,
   PP as Sidebar,
   cj as SidebarContent,
   lj as SidebarFooter,
@@ -32469,12 +32480,12 @@ export {
   SP as TableHead,
   xP as TableHeader,
   Xo as TableRow,
-  oX as Tabs,
+  aX as Tabs,
   p2 as TabsContent,
   d2 as TabsList,
   f2 as TabsTrigger,
-  uX as ThemeProvider,
-  LX as ThemeSelector,
+  dX as ThemeProvider,
+  $X as ThemeSelector,
   sP as Toast,
   M2 as ToastAction,
   cP as ToastClose,
@@ -32482,24 +32493,24 @@ export {
   I2 as ToastProvider,
   lP as ToastTitle,
   iP as ToastViewport,
-  aX as Toaster,
-  cX as Tooltip,
+  iX as Toaster,
+  lX as Tooltip,
   oj as TooltipContent,
-  sX as TooltipProvider,
-  lX as TooltipTrigger,
+  cX as TooltipProvider,
+  uX as TooltipTrigger,
   LN as badgeVariants,
   kN as buttonVariants,
   K as cn,
   br as httpClient,
   $2 as reducer,
-  oZ as setApiBaseURL,
-  nZ as setGlobalLoaderContext,
+  aZ as setApiBaseURL,
+  oZ as setGlobalLoaderContext,
   Md as toast,
-  cZ as useApi,
-  lZ as useAppNavigation,
+  lZ as useApi,
+  uZ as useAppNavigation,
   z7 as useAuth,
-  sZ as useFormErrors,
-  dX as useGlobalLoader,
+  cZ as useFormErrors,
+  fX as useGlobalLoader,
   fj as useTheme,
   dP as useToast
 };

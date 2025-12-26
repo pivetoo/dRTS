@@ -9,6 +9,38 @@ export interface CallbackProps {
   onError?: (error: Error) => void;
 }
 
+interface JwtPayload {
+  user_id?: string;
+  nameid?: string;
+  username?: string;
+  unique_name?: string;
+  email?: string | string[];
+  name?: string;
+  given_name?: string;
+  contract_id?: string;
+  client_id?: string;
+  profile_name?: string;
+  company_name?: string;
+  application_name?: string;
+  [key: string]: unknown;
+}
+
+const parseJwt = (token: string): JwtPayload | null => {
+  try {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+    return JSON.parse(jsonPayload);
+  } catch {
+    return null;
+  }
+};
+
 export const Callback: React.FC<CallbackProps> = ({
   redirectTo = '/',
   identityProviderUrl,
@@ -29,25 +61,31 @@ export const Callback: React.FC<CallbackProps> = ({
           throw new Error('Tokens não encontrados na URL');
         }
 
+        const payload = parseJwt(accessToken);
+
+        const email = payload?.email;
+        const userEmail = Array.isArray(email) ? email[0] : (email || '');
+
         const loginData = {
           accessToken,
           refreshToken,
           user: {
-            id: 0,
-            username: '',
-            email: '',
-            name: ''
+            id: Number(payload?.user_id || payload?.nameid || 0),
+            username: payload?.username || payload?.unique_name || '',
+            email: userEmail,
+            name: payload?.name || payload?.given_name || ''
           },
           contract: {
-            contractId: 0,
-            clientId: '',
-            applicationName: '',
-            companyName: '',
+            contractId: Number(payload?.contract_id || 0),
+            clientId: payload?.client_id || '',
+            applicationName: payload?.application_name || '',
+            companyName: payload?.company_name || '',
             companyDocument: '',
             urlBase: '',
             redirectUris: [],
             maxUsers: 0,
-            isIdentityProvider: false
+            isIdentityProvider: false,
+            profileName: payload?.profile_name || ''
           }
         };
 
@@ -59,8 +97,6 @@ export const Callback: React.FC<CallbackProps> = ({
 
         navigate(redirectTo, { replace: true });
       } catch (error) {
-        console.error('Erro no callback de autenticação:', error);
-
         if (onError) {
           onError(error as Error);
         }
@@ -68,8 +104,6 @@ export const Callback: React.FC<CallbackProps> = ({
         const idpUrl = identityProviderUrl || import.meta.env.VITE_IDENTITY_PROVIDER_URL;
         if (idpUrl) {
           window.location.href = idpUrl;
-        } else {
-          console.error('URL do Identity Provider não configurada');
         }
       }
     };
