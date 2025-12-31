@@ -1,9 +1,10 @@
 import * as React from "react"
-import { Bell, ChevronDown, User, Languages, LogOut, Palette, Check, Moon, Sun } from "lucide-react"
+import { Bell, ChevronDown, LogOut, Palette, Check, Moon, Sun } from "lucide-react"
 import { cn } from "../../lib/utils"
 import { Breadcrumb } from "./breadcrumb"
 import type { BreadcrumbItem } from "./breadcrumb"
 import { useTheme, type Theme } from "./use-theme"
+import logoHvtech from "../../assets/logo_hvtech.png"
 
 export interface NotificationItem {
   id: string
@@ -46,13 +47,6 @@ const themes: { value: Theme; label: string; color: string }[] = [
   { value: "default", label: "Padrão", color: "bg-orange-600" },
 ]
 
-type Language = "pt-BR" | "es" | "en-US"
-
-const languages: { value: Language; label: string; flag: string }[] = [
-  { value: "pt-BR", label: "Português (BR)", flag: "🇧🇷" },
-  { value: "es", label: "Español", flag: "🇪🇸" },
-  { value: "en-US", label: "English (US)", flag: "🇺🇸" },
-]
 
 const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
   (
@@ -78,8 +72,6 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
     const { theme, setTheme, isDark, toggleDark } = useTheme()
     const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false)
     const [isThemeMenuOpen, setIsThemeMenuOpen] = React.useState(false)
-    const [isLanguageMenuOpen, setIsLanguageMenuOpen] = React.useState(false)
-    const [selectedLanguage, setSelectedLanguage] = React.useState<Language>("pt-BR")
     const [isAboutModalOpen, setIsAboutModalOpen] = React.useState(false)
     const [isNotificationMenuOpen, setIsNotificationMenuOpen] = React.useState(false)
     const [isModuleSwitcherOpen, setIsModuleSwitcherOpen] = React.useState(false)
@@ -355,7 +347,6 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                     onClick={() => {
                       setIsUserMenuOpen(false)
                       setIsThemeMenuOpen(false)
-                      setIsLanguageMenuOpen(false)
                     }}
                   />
                   <div className="absolute right-0 top-full mt-2 w-64 bg-popover border border-border rounded-md shadow-lg z-50 py-2">
@@ -365,11 +356,6 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                     </div>
 
                     <div className="py-1">
-                      <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-accent">
-                        <User className="h-4 w-4" />
-                        Meu Perfil
-                      </button>
-
                       <button
                         onClick={() => {
                           setIsAboutModalOpen(true)
@@ -383,50 +369,6 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                         Sobre
                       </button>
 
-                      <div className="relative">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            setIsLanguageMenuOpen(!isLanguageMenuOpen)
-                            setIsThemeMenuOpen(false)
-                          }}
-                          className="w-full flex items-center justify-between gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-accent"
-                        >
-                          <div className="flex items-center gap-3">
-                            <Languages className="h-4 w-4" />
-                            Idioma
-                          </div>
-                          <span className="text-lg">
-                            {languages.find(l => l.value === selectedLanguage)?.flag}
-                          </span>
-                        </button>
-
-                        {isLanguageMenuOpen && (
-                          <div className="absolute right-full top-0 mr-1 w-52 bg-popover border border-border rounded-md shadow-lg py-1">
-                            {languages.map((lang) => (
-                              <button
-                                key={lang.value}
-                                onClick={(e) => {
-                                  e.stopPropagation()
-                                  setSelectedLanguage(lang.value)
-                                  setIsLanguageMenuOpen(false)
-                                  setIsUserMenuOpen(false)
-                                }}
-                                className={cn(
-                                  "w-full flex items-center gap-3 px-3 py-2 text-sm transition-colors hover:bg-accent",
-                                  selectedLanguage === lang.value && "bg-accent"
-                                )}
-                              >
-                                <span className="text-xl">{lang.flag}</span>
-                                <span className="flex-1 text-left">{lang.label}</span>
-                                {selectedLanguage === lang.value && (
-                                  <Check className="h-4 w-4 text-primary" />
-                                )}
-                              </button>
-                            ))}
-                          </div>
-                        )}
-                      </div>
                     </div>
 
                     <div className="border-t border-border my-1" />
@@ -436,7 +378,6 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                         onClick={(e) => {
                           e.stopPropagation()
                           setIsThemeMenuOpen(!isThemeMenuOpen)
-                          setIsLanguageMenuOpen(false)
                         }}
                         className="w-full flex items-center justify-between gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-accent"
                       >
@@ -536,26 +477,20 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
             />
             <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl bg-card border border-border rounded-xl shadow-2xl z-[201] animate-in zoom-in-95 fade-in duration-200">
               <div className="relative bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border-b border-border p-6">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <svg className="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h2 className="text-2xl font-bold text-foreground">Sobre Nós</h2>
-                      <p className="text-sm text-muted-foreground mt-0.5">Conheça nossa empresa e soluções</p>
-                    </div>
+                <button
+                  onClick={() => setIsAboutModalOpen(false)}
+                  className="absolute top-4 right-4 z-10 text-muted-foreground hover:text-foreground transition-colors p-1 hover:bg-accent rounded-md"
+                >
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+                <div className="relative flex items-center justify-center">
+                  <img src={logoHvtech} alt="HVTECH" className="absolute left-0 h-[60px] w-auto" />
+                  <div className="text-center">
+                    <h2 className="text-2xl font-bold text-foreground">HVTECH</h2>
+                    <p className="text-sm text-muted-foreground mt-0.5">Consultoria TOTVS Protheus</p>
                   </div>
-                  <button
-                    onClick={() => setIsAboutModalOpen(false)}
-                    className="text-muted-foreground hover:text-foreground transition-colors p-1 hover:bg-accent rounded-md"
-                  >
-                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
                 </div>
               </div>
 
@@ -567,11 +502,11 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
-                    <h3 className="text-lg font-semibold text-foreground">Nossa Missão</h3>
+                    <h3 className="text-lg font-semibold text-foreground">Quem Somos</h3>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed pl-10">
-                    Somos uma empresa dedicada a fornecer soluções tecnológicas inovadoras e eficientes,
-                    transformando desafios complexos em oportunidades de crescimento para nossos clientes.
+                    Fundada por profissionais com mais de 15 anos de experiência no mercado de TI,
+                    oferecemos atendimento de qualidade com uma equipe altamente qualificada.
                   </p>
                 </div>
 
@@ -582,43 +517,26 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
                       </svg>
                     </div>
-                    <h3 className="text-lg font-semibold text-foreground">Nossos Sistemas</h3>
+                    <h3 className="text-lg font-semibold text-foreground">Nossos Serviços</h3>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed pl-10">
-                    Desenvolvidos com as melhores práticas de mercado, nossos sistemas garantem qualidade,
-                    segurança e performance excepcional. Utilizamos tecnologias modernas e metodologias
-                    ágeis para entregar soluções robustas e escaláveis.
+                    Consultoria TOTVS Protheus, customizações, integrações, desenvolvimento de
+                    sistemas web e aplicativos mobile sob demanda.
                   </p>
-                </div>
-
-                <div className="bg-muted/30 rounded-lg p-4 border border-border/50">
-                  <div className="flex items-center gap-2 mb-3">
-                    <svg className="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                    </svg>
-                    <h4 className="text-sm font-semibold text-foreground">Tecnologias</h4>
-                  </div>
-                  <div className="flex flex-wrap gap-2 pl-6">
-                    <span className="px-3 py-1 bg-background border border-border rounded-full text-xs font-medium text-foreground">C#</span>
-                    <span className="px-3 py-1 bg-background border border-border rounded-full text-xs font-medium text-foreground">PostgreSQL</span>
-                    <span className="px-3 py-1 bg-background border border-border rounded-full text-xs font-medium text-foreground">TypeScript</span>
-                    <span className="px-3 py-1 bg-background border border-border rounded-full text-xs font-medium text-foreground">React</span>
-                    <span className="px-3 py-1 bg-background border border-border rounded-full text-xs font-medium text-foreground">.NET</span>
-                  </div>
                 </div>
 
                 <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="text-sm font-medium text-foreground mb-1">
-                        Saiba mais sobre nossas soluções
+                        Conheça mais sobre a HVTECH
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        Visite nosso site para conhecer todos os nossos produtos e serviços
+                        Visite nosso site para conhecer todos os nossos serviços e soluções
                       </p>
                     </div>
                     <a
-                      href="https://teste.com"
+                      href="https://hvtechsistemas.com.br/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/90 transition-all font-medium text-sm shadow-sm hover:shadow-md"
@@ -634,12 +552,13 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
 
               <div className="bg-muted/20 border-t border-border p-4 rounded-b-xl">
                 <div className="flex items-center justify-center text-xs text-muted-foreground">
-                  <span>© 2025 Todos os direitos reservados</span>
+                  <span>© 2025 HVTECH - Todos os direitos reservados</span>
                 </div>
               </div>
             </div>
           </>
         )}
+
       </nav>
     )
   }
