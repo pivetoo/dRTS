@@ -42,7 +42,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children, onLogout }
     setAccessToken(data.accessToken)
     setRefreshToken(data.refreshToken)
 
-    localStorage.setItem("@IdentityProvider:user", JSON.stringify(data.user))
+    const { criadoEm, ultimaAlteracao, lastLoginAt, ...userToStore } = data.user as User & { criadoEm?: string; ultimaAlteracao?: string }
+    localStorage.setItem("@IdentityProvider:user", JSON.stringify(userToStore))
     localStorage.setItem("@IdentityProvider:contract", JSON.stringify(data.contract))
     localStorage.setItem("@IdentityProvider:accessToken", data.accessToken)
     localStorage.setItem("@IdentityProvider:refreshToken", data.refreshToken)
@@ -94,7 +95,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children, onLogout }
       if (user) {
         const updatedUser = { ...user, ...userData }
         setUser(updatedUser)
-        localStorage.setItem("@IdentityProvider:user", JSON.stringify(updatedUser))
+        const { criadoEm, ultimaAlteracao, lastLoginAt, ...userToStore } = updatedUser as User & { criadoEm?: string; ultimaAlteracao?: string }
+        localStorage.setItem("@IdentityProvider:user", JSON.stringify(userToStore))
       }
     },
     [user]

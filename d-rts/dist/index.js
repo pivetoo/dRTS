@@ -32188,7 +32188,9 @@ const e_ = m.createContext(null), z7 = () => {
     const w = localStorage.getItem("@IdentityProvider:contract");
     return w ? JSON.parse(w) : null;
   }), [i, s] = m.useState(() => localStorage.getItem("@IdentityProvider:accessToken")), [c, u] = m.useState(() => localStorage.getItem("@IdentityProvider:refreshToken")), l = m.useCallback((w) => {
-    n(w.user), a(w.contract), s(w.accessToken), u(w.refreshToken), localStorage.setItem("@IdentityProvider:user", JSON.stringify(w.user)), localStorage.setItem("@IdentityProvider:contract", JSON.stringify(w.contract)), localStorage.setItem("@IdentityProvider:accessToken", w.accessToken), localStorage.setItem("@IdentityProvider:refreshToken", w.refreshToken);
+    n(w.user), a(w.contract), s(w.accessToken), u(w.refreshToken);
+    const { criadoEm: x, ultimaAlteracao: E, lastLoginAt: S, ...P } = w.user;
+    localStorage.setItem("@IdentityProvider:user", JSON.stringify(P)), localStorage.setItem("@IdentityProvider:contract", JSON.stringify(w.contract)), localStorage.setItem("@IdentityProvider:accessToken", w.accessToken), localStorage.setItem("@IdentityProvider:refreshToken", w.refreshToken);
   }, []), d = m.useCallback(() => {
     n(null), a(null), s(null), u(null), localStorage.removeItem("@IdentityProvider:user"), localStorage.removeItem("@IdentityProvider:contract"), localStorage.removeItem("@IdentityProvider:accessToken"), localStorage.removeItem("@IdentityProvider:refreshToken"), t?.();
   }, [t]), p = m.useCallback(async () => {
@@ -32210,7 +32212,9 @@ const e_ = m.createContext(null), z7 = () => {
     (w) => {
       if (r) {
         const x = { ...r, ...w };
-        n(x), localStorage.setItem("@IdentityProvider:user", JSON.stringify(x));
+        n(x);
+        const { criadoEm: E, ultimaAlteracao: S, lastLoginAt: P, ...O } = x;
+        localStorage.setItem("@IdentityProvider:user", JSON.stringify(O));
       }
     },
     [r]
