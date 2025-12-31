@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Badge } from '../components/ui/badge'
 import { Button } from '../components/ui/button'
 import { DataTableWithDetail, type DataTableWithDetailColumn } from '../components/ui/data-table-with-detail'
-import { User, Mail, Calendar, Check, X, Shield } from 'lucide-react'
+import { User, Mail, Calendar, Shield } from 'lucide-react'
 
 interface User {
   id: number
@@ -10,7 +10,6 @@ interface User {
   name: string
   email: string
   isActive: boolean
-  emailConfirmed: boolean
   createdAt: string
   role?: string
   lastLogin?: string
@@ -24,7 +23,6 @@ const mockUsers: User[] = [
     name: 'John Doe',
     email: 'john@example.com',
     isActive: true,
-    emailConfirmed: true,
     createdAt: '2024-01-15',
     role: 'Administrador',
     lastLogin: '2024-11-06 14:30',
@@ -36,7 +34,6 @@ const mockUsers: User[] = [
     name: 'Jane Smith',
     email: 'jane@example.com',
     isActive: true,
-    emailConfirmed: false,
     createdAt: '2024-02-20',
     role: 'Editor',
     lastLogin: '2024-11-05 09:15',
@@ -48,7 +45,6 @@ const mockUsers: User[] = [
     name: 'Bob Wilson',
     email: 'bob@example.com',
     isActive: false,
-    emailConfirmed: true,
     createdAt: '2024-03-10',
     role: 'Visualizador',
     lastLogin: '2024-10-30 16:45',
@@ -60,7 +56,6 @@ const mockUsers: User[] = [
     name: 'Alice Brown',
     email: 'alice@example.com',
     isActive: true,
-    emailConfirmed: true,
     createdAt: '2024-04-05',
     role: 'Editor',
     lastLogin: '2024-11-06 11:20',
@@ -72,7 +67,6 @@ const mockUsers: User[] = [
     name: 'Charlie Davis',
     email: 'charlie@example.com',
     isActive: true,
-    emailConfirmed: false,
     createdAt: '2024-05-12',
     role: 'Visualizador',
     lastLogin: '2024-11-04 13:00',
@@ -233,19 +227,6 @@ export function DataTableDetailExample() {
             <div>
               <label className="text-xs text-muted-foreground">E-mail</label>
               <p className="text-sm font-medium">{user.email}</p>
-              <div className="mt-1">
-                {user.emailConfirmed ? (
-                  <span className="text-xs text-green-600 flex items-center gap-1">
-                    <Check className="h-3 w-3" />
-                    E-mail confirmado
-                  </span>
-                ) : (
-                  <span className="text-xs text-amber-600 flex items-center gap-1">
-                    <X className="h-3 w-3" />
-                    E-mail não confirmado
-                  </span>
-                )}
-              </div>
             </div>
             {user.phone && (
               <div>

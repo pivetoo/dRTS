@@ -10,7 +10,6 @@ interface User {
   name: string
   email: string
   isActive: boolean
-  emailConfirmed: boolean
   createdAt: string
   role?: string
   lastLogin?: string
@@ -24,7 +23,6 @@ const mockUsers: User[] = [
     name: 'John Doe',
     email: 'john@example.com',
     isActive: true,
-    emailConfirmed: true,
     createdAt: '2024-01-15',
     role: 'Administrador',
     lastLogin: '2024-11-06 14:30',
@@ -36,7 +34,6 @@ const mockUsers: User[] = [
     name: 'Jane Smith',
     email: 'jane@example.com',
     isActive: true,
-    emailConfirmed: false,
     createdAt: '2024-02-20',
     role: 'Editor',
     lastLogin: '2024-11-05 09:15',
@@ -48,7 +45,6 @@ const mockUsers: User[] = [
     name: 'Bob Wilson',
     email: 'bob@example.com',
     isActive: false,
-    emailConfirmed: true,
     createdAt: '2024-03-10',
     role: 'Visualizador',
     lastLogin: '2024-10-30 16:45',
@@ -60,7 +56,6 @@ const mockUsers: User[] = [
     name: 'Alice Brown',
     email: 'alice@example.com',
     isActive: true,
-    emailConfirmed: true,
     createdAt: '2024-04-05',
     role: 'Editor',
     lastLogin: '2024-11-06 11:20',
@@ -72,7 +67,6 @@ const mockUsers: User[] = [
     name: 'Charlie Davis',
     email: 'charlie@example.com',
     isActive: true,
-    emailConfirmed: false,
     createdAt: '2024-05-12',
     role: 'Visualizador',
     lastLogin: '2024-11-04 13:00',
@@ -84,7 +78,6 @@ const mockUsers: User[] = [
     name: 'Emma Johnson',
     email: 'emma@example.com',
     isActive: true,
-    emailConfirmed: true,
     createdAt: '2024-06-20',
     role: 'Editor',
     lastLogin: '2024-11-06 10:00',
@@ -96,7 +89,6 @@ const mockUsers: User[] = [
     name: 'Michael Lee',
     email: 'michael@example.com',
     isActive: false,
-    emailConfirmed: false,
     createdAt: '2024-07-15',
     role: 'Visualizador',
     lastLogin: '2024-10-15 08:30',
@@ -108,7 +100,6 @@ const mockUsers: User[] = [
     name: 'Sophia Martin',
     email: 'sophia@example.com',
     isActive: true,
-    emailConfirmed: true,
     createdAt: '2024-08-10',
     role: 'Administrador',
     lastLogin: '2024-11-06 15:45',

@@ -270,14 +270,9 @@ export declare interface ContractLoginRequest {
 
 export declare interface ContractType {
     contractId: number;
-    clientId: string;
     applicationName: string;
     companyName: string;
-    companyDocument: string;
-    urlBase: string;
     redirectUris: string[];
-    maxUsers: number;
-    isIdentityProvider: boolean;
     profileName?: string;
 }
 
@@ -939,7 +934,6 @@ export declare interface User {
     name: string;
     avatarUrl?: string;
     isActive?: boolean;
-    emailConfirmed?: boolean;
     lastLoginAt?: string;
 }
 

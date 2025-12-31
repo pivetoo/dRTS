@@ -77,14 +77,9 @@ export const Callback: React.FC<CallbackProps> = ({
           },
           contract: {
             contractId: Number(payload?.contract_id || 0),
-            clientId: payload?.client_id || '',
             applicationName: payload?.application_name || '',
             companyName: payload?.company_name || '',
-            companyDocument: '',
-            urlBase: '',
             redirectUris: [],
-            maxUsers: 0,
-            isIdentityProvider: false,
             profileName: payload?.profile_name || ''
           }
         };

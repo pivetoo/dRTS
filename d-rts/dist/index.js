@@ -32276,14 +32276,9 @@ const e_ = m.createContext(null), z7 = () => {
           },
           contract: {
             contractId: Number(l?.contract_id || 0),
-            clientId: l?.client_id || "",
             applicationName: l?.application_name || "",
             companyName: l?.company_name || "",
-            companyDocument: "",
-            urlBase: "",
             redirectUris: [],
-            maxUsers: 0,
-            isIdentityProvider: !1,
             profileName: l?.profile_name || ""
           }
         };
