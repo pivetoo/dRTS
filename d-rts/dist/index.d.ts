@@ -72,7 +72,7 @@ export declare interface AppLayoutProps {
         name: string;
         email: string;
         role: string;
-        avatar?: React_2.ReactNode;
+        avatarUrl?: string;
     };
     menuItems?: SidebarItemData[];
     menuGroups?: SidebarGroup[];
@@ -365,6 +365,12 @@ export declare const DropdownSubTrigger: React_2.ForwardRefExoticComponent<Omit<
 
 export declare const DropdownTrigger: React_2.ForwardRefExoticComponent<DropdownMenuPrimitive.DropdownMenuTriggerProps & React_2.RefAttributes<HTMLButtonElement>>;
 
+export declare const getApiBaseURL: () => string;
+
+export declare const getIdentityProviderURL: () => string;
+
+export declare function getInitials(name: string): string;
+
 export declare const GlobalLoader: React_2.FC<GlobalLoaderProps>;
 
 declare interface GlobalLoaderContextType {
@@ -498,7 +504,7 @@ export declare interface NavbarProps extends React_2.HTMLAttributes<HTMLElement>
     user?: {
         name: string;
         role: string;
-        avatar?: React_2.ReactNode;
+        avatarUrl?: string;
     };
     notifications?: NotificationItem[];
     onNotificationRead?: (id: string) => void;
@@ -708,6 +714,8 @@ export declare const setApiBaseURL: (url: string) => void;
 
 export declare const setGlobalLoaderContext: (context: any) => void;
 
+export declare const setIdentityProviderURL: (url: string) => void;
+
 export declare const Sheet: React_2.FC<DialogPrimitive.DialogProps>;
 
 export declare const SheetClose: React_2.ForwardRefExoticComponent<DialogPrimitive.DialogCloseProps & React_2.RefAttributes<HTMLButtonElement>>;
@@ -762,6 +770,7 @@ export declare interface SidebarItemData {
     icon?: React_2.ReactNode;
     onClick?: () => void;
     active?: boolean;
+    path?: string;
 }
 
 export declare const SidebarNav: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLElement> & React_2.RefAttributes<HTMLElement>>;
@@ -917,6 +926,19 @@ export declare const useAppNavigation: (config: NavigationConfig) => {
 };
 
 export declare const useAuth: () => AuthContextData;
+
+export declare function useBreadcrumbs(options: UseBreadcrumbsOptions): BreadcrumbItem[];
+
+declare interface UseBreadcrumbsOptions {
+    pathname: string;
+    navigate: (path: string) => void;
+    home?: {
+        label: string;
+        path: string;
+    };
+    menuItems?: SidebarItemData[];
+    menuGroups?: SidebarGroup[];
+}
 
 export declare const useFormErrors: () => {
     fieldErrors: Record<string, string>;

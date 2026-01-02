@@ -15,6 +15,7 @@ export interface SidebarItemData {
   icon?: React.ReactNode
   onClick?: () => void
   active?: boolean
+  path?: string
 }
 
 export interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {

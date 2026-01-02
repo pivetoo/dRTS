@@ -15,7 +15,7 @@ export interface AppLayoutProps {
     name: string
     email: string
     role: string
-    avatar?: React.ReactNode
+    avatarUrl?: string
   }
   menuItems?: SidebarItemData[]
   menuGroups?: SidebarGroup[]
@@ -78,7 +78,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         user={{
           name: user.name,
           role: user.role,
-          avatar: user.avatar,
+          avatarUrl: user.avatarUrl,
         }}
         notifications={notifications}
         onNotificationRead={onNotificationRead}

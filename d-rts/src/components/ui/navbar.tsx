@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Bell, ChevronDown, LogOut, Palette, Check, Moon, Sun } from "lucide-react"
-import { cn } from "../../lib/utils"
+import { cn, getInitials } from "../../lib/utils"
+import { getApiBaseURL } from "../../services/http/client"
 import { Breadcrumb } from "./breadcrumb"
 import type { BreadcrumbItem } from "./breadcrumb"
 import { useTheme, type Theme } from "./use-theme"
@@ -27,7 +28,7 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   user?: {
     name: string
     role: string
-    avatar?: React.ReactNode
+    avatarUrl?: string
   }
   notifications?: NotificationItem[]
   onNotificationRead?: (id: string) => void
@@ -75,6 +76,23 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
     const [isAboutModalOpen, setIsAboutModalOpen] = React.useState(false)
     const [isNotificationMenuOpen, setIsNotificationMenuOpen] = React.useState(false)
     const [isModuleSwitcherOpen, setIsModuleSwitcherOpen] = React.useState(false)
+
+    const renderAvatar = () => {
+      if (user?.avatarUrl) {
+        const baseUrl = getApiBaseURL().replace('/api', '')
+        const fullUrl = user.avatarUrl.startsWith('http')
+          ? user.avatarUrl
+          : `${baseUrl}${user.avatarUrl}`
+        return (
+          <img
+            src={fullUrl}
+            alt={user.name}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        )
+      }
+      return getInitials(user?.name || '')
+    }
 
     const unreadCount = notifications.filter(n => !n.read).length
     const hasNotifications = unreadCount > 0
@@ -327,7 +345,7 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                 className="flex items-center gap-3 bg-transparent border-0 py-1 px-2.5 pr-2.5 rounded-md transition-all hover:bg-accent active:scale-[0.98]"
               >
                 <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-secondary-foreground text-xs font-semibold overflow-hidden border-2 border-background">
-                  {user.avatar || user.name.charAt(0).toUpperCase()}
+                  {renderAvatar()}
                 </div>
                 <div className="hidden md:flex flex-col items-start">
                   <span className="text-sm font-semibold text-foreground leading-tight">

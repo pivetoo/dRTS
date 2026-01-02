@@ -1,5 +1,17 @@
-import { httpClient } from "../http/client"
+import axios from "axios"
+import { httpClient, getIdentityProviderURL } from "../http/client"
 import type { IdentifyResult, LoginResult, LoginCredentials, ContractLoginRequest, RefreshTokenResponse, ActiveSession } from "../../types/auth"
+
+const getAuthClient = () => {
+  const token = localStorage.getItem("@IdentityProvider:accessToken")
+  return axios.create({
+    baseURL: getIdentityProviderURL(),
+    headers: {
+      "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` })
+    }
+  })
+}
 
 export class AuthService {
   static async identify(credentials: LoginCredentials): Promise<IdentifyResult | LoginResult | null> {
@@ -68,7 +80,7 @@ export class AuthService {
 
   static async logoutFromServer(): Promise<void> {
     try {
-      await httpClient.post("/auth/Logout")
+      await getAuthClient().post("/auth/Logout")
     } finally {
       this.logout()
     }
@@ -76,7 +88,7 @@ export class AuthService {
 
   static async logoutAllDevices(): Promise<void> {
     try {
-      await httpClient.post("/auth/LogoutAllDevices")
+      await getAuthClient().post("/auth/LogoutAllDevices")
     } finally {
       this.logout()
     }

@@ -3,6 +3,7 @@ import type { ApiResponse, ApiError } from "./types"
 
 let globalLoaderContext: any = null
 let apiBaseURL: string = ""
+let identityProviderURL: string = ""
 
 export const setGlobalLoaderContext = (context: any) => {
   globalLoaderContext = context
@@ -12,6 +13,14 @@ export const setApiBaseURL = (url: string) => {
   apiBaseURL = url
   httpClient.updateBaseURL(url)
 }
+
+export const getApiBaseURL = () => apiBaseURL
+
+export const setIdentityProviderURL = (url: string) => {
+  identityProviderURL = url
+}
+
+export const getIdentityProviderURL = () => identityProviderURL
 
 class HttpClient {
   private instance
