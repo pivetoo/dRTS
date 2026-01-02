@@ -71,7 +71,7 @@ export declare interface AppLayoutProps {
     user: {
         name: string;
         email: string;
-        role: string;
+        role?: string;
         avatarUrl?: string;
     };
     menuItems?: SidebarItemData[];
@@ -503,7 +503,7 @@ export declare interface NavbarProps extends React_2.HTMLAttributes<HTMLElement>
     breadcrumbs?: BreadcrumbItem[];
     user?: {
         name: string;
-        role: string;
+        role?: string;
         avatarUrl?: string;
     };
     notifications?: NotificationItem[];

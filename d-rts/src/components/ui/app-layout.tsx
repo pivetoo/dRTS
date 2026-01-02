@@ -14,7 +14,7 @@ export interface AppLayoutProps {
   user: {
     name: string
     email: string
-    role: string
+    role?: string
     avatarUrl?: string
   }
   menuItems?: SidebarItemData[]

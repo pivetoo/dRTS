@@ -27,7 +27,7 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   breadcrumbs?: BreadcrumbItem[]
   user?: {
     name: string
-    role: string
+    role?: string
     avatarUrl?: string
   }
   notifications?: NotificationItem[]

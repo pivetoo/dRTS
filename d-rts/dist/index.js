@@ -32332,7 +32332,7 @@ const fZ = (e) => {
   };
 };
 function pZ(e) {
-  const { pathname: t, navigate: r, home: n = { label: "Inicio", path: "/" }, menuItems: o = [], menuGroups: a = [] } = e;
+  const { pathname: t, navigate: r, home: n = { label: "Dashboard", path: "/" }, menuItems: o = [], menuGroups: a = [] } = e;
   return vr(() => {
     const i = [];
     t !== n.path && i.push({ label: n.label, onClick: () => r(n.path) });
@@ -32342,7 +32342,7 @@ function pZ(e) {
     for (const s of a)
       for (const c of s.items)
         if (c.path === t)
-          return i.push({ label: s.label }), i.push({ label: c.label }), i;
+          return i.push({ label: c.label }), i;
     return i;
   }, [t, r, n, o, a]);
 }

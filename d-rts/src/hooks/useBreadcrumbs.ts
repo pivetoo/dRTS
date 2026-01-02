@@ -11,7 +11,7 @@ interface UseBreadcrumbsOptions {
 }
 
 export function useBreadcrumbs(options: UseBreadcrumbsOptions): BreadcrumbItem[] {
-  const { pathname, navigate, home = { label: "Inicio", path: "/" }, menuItems = [], menuGroups = [] } = options
+  const { pathname, navigate, home = { label: "Dashboard", path: "/" }, menuItems = [], menuGroups = [] } = options
 
   return useMemo(() => {
     const crumbs: BreadcrumbItem[] = []
@@ -30,7 +30,6 @@ export function useBreadcrumbs(options: UseBreadcrumbsOptions): BreadcrumbItem[]
     for (const group of menuGroups) {
       for (const item of group.items) {
         if (item.path === pathname) {
-          crumbs.push({ label: group.label })
           crumbs.push({ label: item.label })
           return crumbs
         }
