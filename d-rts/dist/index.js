@@ -12621,7 +12621,11 @@ const fn = new F3(), ZC = m.createContext(null), U3 = () => {
                   )
                 ] }) })
               ] }),
-              /* @__PURE__ */ b("div", { className: "bg-muted/20 border-t border-border p-4 rounded-b-xl", children: /* @__PURE__ */ b("div", { className: "flex items-center justify-center text-xs text-muted-foreground", children: /* @__PURE__ */ b("span", { children: "© 2025 HVTECH - Todos os direitos reservados" }) }) })
+              /* @__PURE__ */ b("div", { className: "bg-muted/20 border-t border-border p-4 rounded-b-xl", children: /* @__PURE__ */ b("div", { className: "flex items-center justify-center text-xs text-muted-foreground", children: /* @__PURE__ */ K("span", { children: [
+                "© ",
+                (/* @__PURE__ */ new Date()).getFullYear(),
+                " HVTECH - Todos os direitos reservados"
+              ] }) }) })
             ] })
           ] })
         ]

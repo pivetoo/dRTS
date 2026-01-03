@@ -570,7 +570,7 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
 
               <div className="bg-muted/20 border-t border-border p-4 rounded-b-xl">
                 <div className="flex items-center justify-center text-xs text-muted-foreground">
-                  <span>© 2025 HVTECH - Todos os direitos reservados</span>
+                  <span>© {new Date().getFullYear()} HVTECH - Todos os direitos reservados</span>
                 </div>
               </div>
             </div>
