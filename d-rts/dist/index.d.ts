@@ -158,7 +158,7 @@ export declare interface BadgeProps extends React_2.HTMLAttributes<HTMLDivElemen
 }
 
 export declare const badgeVariants: (props?: ({
-    variant?: "secondary" | "success" | "warning" | "info" | "outline" | "default" | "destructive" | null | undefined;
+    variant?: "secondary" | "success" | "error" | "warning" | "info" | "outline" | "default" | "destructive" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare const BarChart: React_2.ForwardRefExoticComponent<BarChartProps & React_2.RefAttributes<HTMLDivElement>>;
@@ -206,7 +206,7 @@ export declare interface ButtonProps extends React_2.ButtonHTMLAttributes<HTMLBu
 }
 
 export declare const buttonVariants: (props?: ({
-    variant?: "primary" | "secondary" | "success" | "error" | "danger" | "warning" | "info" | "outline" | "ghost" | "text" | "dark" | null | undefined;
+    variant?: "primary" | "secondary" | "success" | "error" | "danger" | "warning" | "info" | "outline" | "ghost" | "text" | "link" | "dark" | null | undefined;
     size?: "sm" | "md" | "lg" | "icon" | null | undefined;
 } & ClassProp) | undefined) => string;
 

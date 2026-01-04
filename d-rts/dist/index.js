@@ -3207,6 +3207,7 @@ const kN = Ea(
         outline: "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         text: "hover:underline",
+        link: "text-primary underline-offset-4 hover:underline",
         dark: "bg-foreground text-background shadow hover:bg-foreground/90"
       },
       size: {
@@ -3329,6 +3330,7 @@ const BN = Ea(
         secondary: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
         success: "border-transparent bg-success text-success-foreground hover:bg-success/80",
         destructive: "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80",
+        error: "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80",
         warning: "border-transparent bg-warning text-warning-foreground hover:bg-warning/80",
         info: "border-transparent bg-info text-info-foreground hover:bg-info/80",
         outline: "text-foreground"
@@ -31707,7 +31709,7 @@ const $J = ({
     key: "delete",
     label: "Excluir",
     icon: /* @__PURE__ */ b(Yk, { className: "h-4 w-4" }),
-    variant: "outline",
+    variant: "danger",
     onClick: h
   }));
   const f = [...v, ...r];
@@ -31792,13 +31794,7 @@ function tZ({
           },
           f.key
         )) }) }),
-        /* @__PURE__ */ b(xC, { children: r ? /* @__PURE__ */ b(Xo, { children: /* @__PURE__ */ b(
-          Ui,
-          {
-            colSpan: e.length + (l ? 1 : 0),
-            className: "text-center py-8 text-muted-foreground"
-          }
-        ) }) : t.length === 0 ? /* @__PURE__ */ b(Xo, { children: /* @__PURE__ */ b(
+        /* @__PURE__ */ b(xC, { children: r ? Array.from({ length: 5 }).map((f, g) => /* @__PURE__ */ b(Xo, { children: e.map((y) => /* @__PURE__ */ b(Ui, { children: /* @__PURE__ */ b("div", { className: "h-4 bg-muted animate-pulse rounded" }) }, y.key)) }, `skeleton-${g}`)) : t.length === 0 ? /* @__PURE__ */ b(Xo, { children: /* @__PURE__ */ b(
           Ui,
           {
             colSpan: e.length + (l ? 1 : 0),

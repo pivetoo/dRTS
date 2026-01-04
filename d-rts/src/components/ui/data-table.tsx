@@ -121,13 +121,15 @@ export function DataTable<T = any>({
         </TableHeader>
         <TableBody>
           {loading ? (
-            <TableRow>
-              <TableCell
-                colSpan={columns.length + (isSelectable ? 1 : 0)}
-                className="text-center py-8 text-muted-foreground"
-              >
-              </TableCell>
-            </TableRow>
+            Array.from({ length: 5 }).map((_, i) => (
+              <TableRow key={`skeleton-${i}`}>
+                {columns.map((column) => (
+                  <TableCell key={column.key}>
+                    <div className="h-4 bg-muted animate-pulse rounded" />
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
           ) : data.length === 0 ? (
             <TableRow>
               <TableCell

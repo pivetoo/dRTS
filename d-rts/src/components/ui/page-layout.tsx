@@ -102,7 +102,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         key: "delete",
         label: "Excluir",
         icon: <Trash2 className="h-4 w-4" />,
-        variant: "outline",
+        variant: "danger",
         onClick: handleDelete
       })
     }
