@@ -1,13 +1,8 @@
 import * as React from "react"
-import { Package, FileText } from "lucide-react"
-import { PageLayout, type PageAction } from "../components/ui/page-layout"
+import { Package } from "lucide-react"
+import { PageLayout } from "../components/ui/page-layout"
 import { DataTable, type DataTableColumn } from "../components/ui/data-table"
-import { Modal } from "../components/ui/modal"
-import { Input } from "../components/ui/input"
-import { Button } from "../components/ui/button"
 import { Badge } from "../components/ui/badge"
-import { ConfirmModal } from "../components/ui/confirm-modal"
-import { useToast } from "../components/ui/use-toast"
 
 interface Produto {
   id: number
@@ -27,20 +22,27 @@ const dadosMock: Produto[] = [
   { id: 6, nome: "Webcam Logitech C920", codigo: "LOG-006", preco: 449.90, estoque: 12, ativo: true },
   { id: 7, nome: "SSD Samsung 1TB", codigo: "SAM-007", preco: 699.90, estoque: 31, ativo: true },
   { id: 8, nome: "Cadeira Gamer ThunderX", codigo: "THX-008", preco: 1299.90, estoque: 5, ativo: true },
+  { id: 9, nome: "Placa de Vídeo RTX 4070", codigo: "NVD-009", preco: 4299.90, estoque: 7, ativo: true },
+  { id: 10, nome: "Memória RAM Corsair 32GB", codigo: "COR-010", preco: 899.90, estoque: 18, ativo: true },
+  { id: 11, nome: "Fonte Corsair 750W", codigo: "COR-011", preco: 649.90, estoque: 22, ativo: true },
+  { id: 12, nome: "Gabinete NZXT H510", codigo: "NZX-012", preco: 549.90, estoque: 9, ativo: true },
+  { id: 13, nome: "Processador AMD Ryzen 7", codigo: "AMD-013", preco: 2199.90, estoque: 11, ativo: true },
+  { id: 14, nome: "Placa Mãe ASUS ROG", codigo: "ASU-014", preco: 1899.90, estoque: 6, ativo: true },
+  { id: 15, nome: "Cooler Noctua NH-D15", codigo: "NOC-015", preco: 499.90, estoque: 14, ativo: true },
+  { id: 16, nome: "HD Externo Seagate 2TB", codigo: "SEA-016", preco: 399.90, estoque: 28, ativo: true },
+  { id: 17, nome: "Mousepad Gamer XL", codigo: "GEN-017", preco: 89.90, estoque: 55, ativo: true },
+  { id: 18, nome: "Cabo HDMI 2.1 3m", codigo: "GEN-018", preco: 79.90, estoque: 0, ativo: false },
+  { id: 19, nome: "Hub USB-C 7 portas", codigo: "GEN-019", preco: 189.90, estoque: 33, ativo: true },
+  { id: 20, nome: "Suporte Monitor Articulado", codigo: "GEN-020", preco: 249.90, estoque: 17, ativo: true },
 ]
 
 export const ProdutosPage: React.FC = () => {
-  const { toast } = useToast()
   const [produtos, setProdutos] = React.useState<Produto[]>(dadosMock)
   const [selectedRows, setSelectedRows] = React.useState<Produto[]>([])
-  const [modalOpen, setModalOpen] = React.useState(false)
-  const [confirmDeleteOpen, setConfirmDeleteOpen] = React.useState(false)
-  const [editingProduto, setEditingProduto] = React.useState<Produto | null>(null)
-  const [formData, setFormData] = React.useState({ nome: "", codigo: "", preco: "", estoque: "" })
 
   const columns: DataTableColumn<Produto>[] = [
     { key: "codigo", dataIndex: "codigo", title: "Código", width: 120 },
-    { key: "nome", dataIndex: "nome", title: "Nome do Produto" },
+    { key: "nome", dataIndex: "nome", title: "Nome" },
     {
       key: "preco",
       dataIndex: "preco",
@@ -72,88 +74,29 @@ export const ProdutosPage: React.FC = () => {
     },
   ]
 
-  const handleAdd = () => {
-    setEditingProduto(null)
-    setFormData({ nome: "", codigo: "", preco: "", estoque: "" })
-    setModalOpen(true)
-  }
-
-  const handleEdit = () => {
-    const produto = selectedRows[0]
-    setEditingProduto(produto)
-    setFormData({
-      nome: produto.nome,
-      codigo: produto.codigo,
-      preco: produto.preco.toString(),
-      estoque: produto.estoque.toString()
-    })
-    setModalOpen(true)
-  }
-
+  const handleAdd = () => {}
+  const handleEdit = () => {}
   const handleDelete = () => {
-    setConfirmDeleteOpen(true)
-  }
-
-  const handleRefresh = () => {
-    toast({ title: "Atualizado", description: "Lista de produtos atualizada.", variant: "success" })
-  }
-
-  const handleSave = () => {
-    if (editingProduto) {
-      setProdutos(prev => prev.map(p =>
-        p.id === editingProduto.id
-          ? { ...p, ...formData, preco: parseFloat(formData.preco), estoque: parseInt(formData.estoque) }
-          : p
-      ))
-      toast({ title: "Sucesso", description: "Produto atualizado com sucesso.", variant: "success" })
-    } else {
-      const novoProduto: Produto = {
-        id: Math.max(...produtos.map(p => p.id)) + 1,
-        nome: formData.nome,
-        codigo: formData.codigo,
-        preco: parseFloat(formData.preco),
-        estoque: parseInt(formData.estoque),
-        ativo: true
-      }
-      setProdutos(prev => [...prev, novoProduto])
-      toast({ title: "Sucesso", description: "Produto cadastrado com sucesso.", variant: "success" })
-    }
-    setModalOpen(false)
-    setSelectedRows([])
-  }
-
-  const handleConfirmDelete = () => {
     const idsToDelete = selectedRows.map(p => p.id)
     setProdutos(prev => prev.filter(p => !idsToDelete.includes(p.id)))
-    toast({
-      title: "Sucesso",
-      description: `${selectedRows.length} produto(s) excluído(s).`,
-      variant: "success"
-    })
-    setConfirmDeleteOpen(false)
     setSelectedRows([])
   }
-
-  const customActions: PageAction[] = [
-    {
-      key: "relatorio",
-      label: "Relatório",
-      icon: <FileText className="h-4 w-4" />,
-      variant: "outline",
-      onClick: () => toast({ title: "Relatório", description: "Gerando relatório de produtos..." })
-    }
-  ]
+  const handleRefresh = async () => {
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    setProdutos(dadosMock)
+    setSelectedRows([])
+  }
 
   return (
     <PageLayout
       title="Produtos"
+      subtitle="Gerencie o catálogo de produtos da sua loja"
       icon={<Package className="h-5 w-5" />}
       onAdd={handleAdd}
       onEdit={handleEdit}
       onDelete={handleDelete}
       onRefresh={handleRefresh}
       selectedRowsCount={selectedRows.length}
-      actions={customActions}
     >
       <DataTable
         columns={columns}
@@ -162,67 +105,6 @@ export const ProdutosPage: React.FC = () => {
         selectable
         selectedRows={selectedRows}
         onSelectionChange={setSelectedRows}
-        onRowDoubleClick={(produto) => {
-          setSelectedRows([produto])
-          handleEdit()
-        }}
-      />
-
-      <Modal
-        open={modalOpen}
-        onOpenChange={setModalOpen}
-        title={editingProduto ? "Editar Produto" : "Novo Produto"}
-        size="md"
-      >
-        <div className="flex flex-col gap-4">
-          <Input
-            label="Nome"
-            placeholder="Nome do produto"
-            value={formData.nome}
-            onChange={(e) => setFormData(prev => ({ ...prev, nome: e.target.value }))}
-          />
-          <Input
-            label="Código"
-            placeholder="Código do produto"
-            value={formData.codigo}
-            onChange={(e) => setFormData(prev => ({ ...prev, codigo: e.target.value }))}
-          />
-          <div className="grid grid-cols-2 gap-4">
-            <Input
-              label="Preço"
-              type="number"
-              placeholder="0,00"
-              value={formData.preco}
-              onChange={(e) => setFormData(prev => ({ ...prev, preco: e.target.value }))}
-            />
-            <Input
-              label="Estoque"
-              type="number"
-              placeholder="0"
-              value={formData.estoque}
-              onChange={(e) => setFormData(prev => ({ ...prev, estoque: e.target.value }))}
-            />
-          </div>
-          <div className="flex justify-end gap-2 mt-4">
-            <Button variant="outline" onClick={() => setModalOpen(false)}>
-              Cancelar
-            </Button>
-            <Button onClick={handleSave}>
-              {editingProduto ? "Salvar" : "Cadastrar"}
-            </Button>
-          </div>
-        </div>
-      </Modal>
-
-      <ConfirmModal
-        open={confirmDeleteOpen}
-        onOpenChange={setConfirmDeleteOpen}
-        title="Confirmar Exclusão"
-        description={`Deseja realmente excluir ${selectedRows.length} produto(s)? Esta ação não pode ser desfeita.`}
-        confirmLabel="Excluir"
-        cancelLabel="Cancelar"
-        variant="danger"
-        onConfirm={handleConfirmDelete}
       />
     </PageLayout>
   )

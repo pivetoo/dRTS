@@ -8,13 +8,14 @@ export interface PageAction {
   key: string
   label: string
   icon?: React.ReactNode
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "danger"
+  variant?: "primary" | "secondary" | "outline" | "outline-primary" | "outline-secondary" | "outline-warning" | "outline-danger" | "ghost" | "danger"
   onClick: () => void
   disabled?: boolean
 }
 
 export interface PageLayoutProps {
   title: string
+  subtitle?: string
   icon?: React.ReactNode
   actions?: PageAction[]
   showDefaultActions?: boolean
@@ -29,6 +30,7 @@ export interface PageLayoutProps {
 
 export const PageLayout: React.FC<PageLayoutProps> = ({
   title,
+  subtitle,
   icon,
   actions = [],
   showDefaultActions = true,
@@ -41,6 +43,17 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   className
 }) => {
   const { toast } = useToast()
+  const [isRefreshing, setIsRefreshing] = React.useState(false)
+
+  const handleRefresh = async () => {
+    if (!onRefresh || isRefreshing) return
+    setIsRefreshing(true)
+    try {
+      await onRefresh()
+    } finally {
+      setTimeout(() => setIsRefreshing(false), 600)
+    }
+  }
 
   const handleEdit = () => {
     if (selectedRowsCount === 0) {
@@ -82,7 +95,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         key: "add",
         label: "Incluir",
         icon: <Plus className="h-4 w-4" />,
-        variant: "primary",
+        variant: "secondary",
         onClick: onAdd
       })
     }
@@ -102,7 +115,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         key: "delete",
         label: "Excluir",
         icon: <Trash2 className="h-4 w-4" />,
-        variant: "danger",
+        variant: "outline",
         onClick: handleDelete
       })
     }
@@ -112,25 +125,36 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
 
   return (
     <div className={cn("flex flex-col h-full w-full", className)}>
-      <div className="flex items-center justify-between mb-6 pb-4 border-b">
+      <div className="flex items-center justify-between mb-4 px-4 py-3 border rounded-lg bg-muted/30">
         <div className="flex items-center gap-3">
           {icon && (
-            <div className="flex items-center justify-center w-10 h-10 rounded-md bg-primary/10 text-primary">
+            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 text-primary border border-primary/20 shadow-sm hover:shadow hover:scale-[1.02] transition-all duration-200 cursor-default">
               {icon}
             </div>
           )}
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold text-foreground tracking-tight">
-              {title}
-            </h1>
-            {onRefresh && (
-              <button
-                onClick={onRefresh}
-                className="p-1.5 rounded-md transition-colors hover:bg-accent text-muted-foreground hover:text-foreground"
-                title="Atualizar"
-              >
-                <RefreshCw className="h-4 w-4" />
-              </button>
+          <div className="flex flex-col">
+            <div className="flex items-center gap-2">
+              <h1 className="text-2xl font-bold text-foreground tracking-tight">
+                {title}
+              </h1>
+              {onRefresh && (
+                <button
+                  onClick={handleRefresh}
+                  disabled={isRefreshing}
+                  className={cn(
+                    "p-1.5 rounded-md transition-all hover:bg-accent text-muted-foreground hover:text-foreground",
+                    isRefreshing && "text-primary"
+                  )}
+                  title="Atualizar"
+                >
+                  <RefreshCw className={cn("h-4 w-4 transition-transform", isRefreshing && "animate-spin")} />
+                </button>
+              )}
+            </div>
+            {subtitle && (
+              <p className="text-sm text-muted-foreground mt-0.5">
+                {subtitle}
+              </p>
             )}
           </div>
         </div>
@@ -154,7 +178,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         )}
       </div>
 
-      <div className="flex-1 overflow-auto">
+      <div className="overflow-auto">
         {children}
       </div>
     </div>
