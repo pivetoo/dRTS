@@ -973,6 +973,16 @@ export declare const useFormErrors: () => {
 
 export declare const useGlobalLoader: () => GlobalLoaderContextType;
 
+export declare function usePermissions(): UsePermissionsReturn;
+
+declare interface UsePermissionsReturn {
+    permissions: string[];
+    isSuperUser: boolean;
+    hasPermission: (permission: string) => boolean;
+    hasAnyPermission: (permissions: string[]) => boolean;
+    hasAllPermissions: (permissions: string[]) => boolean;
+}
+
 export declare interface User {
     id: number;
     username: string;
