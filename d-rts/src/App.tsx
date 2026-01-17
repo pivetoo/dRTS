@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { GlobalLoaderProvider, Toaster, ThemeProvider } from './components/ui'
-import { Sidebar, type SidebarItemData, type SidebarGroup } from './components/ui/sidebar'
+import { Sidebar, type SidebarItemData, type SidebarGroup, type SidebarHeaderMode } from './components/ui/sidebar'
 import { Navbar, type BreadcrumbItem, type NotificationItem } from './components/ui/navbar'
 import { PageLayout } from './components/ui/page-layout'
 import {
@@ -32,6 +32,9 @@ import { DataTableDetailExample } from './examples/DataTableDetailExample'
 import { ModalExample } from './examples/ModalExample'
 import { ERPExample } from './examples/ERPExample'
 import { ColorPaletteExample } from './examples/ColorPaletteExample'
+import { ProdutosPage } from './examples/ProdutosPage'
+import logoHvtech from './assets/logo_hvtech.png'
+import { Package } from 'lucide-react'
 
 type PageType =
   | 'home'
@@ -48,10 +51,12 @@ type PageType =
   | 'datatable-detail'
   | 'erp'
   | 'colors'
+  | 'produtos'
 
 function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [activePage, setActivePage] = useState<PageType>('home')
+  const [headerMode, setHeaderMode] = useState<SidebarHeaderMode>('default')
   const [notifications, setNotifications] = useState<NotificationItem[]>([
     {
       id: '1',
@@ -265,6 +270,13 @@ function App() {
           active: activePage === 'erp',
           onClick: () => setActivePage('erp'),
         },
+        {
+          key: 'produtos',
+          label: 'Produtos (CRUD)',
+          icon: <Package className="h-4 w-4" />,
+          active: activePage === 'produtos',
+          onClick: () => setActivePage('produtos'),
+        },
       ],
     },
   ]
@@ -285,6 +297,7 @@ function App() {
       'datatable-detail': 'Data Table - Tabela com Detalhes',
       erp: 'ERP System - Exemplo Completo',
       colors: 'Paleta de Cores - Laranja e Azul',
+      produtos: 'Produtos - Exemplo CRUD',
     }
     return titles[activePage]
   }
@@ -305,6 +318,7 @@ function App() {
       'datatable-detail': <Table size={20} />,
       erp: <AppWindow size={20} />,
       colors: <Palette size={20} />,
+      produtos: <Package size={20} />,
     }
     return icons[activePage]
   }
@@ -326,6 +340,40 @@ function App() {
       <ThemeProvider>
         <GlobalLoaderProvider>
           <ERPExample />
+          <Toaster />
+        </GlobalLoaderProvider>
+      </ThemeProvider>
+    )
+  }
+
+  if (activePage === 'produtos') {
+    return (
+      <ThemeProvider>
+        <GlobalLoaderProvider>
+          <div className="flex min-h-screen">
+            <Sidebar
+              title="dRTS"
+              subtitle="Component Library"
+              logo={
+                <div className="w-8 h-8 rounded-md bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
+                  D
+                </div>
+              }
+              items={navigationItems}
+              groups={navigationGroups}
+              isCollapsed={sidebarCollapsed}
+              onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
+              headerMode={headerMode}
+              headerLogo={logoHvtech}
+              headerLogoCollapsed={logoHvtech}
+            />
+            <div
+              className="flex-1 transition-all duration-300 p-6"
+              style={{ marginLeft: sidebarCollapsed ? '80px' : '260px' }}
+            >
+              <ProdutosPage />
+            </div>
+          </div>
           <Toaster />
         </GlobalLoaderProvider>
       </ThemeProvider>
@@ -469,7 +517,17 @@ function App() {
             groups={navigationGroups}
             isCollapsed={sidebarCollapsed}
             onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
+            headerMode={headerMode}
+            headerLogo={logoHvtech}
+            headerLogoCollapsed={logoHvtech}
           />
+
+          <button
+            onClick={() => setHeaderMode(prev => prev === 'default' ? 'companyLogo' : 'default')}
+            className="fixed bottom-4 right-4 z-50 bg-primary text-primary-foreground px-4 py-2 rounded-lg shadow-lg hover:bg-primary/90 text-sm font-medium"
+          >
+            Modo: {headerMode === 'default' ? 'App + Empresa' : 'Logo Empresa'}
+          </button>
 
           {renderContent()}
 

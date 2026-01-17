@@ -88,6 +88,9 @@ export declare interface AppLayoutProps {
     onModuleChange?: (moduleId: string) => void;
     onLogoClick?: () => void;
     companyLogo?: string;
+    headerMode?: SidebarHeaderMode;
+    headerLogo?: string;
+    headerLogoCollapsed?: string;
     children?: React_2.ReactNode;
 }
 
@@ -764,6 +767,8 @@ export declare interface SidebarGroup {
 
 export declare const SidebarHeader: React_2.ForwardRefExoticComponent<React_2.HTMLAttributes<HTMLDivElement> & React_2.RefAttributes<HTMLDivElement>>;
 
+export declare type SidebarHeaderMode = 'default' | 'companyLogo';
+
 export declare interface SidebarItemData {
     key: string;
     label: string;
@@ -797,6 +802,9 @@ export declare interface SidebarProps extends React_2.HTMLAttributes<HTMLDivElem
     onLogout?: () => void;
     onLogoClick?: () => void;
     companyLogo?: string;
+    headerMode?: SidebarHeaderMode;
+    headerLogo?: string;
+    headerLogoCollapsed?: string;
 }
 
 declare interface State {

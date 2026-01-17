@@ -18,6 +18,8 @@ export interface SidebarItemData {
   path?: string
 }
 
+export type SidebarHeaderMode = 'default' | 'companyLogo'
+
 export interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string
   subtitle?: string
@@ -32,6 +34,9 @@ export interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   onLogout?: () => void
   onLogoClick?: () => void
   companyLogo?: string
+  headerMode?: SidebarHeaderMode
+  headerLogo?: string
+  headerLogoCollapsed?: string
 }
 
 const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
@@ -51,6 +56,9 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       onLogout,
       onLogoClick,
       companyLogo,
+      headerMode = 'default',
+      headerLogo,
+      headerLogoCollapsed,
       ...props
     },
     ref
@@ -114,7 +122,24 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         }}
         {...props}
       >
-        {(title || subtitle || logo) && (
+        {headerMode === 'companyLogo' && headerLogo ? (
+          <div
+            onClick={onLogoClick}
+            className={cn(
+              "flex items-center justify-center min-h-[60px] bg-card mb-1 px-3 py-3",
+              onLogoClick && "cursor-pointer hover:bg-accent transition-colors"
+            )}
+          >
+            <img
+              src={collapsed && headerLogoCollapsed ? headerLogoCollapsed : headerLogo}
+              alt="Logo"
+              className={cn(
+                "object-contain transition-all",
+                collapsed ? "h-8 w-8" : "h-14 max-w-full"
+              )}
+            />
+          </div>
+        ) : (title || subtitle || logo) && (
           <div
             onClick={onLogoClick}
             className={cn(

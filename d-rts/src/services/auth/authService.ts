@@ -2,17 +2,6 @@ import axios from "axios"
 import { httpClient, getIdentityProviderURL } from "../http/client"
 import type { IdentifyResult, LoginResult, LoginCredentials, ContractLoginRequest, RefreshTokenResponse, ActiveSession } from "../../types/auth"
 
-const getAuthClient = () => {
-  const token = localStorage.getItem("@IdentityProvider:accessToken")
-  return axios.create({
-    baseURL: getIdentityProviderURL(),
-    headers: {
-      "Content-Type": "application/json",
-      ...(token && { Authorization: `Bearer ${token}` })
-    }
-  })
-}
-
 export class AuthService {
   static async identify(credentials: LoginCredentials): Promise<IdentifyResult | LoginResult | null> {
     const response = await httpClient.post<IdentifyResult | LoginResult>("/auth/IdentifyUser", {
@@ -80,7 +69,14 @@ export class AuthService {
 
   static async logoutFromServer(): Promise<void> {
     try {
-      await getAuthClient().post("/auth/Logout")
+      const refreshToken = this.getRefreshToken()
+      if (refreshToken) {
+        await axios.post(
+          `${getIdentityProviderURL()}/auth/Logout`,
+          { refreshToken },
+          { headers: { "Content-Type": "application/json" } }
+        )
+      }
     } finally {
       this.logout()
     }
@@ -88,7 +84,14 @@ export class AuthService {
 
   static async logoutAllDevices(): Promise<void> {
     try {
-      await getAuthClient().post("/auth/LogoutAllDevices")
+      const refreshToken = this.getRefreshToken()
+      if (refreshToken) {
+        await axios.post(
+          `${getIdentityProviderURL()}/auth/LogoutAllDevices`,
+          { refreshToken },
+          { headers: { "Content-Type": "application/json" } }
+        )
+      }
     } finally {
       this.logout()
     }

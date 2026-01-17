@@ -76,7 +76,7 @@ class HttpClient {
           if (refreshToken) {
             try {
               const response = await axios.post(
-                `${apiBaseURL}/auth/RefreshToken`,
+                `${identityProviderURL}/auth/RefreshToken`,
                 { refreshToken },
                 {
                   headers: {

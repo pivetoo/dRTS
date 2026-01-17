@@ -2,10 +2,10 @@ import * as React from "react"
 import { cn } from "../../lib/utils"
 import { Sidebar } from "../ui/sidebar"
 import { Navbar, type Module, type NotificationItem } from "../ui/navbar"
-import type { SidebarItemData, SidebarGroup } from "../ui/sidebar"
+import type { SidebarItemData, SidebarGroup, SidebarHeaderMode } from "../ui/sidebar"
 import type { BreadcrumbItem } from "../ui/breadcrumb"
 
-export type { BreadcrumbItem, SidebarItemData, SidebarGroup, Module }
+export type { BreadcrumbItem, SidebarItemData, SidebarGroup, SidebarHeaderMode, Module }
 
 export interface AppLayoutProps {
   title: string
@@ -31,6 +31,9 @@ export interface AppLayoutProps {
   onModuleChange?: (moduleId: string) => void
   onLogoClick?: () => void
   companyLogo?: string
+  headerMode?: SidebarHeaderMode
+  headerLogo?: string
+  headerLogoCollapsed?: string
   children?: React.ReactNode
 }
 
@@ -53,6 +56,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   onModuleChange,
   onLogoClick,
   companyLogo,
+  headerMode,
+  headerLogo,
+  headerLogoCollapsed,
   children,
 }) => {
   const [isCollapsed, setIsCollapsed] = React.useState(initialCollapsed)
@@ -70,6 +76,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         onLogout={onLogout}
         onLogoClick={onLogoClick}
         companyLogo={companyLogo}
+        headerMode={headerMode}
+        headerLogo={headerLogo}
+        headerLogoCollapsed={headerLogoCollapsed}
       />
 
       <Navbar
