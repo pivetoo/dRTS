@@ -1,17 +1,17 @@
 export interface IdentifyResult {
-  userId: number
-  userName: string
-  userEmail: string
+  usuarioId: number
+  usuarioName: string
+  usuarioEmail: string
   temporaryToken: string
-  availableContracts: ContractType[]
+  availableContratos: ContractType[]
 }
 
 export interface ContractType {
-  contractId: number
-  applicationName: string
-  companyName: string
+  contratoId: number
+  sistemaName: string
+  empresaName: string
   redirectUris: string[]
-  profileName?: string
+  perfilName?: string
 }
 
 export interface User {
@@ -40,8 +40,8 @@ export interface LoginCredentials {
 }
 
 export interface ContractLoginRequest {
-  userId: number
-  contractId: number
+  usuarioId: number
+  contratoId: number
   temporaryToken: string
 }
 

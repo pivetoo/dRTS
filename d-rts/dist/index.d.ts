@@ -6,6 +6,7 @@ import { default as default_2 } from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { JSX } from 'react/jsx-runtime';
+import { LucideProps } from 'lucide-react';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 import * as React_2 from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
@@ -209,7 +210,7 @@ export declare interface ButtonProps extends React_2.ButtonHTMLAttributes<HTMLBu
 }
 
 export declare const buttonVariants: (props?: ({
-    variant?: "primary" | "secondary" | "success" | "error" | "danger" | "warning" | "info" | "outline" | "ghost" | "text" | "link" | "dark" | null | undefined;
+    variant?: "primary" | "secondary" | "success" | "error" | "danger" | "warning" | "info" | "outline" | "outline-secondary" | "outline-primary" | "outline-warning" | "outline-danger" | "ghost" | "text" | "link" | "dark" | null | undefined;
     size?: "sm" | "md" | "lg" | "icon" | null | undefined;
 } & ClassProp) | undefined) => string;
 
@@ -266,20 +267,20 @@ export declare interface ConfirmModalProps {
 }
 
 export declare interface ContractLoginRequest {
-    userId: number;
-    contractId: number;
+    usuarioId: number;
+    contratoId: number;
     temporaryToken: string;
 }
 
 export declare interface ContractType {
-    contractId: number;
-    applicationName: string;
-    companyName: string;
+    contratoId: number;
+    sistemaName: string;
+    empresaName: string;
     redirectUris: string[];
-    profileName?: string;
+    perfilName?: string;
 }
 
-export declare function DataTable<T = any>({ columns, data, loading, rowKey, selectable, selectedRows, onSelectionChange, onRowClick, className, emptyText }: DataTableProps<T>): JSX.Element;
+export declare function DataTable<T = any>({ columns, data, loading, rowKey, selectable, selectedRows, onSelectionChange, onRowClick, onRowDoubleClick, className, emptyText, dragSelect, pageSize: initialPageSize, pageSizeOptions }: DataTableProps<T>): JSX.Element;
 
 export declare interface DataTableColumn<T = any> {
     key: string;
@@ -299,8 +300,12 @@ export declare interface DataTableProps<T = any> {
     selectedRows?: T[];
     onSelectionChange?: (selected: T[]) => void;
     onRowClick?: (record: T) => void;
+    onRowDoubleClick?: (record: T) => void;
     className?: string;
     emptyText?: string;
+    dragSelect?: boolean;
+    pageSize?: number;
+    pageSizeOptions?: number[];
 }
 
 export declare function DataTableWithDetail<T = any>({ columns, data, rowKey, selectedRow, onRowSelect, renderDetail, renderPagination, emptyDetailMessage, emptyDetailDescription, className, tableClassName, detailClassName, gridRatio, }: DataTableWithDetailProps<T>): JSX.Element;
@@ -409,11 +414,11 @@ declare class HttpClient {
 export declare const httpClient: HttpClient;
 
 export declare interface IdentifyResult {
-    userId: number;
-    userName: string;
-    userEmail: string;
+    usuarioId: number;
+    usuarioName: string;
+    usuarioEmail: string;
     temporaryToken: string;
-    availableContracts: ContractType[];
+    availableContratos: ContractType[];
 }
 
 export declare const Input: React_2.ForwardRefExoticComponent<InputProps & React_2.RefAttributes<HTMLInputElement>>;
@@ -580,7 +585,7 @@ export declare interface PageAction {
     key: string;
     label: string;
     icon?: React_2.ReactNode;
-    variant?: "primary" | "secondary" | "outline" | "ghost" | "danger";
+    variant?: "primary" | "secondary" | "outline" | "outline-primary" | "outline-secondary" | "outline-warning" | "outline-danger" | "ghost" | "danger";
     onClick: () => void;
     disabled?: boolean;
 }
@@ -589,6 +594,7 @@ export declare const PageLayout: React_2.FC<PageLayoutProps>;
 
 export declare interface PageLayoutProps {
     title: string;
+    subtitle?: string;
     icon?: React_2.ReactNode;
     actions?: PageAction[];
     showDefaultActions?: boolean;
@@ -858,7 +864,9 @@ export declare function ThemeSelector(): JSX.Element;
 
 export declare const Toast: React_2.ForwardRefExoticComponent<Omit<ToastPrimitives.ToastProps & React_2.RefAttributes<HTMLLIElement>, "ref"> & VariantProps<(props?: ({
     variant?: "success" | "warning" | "info" | "default" | "destructive" | null | undefined;
-} & ClassProp) | undefined) => string> & React_2.RefAttributes<HTMLLIElement>>;
+} & ClassProp) | undefined) => string> & {
+    showIcon?: boolean;
+} & React_2.RefAttributes<HTMLLIElement>>;
 
 export declare function toast({ ...props }: Toast_2): {
     id: string;
@@ -883,6 +891,14 @@ declare type ToasterToast = ToastProps & {
     title?: React_2.ReactNode;
     description?: React_2.ReactNode;
     action?: ToastActionElement;
+};
+
+export declare const toastIcons: {
+    default: null;
+    success: React_2.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React_2.RefAttributes<SVGSVGElement>>;
+    destructive: React_2.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React_2.RefAttributes<SVGSVGElement>>;
+    warning: React_2.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React_2.RefAttributes<SVGSVGElement>>;
+    info: React_2.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React_2.RefAttributes<SVGSVGElement>>;
 };
 
 export declare type ToastProps = React_2.ComponentPropsWithoutRef<typeof Toast>;

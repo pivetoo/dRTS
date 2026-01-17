@@ -17,11 +17,11 @@ interface JwtPayload {
   email?: string | string[];
   name?: string;
   given_name?: string;
-  contract_id?: string;
+  contrato_id?: string;
   client_id?: string;
-  profile_name?: string;
-  company_name?: string;
-  application_name?: string;
+  perfil_name?: string;
+  empresa_name?: string;
+  sistema_name?: string;
   [key: string]: unknown;
 }
 
@@ -76,11 +76,11 @@ export const Callback: React.FC<CallbackProps> = ({
             name: payload?.name || payload?.given_name || ''
           },
           contract: {
-            contractId: Number(payload?.contract_id || 0),
-            applicationName: payload?.application_name || '',
-            companyName: payload?.company_name || '',
+            contratoId: Number(payload?.contrato_id || 0),
+            sistemaName: payload?.sistema_name || '',
+            empresaName: payload?.empresa_name || '',
             redirectUris: [],
-            profileName: payload?.profile_name || ''
+            perfilName: payload?.perfil_name || ''
           }
         };
 
