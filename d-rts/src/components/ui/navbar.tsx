@@ -33,6 +33,7 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   notifications?: NotificationItem[]
   onNotificationRead?: (id: string) => void
   onMarkAllAsRead?: () => void
+  onClearAllNotifications?: () => void
   onViewAllNotifications?: () => void
   userMenuTrigger?: React.ReactNode
   actions?: React.ReactNode
@@ -59,6 +60,7 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
       notifications = [],
       onNotificationRead,
       onMarkAllAsRead,
+      onClearAllNotifications,
       onViewAllNotifications,
       userMenuTrigger,
       actions,
@@ -255,16 +257,28 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                           </p>
                         )}
                       </div>
-                      {onMarkAllAsRead && unreadCount > 0 && (
-                        <button
-                          onClick={() => {
-                            onMarkAllAsRead()
-                          }}
-                          className="text-xs text-primary hover:text-primary/80 font-medium transition-colors"
-                        >
-                          Marcar todas como lidas
-                        </button>
-                      )}
+                      <div className="flex items-center gap-3">
+                        {onMarkAllAsRead && unreadCount > 0 && (
+                          <button
+                            onClick={() => {
+                              onMarkAllAsRead()
+                            }}
+                            className="text-xs text-primary hover:text-primary/80 font-medium transition-colors"
+                          >
+                            Marcar como lidas
+                          </button>
+                        )}
+                        {onClearAllNotifications && notifications.length > 0 && (
+                          <button
+                            onClick={() => {
+                              onClearAllNotifications()
+                            }}
+                            className="text-xs text-destructive hover:text-destructive/80 font-medium transition-colors"
+                          >
+                            Limpar todas
+                          </button>
+                        )}
+                      </div>
                     </div>
 
                     <div className="overflow-y-auto flex-1 scrollbar-hide">

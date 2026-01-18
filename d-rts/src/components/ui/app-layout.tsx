@@ -24,6 +24,7 @@ export interface AppLayoutProps {
   notifications?: NotificationItem[]
   onNotificationRead?: (id: string) => void
   onMarkAllAsRead?: () => void
+  onClearAllNotifications?: () => void
   onViewAllNotifications?: () => void
   breadcrumbs?: BreadcrumbItem[]
   modules?: Module[]
@@ -49,6 +50,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   notifications,
   onNotificationRead,
   onMarkAllAsRead,
+  onClearAllNotifications,
   onViewAllNotifications,
   breadcrumbs = [],
   modules,
@@ -92,6 +94,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         notifications={notifications}
         onNotificationRead={onNotificationRead}
         onMarkAllAsRead={onMarkAllAsRead}
+        onClearAllNotifications={onClearAllNotifications}
         onViewAllNotifications={onViewAllNotifications}
         modules={modules}
         currentModule={currentModule}
