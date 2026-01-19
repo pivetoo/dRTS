@@ -5,7 +5,7 @@ import { getApiBaseURL } from "../../services/http/client"
 import { Breadcrumb } from "./breadcrumb"
 import type { BreadcrumbItem } from "./breadcrumb"
 import { useTheme, type Theme } from "./use-theme"
-import logoHvtech from "../../assets/logo_hvtech.png"
+import logoEmpresa from "../../assets/logo-empresa.svg"
 
 export interface NotificationItem {
   id: string
@@ -46,7 +46,7 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
 export type { BreadcrumbItem }
 
 const themes: { value: Theme; label: string; color: string }[] = [
-  { value: "default", label: "Padrão", color: "bg-orange-600" },
+  { value: "default", label: "Padrão", color: "bg-primary" },
 ]
 
 
@@ -518,10 +518,10 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                   </svg>
                 </button>
                 <div className="relative flex items-center justify-center">
-                  <img src={logoHvtech} alt="HVTECH" className="absolute left-0 h-[60px] w-auto" />
+                  <img src={logoEmpresa} alt="Movva Software" className="absolute left-0 h-[60px] w-auto" />
                   <div className="text-center">
-                    <h2 className="text-2xl font-bold text-foreground">HVTECH</h2>
-                    <p className="text-sm text-muted-foreground mt-0.5">Consultoria TOTVS Protheus</p>
+                    <h2 className="text-2xl font-bold text-foreground">Movva Software</h2>
+                    <p className="text-sm text-muted-foreground mt-0.5">Desenvolvimento de Software</p>
                   </div>
                 </div>
               </div>
@@ -537,8 +537,8 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                     <h3 className="text-lg font-semibold text-foreground">Quem Somos</h3>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed pl-10">
-                    Fundada por profissionais com mais de 15 anos de experiência no mercado de TI,
-                    oferecemos atendimento de qualidade com uma equipe altamente qualificada.
+                    Empresa especializada em desenvolvimento de software, oferecemos
+                    soluções inovadoras com uma equipe altamente qualificada.
                   </p>
                 </div>
 
@@ -552,8 +552,8 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                     <h3 className="text-lg font-semibold text-foreground">Nossos Serviços</h3>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed pl-10">
-                    Consultoria TOTVS Protheus, customizações, integrações, desenvolvimento de
-                    sistemas web e aplicativos mobile sob demanda.
+                    Desenvolvimento de sistemas web, aplicativos mobile, integrações
+                    e soluções sob demanda para o seu negócio.
                   </p>
                 </div>
 
@@ -561,14 +561,14 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="text-sm font-medium text-foreground mb-1">
-                        Conheça mais sobre a HVTECH
+                        Conheça mais sobre a Movva Software
                       </p>
                       <p className="text-xs text-muted-foreground">
                         Visite nosso site para conhecer todos os nossos serviços e soluções
                       </p>
                     </div>
                     <a
-                      href="https://hvtechsistemas.com.br/"
+                      href="https://movva.com.br/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/90 transition-all font-medium text-sm shadow-sm hover:shadow-md"
@@ -584,7 +584,7 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
 
               <div className="bg-muted/20 border-t border-border p-4 rounded-b-xl">
                 <div className="flex items-center justify-center text-xs text-muted-foreground">
-                  <span>© {new Date().getFullYear()} HVTECH - Todos os direitos reservados</span>
+                  <span>© {new Date().getFullYear()} Movva Software - Todos os direitos reservados</span>
                 </div>
               </div>
             </div>

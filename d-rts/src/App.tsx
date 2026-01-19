@@ -33,7 +33,7 @@ import { ModalExample } from './examples/ModalExample'
 import { ERPExample } from './examples/ERPExample'
 import { ColorPaletteExample } from './examples/ColorPaletteExample'
 import { ProdutosPage } from './examples/ProdutosPage'
-import logoHvtech from './assets/logo_hvtech.png'
+import logoHvtech from './assets/logo-empresa.svg'
 import { Package } from 'lucide-react'
 
 type PageType =
