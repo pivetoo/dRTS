@@ -6,6 +6,15 @@ export interface GlobalLoaderProps {
   className?: string
 }
 
+const triangleStyle: React.CSSProperties = {
+  width: 0,
+  height: 0,
+  borderLeft: "8px solid transparent",
+  borderRight: "8px solid transparent",
+  borderBottom: "14px solid currentColor",
+  animation: "globalLoaderPulse 1.4s ease-in-out infinite",
+}
+
 const GlobalLoader: React.FC<GlobalLoaderProps> = ({ isVisible, className }) => {
   if (!isVisible) return null
 
@@ -16,8 +25,16 @@ const GlobalLoader: React.FC<GlobalLoaderProps> = ({ isVisible, className }) => 
         className
       )}
     >
-      <div className="flex flex-col items-center gap-4">
-        <div className="relative w-[200px] h-[200px] rounded-full border-[12px] border-border border-t-foreground animate-spin" />
+      <style>{`
+        @keyframes globalLoaderPulse {
+          0%, 80%, 100% { transform: scale(0.4); opacity: 0.3; }
+          40% { transform: scale(1); opacity: 1; }
+        }
+      `}</style>
+      <div className="text-primary" style={{ position: "relative", width: 44, height: 38 }}>
+        <div style={{ ...triangleStyle, position: "absolute", top: 0, left: 14, animationDelay: "0s" }} />
+        <div style={{ ...triangleStyle, position: "absolute", bottom: 0, left: 0, animationDelay: "0.16s" }} />
+        <div style={{ ...triangleStyle, position: "absolute", bottom: 0, right: 0, animationDelay: "0.32s" }} />
       </div>
     </div>
   )
