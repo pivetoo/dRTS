@@ -309,7 +309,7 @@ export declare interface DataTableProps<T = any> {
     pageSizeOptions?: number[];
 }
 
-export declare function DataTableWithDetail<T = any>({ columns, data, rowKey, selectedRow, onRowSelect, renderDetail, renderPagination, emptyDetailMessage, emptyDetailDescription, className, tableClassName, detailClassName, gridRatio, }: DataTableWithDetailProps<T>): JSX.Element;
+export declare function DataTableWithDetail<T = any>({ columns, data, rowKey, selectedRow, onRowSelect, renderDetail, renderPagination, className, tableClassName, detailClassName, gridRatio, }: DataTableWithDetailProps<T>): JSX.Element;
 
 export declare interface DataTableWithDetailColumn<T = any> {
     key: string;
@@ -327,8 +327,6 @@ export declare interface DataTableWithDetailProps<T = any> {
     onRowSelect?: (record: T | null) => void;
     renderDetail?: (record: T) => React_2.ReactNode;
     renderPagination?: () => React_2.ReactNode;
-    emptyDetailMessage?: string;
-    emptyDetailDescription?: string;
     className?: string;
     tableClassName?: string;
     detailClassName?: string;
@@ -881,8 +879,6 @@ declare type Toast_2 = Omit<ToasterToast, "id">;
 export declare const ToastAction: React_2.ForwardRefExoticComponent<Omit<ToastPrimitives.ToastActionProps & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
 export declare type ToastActionElement = React_2.ReactElement<typeof ToastAction>;
-
-export declare const ToastClose: React_2.ForwardRefExoticComponent<Omit<ToastPrimitives.ToastCloseProps & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
 export declare const ToastDescription: React_2.ForwardRefExoticComponent<Omit<ToastPrimitives.ToastDescriptionProps & React_2.RefAttributes<HTMLDivElement>, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 

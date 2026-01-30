@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { GlobalLoaderProvider, Toaster, ThemeProvider } from './components/ui'
-import { Sidebar, type SidebarItemData, type SidebarGroup, type SidebarHeaderMode } from './components/ui/sidebar'
-import { Navbar, type BreadcrumbItem, type NotificationItem } from './components/ui/navbar'
+import { AppLayout } from './components/ui/app-layout'
+import type { SidebarGroup } from './components/ui/sidebar'
+import type { BreadcrumbItem, NotificationItem } from './components/ui/navbar'
 import { PageLayout } from './components/ui/page-layout'
 import {
   Home,
@@ -16,9 +17,9 @@ import {
   Table,
   AppWindow,
   Palette,
+  Package,
 } from 'lucide-react'
 
-// Import examples
 import { ButtonExample } from './examples/ButtonExample'
 import { InputExample } from './examples/InputExample'
 import { CardExample } from './examples/CardExample'
@@ -33,8 +34,6 @@ import { ModalExample } from './examples/ModalExample'
 import { ERPExample } from './examples/ERPExample'
 import { ColorPaletteExample } from './examples/ColorPaletteExample'
 import { ProdutosPage } from './examples/ProdutosPage'
-import logoHvtech from './assets/logo-empresa.svg'
-import { Package } from 'lucide-react'
 
 type PageType =
   | 'home'
@@ -54,21 +53,19 @@ type PageType =
   | 'produtos'
 
 function App() {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [activePage, setActivePage] = useState<PageType>('home')
-  const [headerMode, setHeaderMode] = useState<SidebarHeaderMode>('default')
   const [notifications, setNotifications] = useState<NotificationItem[]>([
     {
       id: '1',
-      title: 'Novo recurso disponível',
-      message: 'A versão 2.0 do sistema foi lançada com diversas melhorias e novos componentes.',
+      title: 'Novo recurso disponivel',
+      message: 'A versao 2.0 do sistema foi lancada com diversas melhorias e novos componentes.',
       timestamp: new Date(Date.now() - 1000 * 60 * 5),
       read: false,
       type: 'info',
     },
     {
       id: '2',
-      title: 'Atualização concluída com sucesso',
+      title: 'Atualizacao concluida com sucesso',
       message: 'Todos os seus dados foram sincronizados corretamente.',
       timestamp: new Date(Date.now() - 1000 * 60 * 30),
       read: false,
@@ -76,16 +73,16 @@ function App() {
     },
     {
       id: '3',
-      title: 'Atenção: Manutenção programada',
-      message: 'O sistema estará em manutenção no sábado das 2h às 6h da manhã.',
+      title: 'Atencao: Manutencao programada',
+      message: 'O sistema estara em manutencao no sabado das 2h as 6h da manha.',
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2),
       read: true,
       type: 'warning',
     },
     {
       id: '4',
-      title: 'Erro ao processar solicitação',
-      message: 'Não foi possível processar sua última solicitação. Por favor, tente novamente.',
+      title: 'Erro ao processar solicitacao',
+      message: 'Nao foi possivel processar sua ultima solicitacao. Por favor, tente novamente.',
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 5),
       read: true,
       type: 'error',
@@ -93,7 +90,7 @@ function App() {
     {
       id: '5',
       title: 'Bem-vindo ao dRTS!',
-      message: 'Explore todos os componentes disponíveis no menu lateral.',
+      message: 'Explore todos os componentes disponiveis no menu lateral.',
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24),
       read: true,
       type: 'info',
@@ -106,9 +103,9 @@ function App() {
       const randomType = types[Math.floor(Math.random() * types.length)]
 
       const messages = {
-        info: { title: 'Nova informação', message: 'Há uma nova atualização disponível no sistema.' },
-        success: { title: 'Operação concluída', message: 'Sua tarefa foi processada com sucesso.' },
-        warning: { title: 'Aviso importante', message: 'Verifique suas configurações de segurança.' },
+        info: { title: 'Nova informacao', message: 'Ha uma nova atualizacao disponivel no sistema.' },
+        success: { title: 'Operacao concluida', message: 'Sua tarefa foi processada com sucesso.' },
+        warning: { title: 'Aviso importante', message: 'Verifique suas configuracoes de seguranca.' },
         error: { title: 'Falha detectada', message: 'Ocorreu um erro ao tentar salvar os dados.' },
       }
 
@@ -141,195 +138,91 @@ function App() {
     )
   }
 
-  const handleViewAllNotifications = () => {
-    console.log('Navegar para página de notificações')
-  }
-
-  const navigationItems: SidebarItemData[] = [
-    {
-      key: 'home',
-      label: 'Início',
-      icon: <Home className="h-4 w-4" />,
-      active: activePage === 'home',
-      onClick: () => setActivePage('home'),
-    },
-  ]
-
   const navigationGroups: SidebarGroup[] = [
     {
-      label: 'Componentes Básicos',
+      label: 'Componentes Basicos',
       items: [
-        {
-          key: 'button',
-          label: 'Button',
-          icon: <Square className="h-4 w-4" />,
-          active: activePage === 'button',
-          onClick: () => setActivePage('button'),
-        },
-        {
-          key: 'input',
-          label: 'Input',
-          icon: <Type className="h-4 w-4" />,
-          active: activePage === 'input',
-          onClick: () => setActivePage('input'),
-        },
-        {
-          key: 'card',
-          label: 'Card',
-          icon: <CreditCard className="h-4 w-4" />,
-          active: activePage === 'card',
-          onClick: () => setActivePage('card'),
-        },
-        {
-          key: 'badge',
-          label: 'Badge',
-          icon: <Tag className="h-4 w-4" />,
-          active: activePage === 'badge',
-          onClick: () => setActivePage('badge'),
-        },
+        { key: 'button', label: 'Button', icon: <Square className="h-4 w-4" />, active: activePage === 'button', onClick: () => setActivePage('button') },
+        { key: 'input', label: 'Input', icon: <Type className="h-4 w-4" />, active: activePage === 'input', onClick: () => setActivePage('input') },
+        { key: 'card', label: 'Card', icon: <CreditCard className="h-4 w-4" />, active: activePage === 'card', onClick: () => setActivePage('card') },
+        { key: 'badge', label: 'Badge', icon: <Tag className="h-4 w-4" />, active: activePage === 'badge', onClick: () => setActivePage('badge') },
       ],
     },
     {
-      label: 'Formulários & Dados',
+      label: 'Formularios & Dados',
       items: [
-        {
-          key: 'form',
-          label: 'Form Components',
-          icon: <FormInput className="h-4 w-4" />,
-          active: activePage === 'form',
-          onClick: () => setActivePage('form'),
-        },
-        {
-          key: 'datatable-simple',
-          label: 'Data Table Simples',
-          icon: <Table className="h-4 w-4" />,
-          active: activePage === 'datatable-simple',
-          onClick: () => setActivePage('datatable-simple'),
-        },
-        {
-          key: 'datatable-detail',
-          label: 'Data Table com Detalhes',
-          icon: <Table className="h-4 w-4" />,
-          active: activePage === 'datatable-detail',
-          onClick: () => setActivePage('datatable-detail'),
-        },
+        { key: 'form', label: 'Form Components', icon: <FormInput className="h-4 w-4" />, active: activePage === 'form', onClick: () => setActivePage('form') },
+        { key: 'datatable-simple', label: 'Data Table Simples', icon: <Table className="h-4 w-4" />, active: activePage === 'datatable-simple', onClick: () => setActivePage('datatable-simple') },
+        { key: 'datatable-detail', label: 'Data Table com Detalhes', icon: <Table className="h-4 w-4" />, active: activePage === 'datatable-detail', onClick: () => setActivePage('datatable-detail') },
       ],
     },
     {
-      label: 'Feedback & Navegação',
+      label: 'Feedback & Navegacao',
       items: [
-        {
-          key: 'feedback',
-          label: 'Feedback',
-          icon: <MessageSquare className="h-4 w-4" />,
-          active: activePage === 'feedback',
-          onClick: () => setActivePage('feedback'),
-        },
-        {
-          key: 'modal',
-          label: 'Modal',
-          icon: <AppWindow className="h-4 w-4" />,
-          active: activePage === 'modal',
-          onClick: () => setActivePage('modal'),
-        },
-        {
-          key: 'tabs',
-          label: 'Tabs',
-          icon: <PanelTop className="h-4 w-4" />,
-          active: activePage === 'tabs',
-          onClick: () => setActivePage('tabs'),
-        },
+        { key: 'feedback', label: 'Feedback', icon: <MessageSquare className="h-4 w-4" />, active: activePage === 'feedback', onClick: () => setActivePage('feedback') },
+        { key: 'modal', label: 'Modal', icon: <AppWindow className="h-4 w-4" />, active: activePage === 'modal', onClick: () => setActivePage('modal') },
+        { key: 'tabs', label: 'Tabs', icon: <PanelTop className="h-4 w-4" />, active: activePage === 'tabs', onClick: () => setActivePage('tabs') },
       ],
     },
     {
-      label: 'Visualização',
+      label: 'Visualizacao',
       items: [
-        {
-          key: 'charts',
-          label: 'Charts',
-          icon: <BarChart3 className="h-4 w-4" />,
-          active: activePage === 'charts',
-          onClick: () => setActivePage('charts'),
-        },
-        {
-          key: 'colors',
-          label: 'Paleta de Cores',
-          icon: <Palette className="h-4 w-4" />,
-          active: activePage === 'colors',
-          onClick: () => setActivePage('colors'),
-        },
+        { key: 'charts', label: 'Charts', icon: <BarChart3 className="h-4 w-4" />, active: activePage === 'charts', onClick: () => setActivePage('charts') },
+        { key: 'colors', label: 'Paleta de Cores', icon: <Palette className="h-4 w-4" />, active: activePage === 'colors', onClick: () => setActivePage('colors') },
       ],
     },
     {
-      label: 'Exemplos Avançados',
+      label: 'Exemplos Avancados',
       items: [
-        {
-          key: 'erp',
-          label: 'ERP System',
-          icon: <AppWindow className="h-4 w-4" />,
-          active: activePage === 'erp',
-          onClick: () => setActivePage('erp'),
-        },
-        {
-          key: 'produtos',
-          label: 'Produtos (CRUD)',
-          icon: <Package className="h-4 w-4" />,
-          active: activePage === 'produtos',
-          onClick: () => setActivePage('produtos'),
-        },
+        { key: 'erp', label: 'ERP System', icon: <AppWindow className="h-4 w-4" />, active: activePage === 'erp', onClick: () => setActivePage('erp') },
+        { key: 'produtos', label: 'Produtos (CRUD)', icon: <Package className="h-4 w-4" />, active: activePage === 'produtos', onClick: () => setActivePage('produtos') },
       ],
     },
   ]
 
-  const getPageTitle = (): string => {
-    const titles: Record<PageType, string> = {
-      home: 'Bem-vindo ao dRTS',
-      button: 'Button - Botões',
-      input: 'Input - Campos de entrada',
-      card: 'Card - Cartões',
-      badge: 'Badge - Etiquetas',
-      form: 'Form Components - Formulários',
-      feedback: 'Feedback - Notificações e Toasts',
-      modal: 'Modal - Diálogos e Confirmações',
-      charts: 'Charts - Gráficos',
-      tabs: 'Tabs - Abas',
-      'datatable-simple': 'Data Table - Tabela Simples',
-      'datatable-detail': 'Data Table - Tabela com Detalhes',
-      erp: 'ERP System - Exemplo Completo',
-      colors: 'Paleta de Cores - Laranja e Azul',
-      produtos: 'Produtos - Exemplo CRUD',
-    }
-    return titles[activePage]
+  const titles: Record<PageType, string> = {
+    home: 'Bem-vindo ao dRTS',
+    button: 'Button - Botoes',
+    input: 'Input - Campos de entrada',
+    card: 'Card - Cartoes',
+    badge: 'Badge - Etiquetas',
+    form: 'Form Components - Formularios',
+    feedback: 'Feedback - Notificacoes e Toasts',
+    modal: 'Modal - Dialogos e Confirmacoes',
+    charts: 'Charts - Graficos',
+    tabs: 'Tabs - Abas',
+    'datatable-simple': 'Data Table - Tabela Simples',
+    'datatable-detail': 'Data Table - Tabela com Detalhes',
+    erp: 'ERP System - Exemplo Completo',
+    colors: 'Paleta de Cores',
+    produtos: 'Produtos - Exemplo CRUD',
   }
 
-  const getPageIcon = () => {
-    const icons: Record<PageType, React.ReactElement> = {
-      home: <Home size={20} />,
-      button: <Square size={20} />,
-      input: <Type size={20} />,
-      card: <CreditCard size={20} />,
-      badge: <Tag size={20} />,
-      form: <FormInput size={20} />,
-      feedback: <MessageSquare size={20} />,
-      modal: <AppWindow size={20} />,
-      charts: <BarChart3 size={20} />,
-      tabs: <PanelTop size={20} />,
-      'datatable-simple': <Table size={20} />,
-      'datatable-detail': <Table size={20} />,
-      erp: <AppWindow size={20} />,
-      colors: <Palette size={20} />,
-      produtos: <Package size={20} />,
-    }
-    return icons[activePage]
+  const icons: Record<PageType, React.ReactElement> = {
+    home: <Home size={20} />,
+    button: <Square size={20} />,
+    input: <Type size={20} />,
+    card: <CreditCard size={20} />,
+    badge: <Tag size={20} />,
+    form: <FormInput size={20} />,
+    feedback: <MessageSquare size={20} />,
+    modal: <AppWindow size={20} />,
+    charts: <BarChart3 size={20} />,
+    tabs: <PanelTop size={20} />,
+    'datatable-simple': <Table size={20} />,
+    'datatable-detail': <Table size={20} />,
+    erp: <AppWindow size={20} />,
+    colors: <Palette size={20} />,
+    produtos: <Package size={20} />,
   }
 
   const getBreadcrumbs = (): BreadcrumbItem[] => {
     const breadcrumbs: BreadcrumbItem[] = [
-      { label: 'Início', onClick: () => setActivePage('home') },
+      { label: 'Inicio', onClick: () => setActivePage('home') },
     ]
 
     if (activePage !== 'home') {
-      breadcrumbs.push({ label: getPageTitle() })
+      breadcrumbs.push({ label: titles[activePage] })
     }
 
     return breadcrumbs
@@ -346,58 +239,22 @@ function App() {
     )
   }
 
-  if (activePage === 'produtos') {
-    return (
-      <ThemeProvider>
-        <GlobalLoaderProvider>
-          <div className="flex min-h-screen">
-            <Sidebar
-              title="dRTS"
-              subtitle="Component Library"
-              logo={
-                <div className="w-8 h-8 rounded-md bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
-                  D
-                </div>
-              }
-              items={navigationItems}
-              groups={navigationGroups}
-              isCollapsed={sidebarCollapsed}
-              onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
-              headerMode={headerMode}
-              headerLogo={logoHvtech}
-              headerLogoCollapsed={logoHvtech}
-            />
-            <div
-              className="flex-1 transition-all duration-300 p-6"
-              style={{ marginLeft: sidebarCollapsed ? '80px' : '260px' }}
-            >
-              <ProdutosPage />
-            </div>
-          </div>
-          <Toaster />
-        </GlobalLoaderProvider>
-      </ThemeProvider>
-    )
-  }
-
   const renderContent = () => {
-    let content: React.ReactElement
-
     switch (activePage) {
       case 'home':
-        content = (
+        return (
           <div className="space-y-6">
             <div className="rounded-lg border bg-card p-8">
               <h2 className="text-3xl font-bold mb-4">Biblioteca de Componentes dRTS</h2>
               <p className="text-lg text-muted-foreground mb-6">
-                Uma coleção completa de componentes React construídos com Tailwind CSS,
+                Uma colecao completa de componentes React construidos com Tailwind CSS,
                 shadcn/ui patterns e Radix UI primitives.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
                 <div className="p-4 border rounded-lg">
                   <h3 className="font-semibold mb-2">30+ Componentes</h3>
                   <p className="text-sm text-muted-foreground">
-                    Componentes prontos para uso em produção
+                    Componentes prontos para uso em producao
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
@@ -407,132 +264,67 @@ function App() {
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
-                  <h3 className="font-semibold mb-2">Acessível</h3>
+                  <h3 className="font-semibold mb-2">Acessivel</h3>
                   <p className="text-sm text-muted-foreground">
-                    Construído com Radix UI para máxima acessibilidade
+                    Construido com Radix UI para maxima acessibilidade
                   </p>
                 </div>
-              </div>
-              <div className="mt-8">
-                <h3 className="font-semibold mb-4">Categorias de Componentes</h3>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li>• <strong>Componentes Básicos:</strong> Button, Input, Card, Badge</li>
-                  <li>• <strong>Formulários:</strong> Checkbox, Radio, Select, Switch</li>
-                  <li>• <strong>Feedback:</strong> Toast, Modal, Tooltip, Loader</li>
-                  <li>• <strong>Visualização:</strong> Bar Chart, Line Chart, Area Chart, Pie Chart</li>
-                  <li>• <strong>Navegação:</strong> Tabs, Sidebar, Navbar, Breadcrumb</li>
-                  <li>• <strong>Dados:</strong> Data Table com ordenação e paginação</li>
-                </ul>
               </div>
             </div>
           </div>
         )
-        break
-      case 'button':
-        content = <ButtonExample />
-        break
-      case 'input':
-        content = <InputExample />
-        break
-      case 'card':
-        content = <CardExample />
-        break
-      case 'badge':
-        content = <BadgeExample />
-        break
-      case 'form':
-        content = <FormExample />
-        break
-      case 'feedback':
-        content = <FeedbackExample />
-        break
-      case 'modal':
-        content = <ModalExample />
-        break
-      case 'charts':
-        content = <ChartsExample />
-        break
-      case 'tabs':
-        content = <TabsExample />
-        break
-      case 'datatable-simple':
-        content = <DataTableSimpleExample />
-        break
-      case 'datatable-detail':
-        content = <DataTableDetailExample />
-        break
-      case 'colors':
-        content = <ColorPaletteExample />
-        break
-      default:
-        content = <div>Página não encontrada</div>
+      case 'button': return <ButtonExample />
+      case 'input': return <InputExample />
+      case 'card': return <CardExample />
+      case 'badge': return <BadgeExample />
+      case 'form': return <FormExample />
+      case 'feedback': return <FeedbackExample />
+      case 'modal': return <ModalExample />
+      case 'charts': return <ChartsExample />
+      case 'tabs': return <TabsExample />
+      case 'datatable-simple': return <DataTableSimpleExample />
+      case 'datatable-detail': return <DataTableDetailExample />
+      case 'colors': return <ColorPaletteExample />
+      case 'produtos': return <ProdutosPage />
+      default: return <div>Pagina nao encontrada</div>
     }
-
-    return (
-      <>
-        <Navbar
-          isCollapsed={sidebarCollapsed}
-          breadcrumbs={getBreadcrumbs()}
-          user={{
-            name: 'Demo User',
-            role: 'Developer',
-          }}
-          notifications={notifications}
-          onNotificationRead={handleNotificationRead}
-          onMarkAllAsRead={handleMarkAllAsRead}
-          onViewAllNotifications={handleViewAllNotifications}
-        />
-
-        <div
-          className="flex-1 transition-all duration-300 pt-[76px] px-8 pb-8"
-          style={{
-            marginLeft: sidebarCollapsed ? '80px' : '260px',
-          }}
-        >
-          <PageLayout
-            title={getPageTitle()}
-            icon={getPageIcon()}
-            showDefaultActions={false}
-          >
-            {content}
-          </PageLayout>
-        </div>
-      </>
-    )
   }
 
   return (
     <ThemeProvider>
       <GlobalLoaderProvider>
-        <div className="flex min-h-screen">
-          <Sidebar
-            title="dRTS"
-            subtitle="Component Library"
-            logo={
-              <div className="w-8 h-8 rounded-md bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
-                D
-              </div>
-            }
-            items={navigationItems}
-            groups={navigationGroups}
-            isCollapsed={sidebarCollapsed}
-            onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
-            headerMode={headerMode}
-            headerLogo={logoHvtech}
-            headerLogoCollapsed={logoHvtech}
-          />
-
-          <button
-            onClick={() => setHeaderMode(prev => prev === 'default' ? 'companyLogo' : 'default')}
-            className="fixed bottom-4 right-4 z-50 bg-primary text-primary-foreground px-4 py-2 rounded-lg shadow-lg hover:bg-primary/90 text-sm font-medium"
+        <AppLayout
+          title="dRTS"
+          subtitle="Component Library"
+          logo={
+            <div className="w-8 h-8 rounded-md bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
+              D
+            </div>
+          }
+          user={{
+            name: 'Demo User',
+            email: 'demo@drts.dev',
+            role: 'Developer',
+          }}
+          menuItems={[
+            { key: 'home', label: 'Inicio', icon: <Home className="h-4 w-4" />, active: activePage === 'home', onClick: () => setActivePage('home') },
+          ]}
+          menuGroups={navigationGroups}
+          initialCollapsed={false}
+          breadcrumbs={getBreadcrumbs()}
+          notifications={notifications}
+          onNotificationRead={handleNotificationRead}
+          onMarkAllAsRead={handleMarkAllAsRead}
+        >
+          <PageLayout
+            title={titles[activePage]}
+            icon={icons[activePage]}
+            showDefaultActions={false}
           >
-            Modo: {headerMode === 'default' ? 'App + Empresa' : 'Logo Empresa'}
-          </button>
-
-          {renderContent()}
-
-          <Toaster />
-        </div>
+            {renderContent()}
+          </PageLayout>
+        </AppLayout>
+        <Toaster />
       </GlobalLoaderProvider>
     </ThemeProvider>
   )

@@ -1,7 +1,6 @@
 import * as React from "react"
 import { cn } from "../../lib/utils"
 import { Card } from "./card"
-import { AlertCircle } from "lucide-react"
 
 export interface DataTableWithDetailColumn<T = any> {
   key: string
@@ -19,8 +18,6 @@ export interface DataTableWithDetailProps<T = any> {
   onRowSelect?: (record: T | null) => void
   renderDetail?: (record: T) => React.ReactNode
   renderPagination?: () => React.ReactNode
-  emptyDetailMessage?: string
-  emptyDetailDescription?: string
   className?: string
   tableClassName?: string
   detailClassName?: string
@@ -35,8 +32,6 @@ export function DataTableWithDetail<T = any>({
   onRowSelect,
   renderDetail,
   renderPagination,
-  emptyDetailMessage = "Nenhum item selecionado",
-  emptyDetailDescription = "Clique em uma linha da tabela para visualizar os detalhes.",
   className,
   tableClassName,
   detailClassName,
@@ -57,10 +52,10 @@ export function DataTableWithDetail<T = any>({
   }
 
   return (
-    <div className={cn("grid grid-cols-1 lg:grid-cols-12 gap-6", className)}>
+    <div className={cn("flex gap-6", className)}>
       <div
-        className={cn("lg:col-span-7", tableClassName)}
-        style={{ gridColumn: `span ${gridRatio[0]} / span ${gridRatio[0]}` }}
+        className={cn("min-w-0 shrink-0", tableClassName)}
+        style={{ flex: `${gridRatio[0]} 0 0%` }}
       >
         <Card className="overflow-hidden">
           <div className="overflow-x-auto">
@@ -132,19 +127,11 @@ export function DataTableWithDetail<T = any>({
       </div>
 
       <div
-        className={cn("lg:col-span-5", detailClassName)}
-        style={{ gridColumn: `span ${gridRatio[1]} / span ${gridRatio[1]}` }}
+        className={cn("min-w-0", detailClassName)}
+        style={{ flex: `${gridRatio[1]} 1 0%` }}
       >
-        {selectedRow && renderDetail ? (
+        {selectedRow && renderDetail && (
           <Card className="sticky top-6">{renderDetail(selectedRow)}</Card>
-        ) : (
-          <Card className="p-12 flex flex-col items-center justify-center text-center min-h-[400px]">
-            <AlertCircle className="h-12 w-12 text-muted-foreground mb-4" />
-            <h4 className="text-lg font-semibold mb-2">{emptyDetailMessage}</h4>
-            <p className="text-sm text-muted-foreground max-w-sm">
-              {emptyDetailDescription}
-            </p>
-          </Card>
         )}
       </div>
     </div>

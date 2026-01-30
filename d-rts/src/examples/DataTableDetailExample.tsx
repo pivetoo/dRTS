@@ -284,8 +284,6 @@ export function DataTableDetailExample() {
         onRowSelect={setSelectedUser}
         renderDetail={renderDetail}
         renderPagination={renderPagination}
-        emptyDetailMessage="Nenhum usuário selecionado"
-        emptyDetailDescription="Clique em uma linha da tabela ao lado para visualizar os detalhes completos do usuário."
       />
     </div>
   )
