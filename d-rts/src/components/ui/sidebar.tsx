@@ -22,7 +22,6 @@ export type SidebarHeaderMode = 'default' | 'companyLogo'
 
 export interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string
-  subtitle?: string
   logo?: React.ReactNode
   items?: SidebarItemData[]
   groups?: SidebarGroup[]
@@ -44,7 +43,6 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
     {
       className,
       title,
-      subtitle,
       logo,
       items = [],
       groups = [],
@@ -139,7 +137,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
               )}
             />
           </div>
-        ) : (title || subtitle || logo) && (
+        ) : (title || logo) && (
           <div
             onClick={onLogoClick}
             className={cn(
@@ -151,8 +149,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
             {logo}
             {!collapsed && (
               <div className="flex-1 overflow-hidden ml-3">
-                {title && <div className="font-bold text-base text-foreground leading-tight tracking-tight">{title}</div>}
-                {subtitle && <div className="text-xs text-secondary font-medium leading-tight mt-1">{subtitle}</div>}
+                {title && <div className="font-semibold text-[15px] text-foreground leading-tight tracking-tight">{title}</div>}
               </div>
             )}
           </div>

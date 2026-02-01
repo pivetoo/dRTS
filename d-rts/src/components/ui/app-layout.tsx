@@ -69,7 +69,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
     <div className="relative min-h-screen bg-background">
       <Sidebar
         title={title}
-        subtitle={subtitle}
         logo={logo}
         items={menuItems}
         groups={menuGroups}
@@ -91,6 +90,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           role: user.role,
           avatarUrl: user.avatarUrl,
         }}
+        companyName={subtitle}
         notifications={notifications}
         onNotificationRead={onNotificationRead}
         onMarkAllAsRead={onMarkAllAsRead}

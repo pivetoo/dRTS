@@ -513,6 +513,7 @@ export declare interface NavbarProps extends React_2.HTMLAttributes<HTMLElement>
         role?: string;
         avatarUrl?: string;
     };
+    companyName?: string;
     notifications?: NotificationItem[];
     onNotificationRead?: (id: string) => void;
     onMarkAllAsRead?: () => void;
@@ -796,7 +797,6 @@ export declare interface SidebarNavItemProps extends React_2.HTMLAttributes<HTML
 
 export declare interface SidebarProps extends React_2.HTMLAttributes<HTMLDivElement> {
     title?: string;
-    subtitle?: string;
     logo?: React_2.ReactNode;
     items?: SidebarItemData[];
     groups?: SidebarGroup[];

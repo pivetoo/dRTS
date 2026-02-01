@@ -294,7 +294,7 @@ function App() {
     <ThemeProvider>
       <GlobalLoaderProvider>
         <AppLayout
-          title="dRTS"
+          title="Framework dRTS"
           subtitle="Component Library"
           logo={
             <div className="w-8 h-8 rounded-md bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">

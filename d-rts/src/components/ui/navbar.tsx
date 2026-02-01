@@ -30,6 +30,7 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
     role?: string
     avatarUrl?: string
   }
+  companyName?: string
   notifications?: NotificationItem[]
   onNotificationRead?: (id: string) => void
   onMarkAllAsRead?: () => void
@@ -57,6 +58,7 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
       isCollapsed = false,
       breadcrumbs = [],
       user,
+      companyName,
       notifications = [],
       onNotificationRead,
       onMarkAllAsRead,
@@ -221,6 +223,12 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
 
         <div className="flex items-center gap-4">
           {actions}
+
+          {companyName && (
+            <span className="text-sm font-medium text-muted-foreground hidden md:block">
+              {companyName}
+            </span>
+          )}
 
           {notifications && notifications.length >= 0 && (
             <div className="relative">
