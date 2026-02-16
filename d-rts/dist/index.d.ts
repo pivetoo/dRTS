@@ -88,6 +88,8 @@ export declare interface AppLayoutProps {
     modules?: Module[];
     currentModule?: string;
     onModuleChange?: (moduleId: string) => void;
+    showAboutMenuItem?: boolean;
+    renderAboutModal?: (close: () => void) => React_2.ReactNode;
     onLogoClick?: () => void;
     companyLogo?: string;
     headerMode?: SidebarHeaderMode;
@@ -507,6 +509,8 @@ export declare const Navbar: React_2.ForwardRefExoticComponent<NavbarProps & Rea
 
 export declare interface NavbarProps extends React_2.HTMLAttributes<HTMLElement> {
     isCollapsed?: boolean;
+    isMobile?: boolean;
+    onMobileMenuToggle?: () => void;
     breadcrumbs?: BreadcrumbItem[];
     user?: {
         name: string;
@@ -525,6 +529,8 @@ export declare interface NavbarProps extends React_2.HTMLAttributes<HTMLElement>
     currentModule?: string;
     onModuleChange?: (moduleId: string) => void;
     onLogout?: () => void;
+    showAboutMenuItem?: boolean;
+    renderAboutModal?: (close: () => void) => React_2.ReactNode;
 }
 
 export declare interface NavigationConfig {
@@ -597,6 +603,8 @@ export declare interface PageLayoutProps {
     title: string;
     subtitle?: string;
     icon?: React_2.ReactNode;
+    density?: "default" | "compact";
+    filtersSlot?: React_2.ReactNode;
     actions?: PageAction[];
     showDefaultActions?: boolean;
     onAdd?: () => void;
@@ -811,6 +819,10 @@ export declare interface SidebarProps extends React_2.HTMLAttributes<HTMLDivElem
     headerMode?: SidebarHeaderMode;
     headerLogo?: string;
     headerLogoCollapsed?: string;
+    isMobile?: boolean;
+    isMobileOpen?: boolean;
+    onMobileClose?: () => void;
+    mobileWidth?: number;
 }
 
 declare interface State {
@@ -843,11 +855,7 @@ export declare const TabsList: React_2.ForwardRefExoticComponent<Omit<TabsPrimit
 
 export declare const TabsTrigger: React_2.ForwardRefExoticComponent<Omit<TabsPrimitive.TabsTriggerProps & React_2.RefAttributes<HTMLButtonElement>, "ref"> & React_2.RefAttributes<HTMLButtonElement>>;
 
-export declare type Theme = "default";
-
 declare interface ThemeContextType {
-    theme: Theme;
-    setTheme: (theme: Theme) => void;
     isDark: boolean;
     toggleDark: () => void;
 }
@@ -856,11 +864,8 @@ export declare const ThemeProvider: React_2.FC<ThemeProviderProps>;
 
 declare interface ThemeProviderProps {
     children: React_2.ReactNode;
-    defaultTheme?: Theme;
     defaultDark?: boolean;
 }
-
-export declare function ThemeSelector(): JSX.Element;
 
 export declare const Toast: React_2.ForwardRefExoticComponent<Omit<ToastPrimitives.ToastProps & React_2.RefAttributes<HTMLLIElement>, "ref"> & VariantProps<(props?: ({
     variant?: "success" | "warning" | "info" | "default" | "destructive" | null | undefined;
