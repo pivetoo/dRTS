@@ -36,6 +36,10 @@ export interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   headerMode?: SidebarHeaderMode
   headerLogo?: string
   headerLogoCollapsed?: string
+  isMobile?: boolean
+  isMobileOpen?: boolean
+  onMobileClose?: () => void
+  mobileWidth?: number
 }
 
 const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
@@ -57,6 +61,10 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       headerMode = 'default',
       headerLogo,
       headerLogoCollapsed,
+      isMobile = false,
+      isMobileOpen = false,
+      onMobileClose,
+      mobileWidth = 280,
       ...props
     },
     ref
@@ -84,15 +92,23 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
 
     const renderItems = (itemList: SidebarItemData[]) =>
       itemList.map((item) => (
-        <div
+        <button
+          type="button"
           key={item.key}
-          onClick={item.onClick}
+          onClick={() => {
+            item.onClick?.()
+            if (isMobile) {
+              onMobileClose?.()
+            }
+          }}
+          aria-current={item.active ? "page" : undefined}
+          aria-label={collapsed ? item.label : undefined}
           className={cn(
-            "relative flex items-center cursor-pointer transition-all my-0.5 font-medium text-muted-foreground",
+            "relative flex w-full items-center transition-all my-0.5 font-medium text-muted-foreground",
             collapsed ? "justify-center px-2.5 py-2.5" : "justify-start px-4 py-2.5",
             item.active && "bg-primary/5 text-primary font-semibold",
-            "hover:bg-accent hover:text-primary",
-            item.active && "hover:bg-primary/10"
+            "hover:bg-accent dark:hover:bg-accent/80 hover:text-primary",
+            item.active && "hover:bg-primary/10 dark:hover:bg-primary/20"
           )}
         >
           {item.active && (
@@ -108,24 +124,37 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
               {item.label}
             </span>
           )}
-        </div>
+        </button>
       ))
 
     return (
-      <aside
-        ref={ref}
-        className={cn("fixed left-0 top-0 h-screen bg-card flex flex-col z-40 transition-all duration-300 overflow-visible shadow-sm", className)}
-        style={{
-          width: collapsed ? `${collapsedWidth}px` : `${width}px`,
-        }}
-        {...props}
-      >
+      <>
+        {isMobile && isMobileOpen && (
+          <div
+            className="fixed inset-0 z-[110] bg-black/40"
+            onClick={onMobileClose}
+          />
+        )}
+        <aside
+          ref={ref}
+          className={cn(
+            "fixed left-0 top-0 h-screen bg-card flex flex-col transition-all duration-300 overflow-visible shadow-sm dark:border-r dark:border-border/70",
+            isMobile ? "z-[120]" : "z-40",
+            isMobile && !isMobileOpen && "-translate-x-full",
+            isMobile && isMobileOpen && "translate-x-0",
+            className
+          )}
+          style={{
+            width: isMobile ? `${mobileWidth}px` : (collapsed ? `${collapsedWidth}px` : `${width}px`),
+          }}
+          {...props}
+        >
         {headerMode === 'companyLogo' && headerLogo ? (
           <div
             onClick={onLogoClick}
             className={cn(
               "flex items-center justify-center min-h-[60px] bg-card mb-1 px-3 py-3",
-              onLogoClick && "cursor-pointer hover:bg-accent transition-colors"
+              onLogoClick && "cursor-pointer hover:bg-accent dark:hover:bg-accent/80 transition-colors"
             )}
           >
             <img
@@ -143,7 +172,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
             className={cn(
               "flex items-center min-h-[60px] bg-card mb-1",
               collapsed ? "justify-center px-2 py-4.5" : "justify-start px-5 py-4.5",
-              onLogoClick && "cursor-pointer hover:bg-accent transition-colors"
+              onLogoClick && "cursor-pointer hover:bg-accent dark:hover:bg-accent/80 transition-colors"
             )}
           >
             {logo}
@@ -165,10 +194,12 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
             return (
               <div key={group.label} className="mb-6">
                 {!collapsed && (
-                  <div
+                  <button
+                    type="button"
                     onClick={() => isCollapsible && toggleGroup(group.label)}
+                    aria-expanded={isExpanded}
                     className={cn(
-                      "px-4 py-1 text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 flex items-center justify-between",
+                      "w-full px-4 py-1 text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 flex items-center justify-between text-left",
                       isCollapsible && "cursor-pointer hover:text-foreground transition-colors"
                     )}
                   >
@@ -182,7 +213,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
                         )}
                       </div>
                     )}
-                  </div>
+                  </button>
                 )}
                 {isExpanded && renderItems(group.items)}
               </div>
@@ -200,17 +231,20 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
           </div>
         )}
 
-        {showCollapseButton && (
+        {showCollapseButton && !isMobile && (
           <button
             onClick={handleToggle}
-            className="absolute bottom-20 -right-3 bg-card border border-border rounded-sm p-1 cursor-pointer flex items-center justify-center transition-all w-6 h-6 shadow-sm hover:bg-accent hover:shadow-md active:scale-95"
+            type="button"
+            aria-label={collapsed ? "Expandir menu lateral" : "Recolher menu lateral"}
+            className="absolute bottom-20 -right-3 bg-card border border-border rounded-sm p-1 cursor-pointer flex items-center justify-center transition-all w-6 h-6 shadow-sm hover:bg-accent dark:hover:bg-accent/80 hover:shadow-md active:scale-95"
           >
             <div className="w-3.5 h-3.5 text-muted-foreground flex items-center justify-center">
               {collapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
             </div>
           </button>
         )}
-      </aside>
+        </aside>
+      </>
     )
   }
 )
@@ -256,7 +290,7 @@ const SidebarNavItem = React.forwardRef<HTMLAnchorElement, SidebarNavItemProps>(
       <a
         ref={ref}
         className={cn(
-          "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground",
+          "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent dark:hover:bg-accent/80 hover:text-accent-foreground",
           active && "bg-accent text-accent-foreground",
           className
         )}

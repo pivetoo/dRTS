@@ -17,6 +17,8 @@ export interface PageLayoutProps {
   title: string
   subtitle?: string
   icon?: React.ReactNode
+  density?: "default" | "compact"
+  filtersSlot?: React.ReactNode
   actions?: PageAction[]
   showDefaultActions?: boolean
   onAdd?: () => void
@@ -32,6 +34,8 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   title,
   subtitle,
   icon,
+  density = "default",
+  filtersSlot,
   actions = [],
   showDefaultActions = true,
   onAdd,
@@ -122,11 +126,16 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   }
 
   const allActions = [...defaultActions, ...actions]
+  const isCompact = density === "compact"
 
   return (
     <div className={cn("flex flex-col h-full w-full", className)}>
-      <div className="flex items-center justify-between mb-4 px-4 py-3 border rounded-lg bg-muted/30">
-        <div className="flex items-center gap-3">
+      <div className="mb-4 rounded-lg border bg-muted/30">
+        <div className={cn(
+          "flex flex-col gap-3 md:flex-row md:items-center md:justify-between",
+          isCompact ? "px-3 py-2.5" : "px-4 py-3"
+        )}>
+          <div className="flex items-center gap-3">
           {icon && (
             <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 text-primary border border-primary/20 shadow-sm hover:shadow hover:scale-[1.02] transition-all duration-200 cursor-default">
               {icon}
@@ -134,7 +143,10 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
           )}
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
-              <h1 className="text-2xl font-bold text-foreground tracking-tight">
+              <h1 className={cn(
+                "font-bold text-foreground tracking-tight",
+                isCompact ? "text-xl" : "text-2xl"
+              )}>
                 {title}
               </h1>
               {onRefresh && (
@@ -152,7 +164,10 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
               )}
             </div>
             {subtitle && (
-              <p className="text-sm text-muted-foreground mt-0.5">
+              <p className={cn(
+                "text-muted-foreground mt-0.5",
+                isCompact ? "text-xs" : "text-sm"
+              )}>
                 {subtitle}
               </p>
             )}
@@ -160,7 +175,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         </div>
 
         {allActions.length > 0 && (
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 md:justify-end">
             {allActions.map(action => (
               <Button
                 key={action.key}
@@ -174,6 +189,16 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
                 {action.label}
               </Button>
             ))}
+          </div>
+        )}
+        </div>
+
+        {filtersSlot && (
+          <div className={cn(
+            "border-t bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+            isCompact ? "px-3 py-2" : "px-4 py-2.5"
+          )}>
+            {filtersSlot}
           </div>
         )}
       </div>

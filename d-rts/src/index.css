@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  :root,
-  [data-theme="default"] {
+  :root {
     --background: 0 0% 96%;
     --foreground: 0 0% 20%;
     --card: 0 0% 100%;
@@ -34,11 +33,11 @@
   }
 
   .dark {
-    --background: 0 0% 10%;
+    --background: 0 0% 8%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 10%;
+    --card: 0 0% 12%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 10%;
+    --popover: 0 0% 13%;
     --popover-foreground: 0 0% 98%;
     --primary: 214 52% 35%;
     --primary-foreground: 0 0% 100%;
@@ -56,8 +55,8 @@
     --warning-foreground: 0 0% 98%;
     --info: 204 60% 40%;
     --info-foreground: 0 0% 98%;
-    --border: 0 0% 27%;
-    --input: 0 0% 27%;
+    --border: 0 0% 22%;
+    --input: 0 0% 22%;
     --ring: 214 52% 35%;
   }
 }

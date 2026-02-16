@@ -1,11 +1,10 @@
 import * as React from "react"
-import { Bell, ChevronDown, LogOut, Palette, Check, Moon, Sun } from "lucide-react"
+import { Bell, ChevronDown, LogOut, Moon, Sun, Menu, Check } from "lucide-react"
 import { cn, getInitials } from "../../lib/utils"
 import { getApiBaseURL } from "../../services/http/client"
 import { Breadcrumb } from "./breadcrumb"
 import type { BreadcrumbItem } from "./breadcrumb"
-import { useTheme, type Theme } from "./use-theme"
-import logoEmpresa from "../../assets/logo-empresa.svg"
+import { useTheme } from "./use-theme"
 
 export interface NotificationItem {
   id: string
@@ -24,6 +23,8 @@ export interface Module {
 
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   isCollapsed?: boolean
+  isMobile?: boolean
+  onMobileMenuToggle?: () => void
   breadcrumbs?: BreadcrumbItem[]
   user?: {
     name: string
@@ -42,20 +43,19 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   currentModule?: string
   onModuleChange?: (moduleId: string) => void
   onLogout?: () => void
+  showAboutMenuItem?: boolean
+  renderAboutModal?: (close: () => void) => React.ReactNode
 }
 
 export type { BreadcrumbItem }
-
-const themes: { value: Theme; label: string; color: string }[] = [
-  { value: "default", label: "Padrão", color: "bg-primary" },
-]
-
 
 const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
   (
     {
       className,
       isCollapsed = false,
+      isMobile = false,
+      onMobileMenuToggle,
       breadcrumbs = [],
       user,
       companyName,
@@ -70,13 +70,14 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
       currentModule,
       onModuleChange,
       onLogout,
+      showAboutMenuItem = false,
+      renderAboutModal,
       ...props
     },
     ref
   ) => {
-    const { theme, setTheme, isDark, toggleDark } = useTheme()
+    const { isDark, toggleDark } = useTheme()
     const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false)
-    const [isThemeMenuOpen, setIsThemeMenuOpen] = React.useState(false)
     const [isAboutModalOpen, setIsAboutModalOpen] = React.useState(false)
     const [isNotificationMenuOpen, setIsNotificationMenuOpen] = React.useState(false)
     const [isModuleSwitcherOpen, setIsModuleSwitcherOpen] = React.useState(false)
@@ -155,20 +156,31 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
       <nav
         ref={ref}
         className={cn(
-          "fixed top-0 right-0 h-[52px] bg-card flex items-center justify-between px-5 transition-all duration-300 z-[100] shadow-sm",
+          "fixed top-0 right-0 h-[52px] bg-card flex items-center justify-between px-5 transition-all duration-300 z-[100] shadow-sm dark:bg-card/95 dark:supports-[backdrop-filter]:bg-card/85 dark:backdrop-blur dark:border-b dark:border-border/70",
           className
         )}
         style={{
-          left: isCollapsed ? "64px" : "220px",
+          left: isMobile ? "0" : (isCollapsed ? "64px" : "220px"),
         }}
         {...props}
       >
         <div className="flex items-center gap-4">
+          {isMobile && (
+            <button
+              type="button"
+              onClick={onMobileMenuToggle}
+              aria-label="Abrir menu lateral"
+              className="p-2 rounded-sm transition-all hover:bg-accent dark:hover:bg-accent/80 text-muted-foreground hover:text-foreground active:scale-95"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          )}
+
           {modules && modules.length > 0 && onModuleChange && (
             <div className="relative">
               <button
                 onClick={() => setIsModuleSwitcherOpen(!isModuleSwitcherOpen)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-md hover:bg-accent transition-colors"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-md hover:bg-accent dark:hover:bg-accent/80 transition-colors"
               >
                 {modules.find(m => m.id === currentModule)?.icon && (
                   <span className="text-lg">
@@ -199,7 +211,7 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                           setIsModuleSwitcherOpen(false)
                         }}
                         className={cn(
-                          "w-full flex items-center gap-3 px-3 py-2.5 text-sm transition-colors hover:bg-accent",
+                          "w-full flex items-center gap-3 px-3 py-2.5 text-sm transition-colors hover:bg-accent dark:hover:bg-accent/80",
                           currentModule === module.id && "bg-primary/5 text-primary font-medium"
                         )}
                       >
@@ -234,7 +246,7 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
             <div className="relative">
               <button
                 onClick={() => setIsNotificationMenuOpen(!isNotificationMenuOpen)}
-                className="relative p-2 rounded-sm transition-all hover:bg-accent text-muted-foreground hover:text-foreground active:scale-95"
+                className="relative p-2 rounded-sm transition-all hover:bg-accent dark:hover:bg-accent/80 text-muted-foreground hover:text-foreground active:scale-95"
               >
                 <Bell className="h-5 w-5" />
                 {hasNotifications && (
@@ -310,7 +322,7 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                               }
                             }}
                             className={cn(
-                              "w-full flex items-start gap-3 px-4 py-3 transition-colors hover:bg-accent border-b border-border/50 last:border-0 text-left",
+                              "w-full flex items-start gap-3 px-4 py-3 transition-colors hover:bg-accent dark:hover:bg-accent/80 border-b border-border/50 last:border-0 text-left",
                               !notification.read && "bg-primary/5"
                             )}
                           >
@@ -346,7 +358,7 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                             onViewAllNotifications()
                             setIsNotificationMenuOpen(false)
                           }}
-                          className="w-full text-center py-2 text-sm text-primary hover:text-primary/80 font-medium transition-colors hover:bg-accent rounded-md"
+                          className="w-full text-center py-2 text-sm text-primary hover:text-primary/80 font-medium transition-colors hover:bg-accent dark:hover:bg-accent/80 rounded-md"
                         >
                           Ver todas as notificações
                         </button>
@@ -364,7 +376,7 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
             <div className="relative">
               <button
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                className="flex items-center gap-3 bg-transparent border-0 py-1 px-2.5 pr-2.5 rounded-md transition-all hover:bg-accent active:scale-[0.98]"
+                className="flex items-center gap-3 bg-transparent border-0 py-1 px-2.5 pr-2.5 rounded-md transition-all hover:bg-accent dark:hover:bg-accent/80 active:scale-[0.98]"
               >
                 <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-secondary-foreground text-xs font-semibold overflow-hidden border-2 border-background">
                   {renderAvatar()}
@@ -386,7 +398,6 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                     className="fixed inset-0 z-40"
                     onClick={() => {
                       setIsUserMenuOpen(false)
-                      setIsThemeMenuOpen(false)
                     }}
                   />
                   <div className="absolute right-0 top-full mt-2 w-64 bg-popover border border-border rounded-md shadow-lg z-50 py-2">
@@ -396,97 +407,46 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                     </div>
 
                     <div className="py-1">
-                      <button
-                        onClick={() => {
-                          setIsAboutModalOpen(true)
-                          setIsUserMenuOpen(false)
-                        }}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-accent"
-                      >
-                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Sobre
-                      </button>
+                      {showAboutMenuItem && renderAboutModal && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsAboutModalOpen(true)
+                            setIsUserMenuOpen(false)
+                          }}
+                          className="w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-accent dark:hover:bg-accent/80"
+                        >
+                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          Sobre
+                        </button>
+                      )}
 
                     </div>
 
                     <div className="border-t border-border my-1" />
 
-                    <div className="relative">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setIsThemeMenuOpen(!isThemeMenuOpen)
-                        }}
-                        className="w-full flex items-center justify-between gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-accent"
-                      >
-                        <div className="flex items-center gap-3">
-                          <Palette className="h-4 w-4" />
-                          Tema
-                        </div>
-                        <span className="text-xs text-muted-foreground">
-                          {themes.find(t => t.value === theme)?.label}
-                        </span>
-                      </button>
-
-                      {isThemeMenuOpen && (
-                        <div className="absolute right-full top-0 mr-1 w-52 bg-popover border border-border rounded-md shadow-lg py-1">
-                          <div className="px-3 py-2 border-b border-border">
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                toggleDark()
-                              }}
-                              className="w-full flex items-center justify-between gap-3 py-1.5 text-sm transition-colors hover:text-primary"
-                            >
-                              <div className="flex items-center gap-2">
-                                {isDark ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
-                                <span>Modo {isDark ? 'Escuro' : 'Claro'}</span>
-                              </div>
-                              <div className={cn(
-                                "relative w-9 h-5 rounded-full transition-colors",
-                                isDark ? "bg-primary" : "bg-muted"
-                              )}>
-                                <div className={cn(
-                                  "absolute top-0.5 w-4 h-4 rounded-full bg-background transition-transform",
-                                  isDark ? "left-[18px]" : "left-0.5"
-                                )} />
-                              </div>
-                            </button>
-                          </div>
-
-                          <div className="py-1">
-                            {themes.map((themeOption) => (
-                              <button
-                                key={themeOption.value}
-                                onClick={(e) => {
-                                  e.stopPropagation()
-                                  setTheme(themeOption.value)
-                                  setIsThemeMenuOpen(false)
-                                  setIsUserMenuOpen(false)
-                                }}
-                                className={cn(
-                                  "w-full flex items-center gap-3 px-3 py-2 text-sm transition-colors hover:bg-accent",
-                                  theme === themeOption.value && "bg-accent"
-                                )}
-                              >
-                                <div
-                                  className={cn(
-                                    "w-4 h-4 rounded-full",
-                                    themeOption.color
-                                  )}
-                                />
-                                <span className="flex-1 text-left">{themeOption.label}</span>
-                                {theme === themeOption.value && (
-                                  <Check className="h-4 w-4 text-primary" />
-                                )}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
+                    <button
+                      onClick={() => {
+                        toggleDark()
+                      }}
+                      className="w-full flex items-center justify-between gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-accent dark:hover:bg-accent/80"
+                    >
+                      <div className="flex items-center gap-3">
+                        {isDark ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+                        <span>Modo {isDark ? "Escuro" : "Claro"}</span>
+                      </div>
+                      <div className={cn(
+                        "relative w-9 h-5 rounded-full transition-colors",
+                        isDark ? "bg-primary" : "bg-muted"
+                      )}>
+                        <div className={cn(
+                          "absolute top-0.5 w-4 h-4 rounded-full bg-background transition-transform",
+                          isDark ? "left-[18px]" : "left-0.5"
+                        )} />
+                      </div>
+                    </button>
 
                     <div className="border-t border-border my-1" />
 
@@ -496,7 +456,7 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                           setIsUserMenuOpen(false)
                           onLogout?.()
                         }}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-accent text-destructive"
+                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-accent dark:hover:bg-accent/80 text-destructive"
                       >
                         <LogOut className="h-4 w-4" />
                         Sair
@@ -509,95 +469,7 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
           )}
         </div>
 
-        {isAboutModalOpen && (
-          <>
-            <div
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[200] animate-in fade-in duration-200"
-              onClick={() => setIsAboutModalOpen(false)}
-            />
-            <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl bg-card border border-border rounded-xl shadow-2xl z-[201] animate-in zoom-in-95 fade-in duration-200">
-              <div className="relative bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border-b border-border p-6">
-                <button
-                  onClick={() => setIsAboutModalOpen(false)}
-                  className="absolute top-4 right-4 z-10 text-muted-foreground hover:text-foreground transition-colors p-1 hover:bg-accent rounded-md"
-                >
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-                <div className="relative flex items-center justify-center">
-                  <img src={logoEmpresa} alt="Movva Software" className="absolute left-0 h-[60px] w-auto" />
-                  <div className="text-center">
-                    <h2 className="text-2xl font-bold text-foreground">Movva Software</h2>
-                    <p className="text-sm text-muted-foreground mt-0.5">Desenvolvimento de Software</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-6 space-y-6">
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 rounded-md bg-success/10 flex items-center justify-center">
-                      <svg className="h-4 w-4 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <h3 className="text-lg font-semibold text-foreground">Quem Somos</h3>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed pl-10">
-                    Empresa especializada em desenvolvimento de software, oferecemos
-                    soluções inovadoras com uma equipe altamente qualificada.
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 rounded-md bg-info/10 flex items-center justify-center">
-                      <svg className="h-4 w-4 text-info" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                      </svg>
-                    </div>
-                    <h3 className="text-lg font-semibold text-foreground">Nossos Serviços</h3>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed pl-10">
-                    Desenvolvimento de sistemas web, aplicativos mobile, integrações
-                    e soluções sob demanda para o seu negócio.
-                  </p>
-                </div>
-
-                <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-sm font-medium text-foreground mb-1">
-                        Conheça mais sobre a Movva Software
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        Visite nosso site para conhecer todos os nossos serviços e soluções
-                      </p>
-                    </div>
-                    <a
-                      href="https://movva.com.br/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/90 transition-all font-medium text-sm shadow-sm hover:shadow-md"
-                    >
-                      Visitar Site
-                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-muted/20 border-t border-border p-4 rounded-b-xl">
-                <div className="flex items-center justify-center text-xs text-muted-foreground">
-                  <span>© {new Date().getFullYear()} Movva Software - Todos os direitos reservados</span>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
+        {isAboutModalOpen && renderAboutModal && renderAboutModal(() => setIsAboutModalOpen(false))}
 
       </nav>
     )

@@ -30,6 +30,8 @@ export interface AppLayoutProps {
   modules?: Module[]
   currentModule?: string
   onModuleChange?: (moduleId: string) => void
+  showAboutMenuItem?: boolean
+  renderAboutModal?: (close: () => void) => React.ReactNode
   onLogoClick?: () => void
   companyLogo?: string
   headerMode?: SidebarHeaderMode
@@ -56,6 +58,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   modules,
   currentModule,
   onModuleChange,
+  showAboutMenuItem = false,
+  renderAboutModal,
   onLogoClick,
   companyLogo,
   headerMode,
@@ -64,6 +68,36 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   children,
 }) => {
   const [isCollapsed, setIsCollapsed] = React.useState(initialCollapsed)
+  const [isMobile, setIsMobile] = React.useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
+
+  React.useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 1023px)")
+    const syncMobile = () => {
+      setIsMobile(mediaQuery.matches)
+      if (!mediaQuery.matches) {
+        setIsMobileMenuOpen(false)
+      }
+    }
+
+    syncMobile()
+    mediaQuery.addEventListener("change", syncMobile)
+    return () => mediaQuery.removeEventListener("change", syncMobile)
+  }, [])
+
+  React.useEffect(() => {
+    if (isMobile && isMobileMenuOpen) {
+      document.body.style.overflow = "hidden"
+      return () => {
+        document.body.style.overflow = ""
+      }
+    }
+
+    document.body.style.overflow = ""
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [isMobile, isMobileMenuOpen])
 
   return (
     <div className="relative min-h-screen bg-background">
@@ -80,10 +114,15 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         headerMode={headerMode}
         headerLogo={headerLogo}
         headerLogoCollapsed={headerLogoCollapsed}
+        isMobile={isMobile}
+        isMobileOpen={isMobileMenuOpen}
+        onMobileClose={() => setIsMobileMenuOpen(false)}
       />
 
       <Navbar
         isCollapsed={isCollapsed}
+        isMobile={isMobile}
+        onMobileMenuToggle={() => setIsMobileMenuOpen((prev) => !prev)}
         breadcrumbs={breadcrumbs}
         user={{
           name: user.name,
@@ -99,13 +138,15 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         modules={modules}
         currentModule={currentModule}
         onModuleChange={onModuleChange}
+        showAboutMenuItem={showAboutMenuItem}
+        renderAboutModal={renderAboutModal}
         onLogout={onLogout}
       />
 
       <main
         className={cn(
           "transition-all duration-300 pt-[52px] min-h-screen",
-          isCollapsed ? "ml-[64px]" : "ml-[220px]"
+          isMobile ? "ml-0" : (isCollapsed ? "ml-[64px]" : "ml-[220px]")
         )}
       >
         <div className="w-full h-full p-6">
