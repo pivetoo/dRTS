@@ -10287,7 +10287,7 @@ const OP = m.forwardRef(
               ),
               children: [
                 r,
-                !P && /* @__PURE__ */ b("div", { className: "flex-1 overflow-hidden ml-3", children: t && /* @__PURE__ */ b("div", { className: "font-semibold text-[15px] text-foreground leading-tight tracking-tight", children: t }) })
+                !P && /* @__PURE__ */ b("div", { className: "flex-1 overflow-hidden ml-3", children: t && /* @__PURE__ */ b("div", { className: "font-semibold text-base text-foreground leading-tight tracking-tight", children: t }) })
               ]
             }
           ),

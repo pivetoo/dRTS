@@ -149,7 +149,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
             {logo}
             {!collapsed && (
               <div className="flex-1 overflow-hidden ml-3">
-                {title && <div className="font-semibold text-[15px] text-foreground leading-tight tracking-tight">{title}</div>}
+                {title && <div className="font-semibold text-base text-foreground leading-tight tracking-tight">{title}</div>}
               </div>
             )}
           </div>

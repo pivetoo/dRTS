@@ -83,6 +83,27 @@ function App() {
 }
 ```
 
+## API Reference automática (TypeDoc)
+
+Para gerar documentação técnica sempre atualizada (assinaturas, props e tipos) a partir de `dist/index.d.ts`:
+
+```bash
+cd d-rts
+npm run docs:api
+```
+
+Saída gerada:
+
+- `d-rts/docs/api/README.md`
+- demais arquivos `.md` por módulo/tipo exportado
+
+Comando rápido (sem rebuild):
+
+```bash
+cd d-rts
+npm run docs:api:fast
+```
+
 ## Componentes
 
 ### Componentes UI
